@@ -1,0 +1,116 @@
+{
+  "routes": [
+    {
+      "key": "home",
+      "title": "Home",
+      "defaultOpen": true,
+      "keywords": ""
+    },
+    {
+      "key": "datasource",
+      "title": "数据库管理",
+      "defaultOpen": false,
+      "keywords": "DataSource",
+      "path": "datasource",
+      "routes": [
+        {
+          "key": "resource",
+          "title": "资源中心",
+          "keywords": "",
+          "path": "/datasource/resource"
+        },
+        {
+          "key": "authorization",
+          "title": "授权中心",
+          "keywords": "",
+          "path": "/datasource/authorization"
+        },
+        {
+          "key": "monitor",
+          "title": "监控中心",
+          "keywords": "",
+          "path": "/datasource/monitor"
+        },
+        {
+          "key": "audit",
+          "title": "审计中心",
+          "keywords": "",
+          "path": "/datasource/audit",
+          "newPost": true
+        }
+      ]
+    },
+    {
+      "key": "organization",
+      "title": "组织架构",
+      "defaultOpen": false,
+      "keywords": "",
+      "routes": [
+        {
+          "key": "user",
+          "title": "用户管理",
+          "keywords": "",
+          "path": "/organization/user"
+        },
+        {
+          "key": "role",
+          "title": "角色管理",
+          "keywords": "",
+          "path": "/organization/role"
+        },
+        {
+          "key": "permission",
+          "title": "权限管理",
+          "keywords": "",
+          "path": "/organization/role"
+        },
+        {
+          "key": "astro",
+          "title": "Astro",
+          "keywords": "astro, nextui",
+          "path": "/docs/frameworks/astro.mdx"
+        }
+      ]
+    }
+  ],
+  "mobileRoutes": [
+    {
+      "key": "getting-started",
+      "title": "Getting Started",
+      "defaultOpen": true,
+      "keywords": "getting started, main routes, blog, docs, components, nextui",
+      "routes": [
+        {
+          "key": "docs",
+          "title": "Documentation",
+          "keywords": "documentation, guide, nextui",
+          "path": "/docs/guide/introduction.mdx"
+        },
+        {
+          "key": "components",
+          "title": "Components",
+          "keywords": "components, nextui",
+          "path": "/docs/components/avatar"
+        },
+        {
+          "key": "blog",
+          "title": "Blog",
+          "keywords": "blog, nextui, news, updates",
+          "path": "/blog"
+        },
+        {
+          "key": "figma",
+          "title": "Figma",
+          "keywords": "figma, nextui, design, ui kit",
+          "path": "/figma"
+        },
+        {
+          "key": "roadmap",
+          "title": "Roadmap",
+          "keywords": "roadmap, nextui",
+          "path": "#"
+        }
+      ]
+    }
+  ]
+}

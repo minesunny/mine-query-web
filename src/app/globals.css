@@ -1,0 +1,504 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer theme {
+  --font-poppins: Poppins, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: var(--gray-13);
+    --foreground: var(--gray-primary);
+    --transparent: hsl(0 0% 0%);
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: var(--blue-6);
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: var(--white);
+    --secondary-foreground: var(--gray-primary);
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+
+
+    --white: var(--gray-14);
+    --fill: var(--gray-12);
+    --stroke: var(--gray-6);
+    --gray-14: hsl(0, 0%, 100%);
+    --gray-13: hsl(230, 20%, 98%);
+    --gray-12: hsl(226, 14%, 93%);
+    --gray-11: hsl(220, 10%, 89%);
+    --gray-10: hsl(225, 10%, 84%);
+    --gray-9: hsl(226, 14%, 81%);
+    --gray-8: hsl(226, 14%, 70%);
+    --gray-7: hsl(227, 8%, 54%);
+    --gray-6: hsl(227, 8%, 46%);
+    --gray-5: hsl(229, 9%, 39%);
+    --gray-4: hsl(231, 9%, 31%);
+    --gray-3: hsl(230, 8%, 24%);
+    --gray-2: hsl(230, 9%, 17%);
+    --gray-1: hsl(0, 0%, 0%);
+    --gray-primary: var(--gray-1);
+    --blue-13: hsl(220, 82%, 98%);
+    --blue-12: hsl(220, 100%, 96%);
+    --blue-11: hsl(220, 100%, 91%);
+    --blue-10: hsl(219, 91%, 87%);
+    --blue-9: hsl(220, 86%, 80%);
+    --blue-8: hsl(220, 87%, 75%);
+    --blue-7: hsl(220, 87%, 70%);
+    --blue-6: hsl(220, 87%, 65%);
+    --blue-5: hsl(220, 95%, 63%);
+    --blue-4: hsl(220, 86%, 57%);
+    --blue-primary: var(--blue-4);
+    --blue-3: hsl(220, 67%, 52%);
+    --blue-2: hsl(220, 59%, 47%);
+    --blue-1: hsl(220, 56%, 41%);
+    --green-11: hsl(126, 63%, 97%);
+    --green-10: hsl(131, 52%, 94%);
+    --green-9: hsl(132, 39%, 84%);
+    --green-8: hsl(133, 38%, 77%);
+    --green-7: hsl(136, 33%, 65%);
+    --green-6: hsl(135, 33%, 49%);
+    --green-5: hsl(136, 47%, 40%);
+    --green-4: hsl(136, 63%, 33%);
+    --green-primary: var(--green-4);
+    --green-3: hsl(136, 61%, 31%);
+    --green-2: hsl(136, 58%, 29%);
+    --green-1: hsl(136, 56%, 27%);
+    --red-11: hsl(0, 100%, 98%);
+    --red-10: hsl(355, 100%, 97%);
+    --red-9: hsl(355, 79%, 91%);
+    --red-8: hsl(354, 70%, 83%);
+    --red-7: hsl(354, 70%, 76%);
+    --red-6: hsl(354, 69%, 65%);
+    --red-5: hsl(354, 73%, 62%);
+    --red-4: hsl(354, 69%, 55%);
+    --red-primary: var(--red-4);
+    --red-3: hsl(354, 60%, 51%);
+    --red-2: hsl(354, 59%, 46%);
+    --red-1: hsl(354, 60%, 43%);
+    --yellow-10: hsl(45, 100%, 96%);
+    --yellow-9: hsl(44, 100%, 94%);
+    --yellow-8: hsl(42, 100%, 91%);
+    --yellow-7: hsl(41, 97%, 85%);
+    --yellow-6: hsl(40, 99%, 73%);
+    --yellow-5: hsl(40, 98%, 62%);
+    --yellow-primary: var(--yellow-4);
+    --yellow-4: hsl(40, 100%, 53%);
+    --yellow-3: hsl(39, 97%, 44%);
+    --yellow-2: hsl(38, 96%, 39%);
+    --yellow-1: hsl(37, 95%, 33%);
+    --orange-9: hsl(27, 100%, 96%);
+    --orange-8: hsl(25, 86%, 91%);
+    --orange-7: hsl(25, 85%, 85%);
+    --orange-6: hsl(25, 81%, 73%);
+    --orange-5: hsl(25, 81%, 61%);
+    --orange-4: hsl(25, 82%, 50%);
+    --orange-primary: var(--orange-4);
+    --orange-3: hsl(24, 80%, 45%);
+    --orange-2: hsl(23, 79%, 40%);
+    --orange-1: hsl(22, 76%, 36%);
+    --purple-9: hsl(270, 100%, 98%);
+    --purple-8: hsl(263, 100%, 95%);
+    --purple-7: hsl(261, 86%, 89%);
+    --purple-6: hsl(261, 86%, 80%);
+    --purple-5: hsl(260, 85%, 71%);
+    --purple-4: hsl(260, 84%, 62%);
+    --purple-primary: var(--purple-4);
+    --purple-3: hsl(260, 63%, 55%);
+    --purple-2: hsl(259, 51%, 48%);
+    --purple-1: hsl(259, 50%, 41%);
+    --teal-9: hsl(180, 63%, 97%);
+    --teal-8: hsl(182, 57%, 91%);
+    --teal-7: hsl(181, 47%, 81%);
+    --teal-6: hsl(182, 47%, 65%);
+    --teal-5: hsl(182, 49%, 48%);
+    --teal-4: hsl(182, 96%, 32%);
+    --teal-primary: var(--teal-4);
+    --teal-3: hsl(182, 93%, 29%);
+    --teal-2: hsl(182, 90%, 26%);
+    --teal-1: hsl(182, 85%, 23%);
+
+    /* alert */
+
+
+    /* button */
+    --button-primary-active-bg:var(--blue-4);
+    --button-primary-active-text:var(--gray-14);
+    --button-primary-active-split:var(--blue-7);
+
+    --button-primary-hovered-bg:var(--blue-3);
+    --button-primary-hovered-text:var(--gray-14);
+
+    --button-primary-pressed-bg:var(--blue-2);
+    --button-primary-pressed-text:var(--gray-14);
+    --button-primary-pressed-split:var(--blue-7);
+
+    --button-primary-focused-bg:var(--blue-4);
+    --button-primary-focused-text:var(--gray-14);
+    --button-primary-focused-split:var(--blue-7);
+
+    --button-primary-disabled-bg:var(--gray-12);
+    --button-primary-disabled-text:var(--gray-8);
+    --button-primary-disabled-split:var(--gray-11);
+    --button-primary-disabled-split-arrow:var(--gray-9);
+
+    --slim-button-active-text:var(--gray-1);
+    --slim-button-active-bg:var(--gray-14);
+    --slim-button-active-border:var(--gray-9);
+
+    --slim-button-hovered-text:var(--gray-1);
+    --slim-button-hovered-bg:var(--gray-14);
+    --slim-button-hovered-border:var(--gray-8);
+
+    --slim-button-pressed-text:var(--gray-1);
+    --slim-button-pressed-bg:var(--gray-13);
+    --slim-button-pressed-border:var(--gray-7);
+
+    --slim-button-focused-text:var(--gray-1);
+    --slim-button-focused-bg:var(--gray-14);
+    --slim-button-focused-border:var(--gray-4);
+
+    --slim-button-disabled-text:var(--gray-8);
+    --slim-button-disabled-bg:var(--gray-12);
+
+    /* check box */
+    --check-box-checked-active-bg:var(--blue-4);
+    --check-box-checked-active-stroke:var(--gray-14);
+    --check-box-checked-active-label:var(--gray-1);
+    --check-box-checked-active-hint:var(--gray-6);
+
+    --check-box-checked-hovered-bg:var(--blue-3);
+    --check-box-checked-hovered-stroke:var(--gray-14);
+    --check-box-checked-hovered-label:var(--gray-1);
+    --check-box-checked-hovered-hint:var(--gray-6);
+
+    --check-box-checked-focused-bg:var(--blue-4);
+    --check-box-checked-focused-stroke:var(--gray-14);
+    --check-box-checked-focused-label:var(--gray-1);
+    --check-box-checked-focused-hint:var(--gray-6);
+
+    --check-box-checked-invalid-bg:var(--blue-4);
+    --check-box-checked-invalid-stroke:var(--gray-14);
+    --check-box-checked-invalid-border:var(--red-red-4);
+    --check-box-checked-invalid-label:var(--gray-1);
+    --check-box-checked-invalid-hint:var(--gray-6);
+
+    --check-box-checked-disabled-bg:var(--gray-9);
+    --check-box-checked-disabled-stroke:var(--gray-14);
+    --check-box-checked-disabled-label:var(--gray-8);
+    --check-box-checked-disabled-hint:var(--gray-9);
+
+    --check-box-unchecked-active-bg:var(--gray-14);
+    --check-box-unchecked-active-border:var(--blue-8);
+    --check-box-unchecked-active-label:var(--gray-1);
+    --check-box-unchecked-active-hint:var(--gray-6);
+
+    --check-box-unchecked-hovered-bg:var(--gray-14);
+    --check-box-unchecked-hovered-border:var(--gray-6);
+    --check-box-unchecked-hovered-label:var(--gray-1);
+    --check-box-unchecked-hovered-hint:var(--gray-6);
+
+    --check-box-unchecked-focused-bg:var(--gray-14);
+    --check-box-unchecked-focused-border:var(--blue-4);
+    --check-box-unchecked-focused-label:var(--gray-1);
+    --check-box-unchecked-focused-hint:var(--gray-6);
+
+    --check-box-unchecked-invalid-bg:var(--gray-14);
+    --check-box-unchecked-invalid-border:var(--red-red-4);
+    --check-box-unchecked-invalid-label:var(--gray-1);
+    --check-box-unchecked-invalid-hint:var(--gray-6);
+
+    --check-box-unchecked-disabled-bg:var(--gray-13);
+    --check-box-unchecked-disabled-border:var(--gray-11);
+    --check-box-unchecked-disabled-label:var(--gray-8);
+    --check-box-unchecked-disabled-hint:var(--gray-6);
+
+    /* alert*/
+
+    --alert-bg:var(--gray-2);
+    --alert-stroke:var(--gray-4);
+
+    /* dialog-content */
+    /*window controller gray9*/
+    --dialog-header-bg:var(--gray-13);
+    --dialog-header-border:var(--gray-12);
+    --dialog-header-text:var(--gray-1);
+
+  }
+  .dark {
+    /*define*/
+    --editor: hsl(220, 6%, 13%);
+    --background: var(--gray-2);
+    --foreground: var(--gray-12);
+    --transparent: hsl(0 0% 0%);
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: var(--blue-6);
+    --primary-foreground: var(--gray-14);
+
+    --secondary: var(--gray-13);
+    --secondary-foreground: var(--gray-12);
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --white:var(--gray-14);
+    --gray-14: hsl(0, 0%, 100%);
+    --gray-13: hsl(220, 9%, 95%);
+    --gray-12: hsl(220, 12%, 89%);
+    --gray-11: hsl(220, 10%, 82%);
+    --gray-10: hsl(220, 8%, 73%);
+    --gray-9: hsl(220, 6%, 64%);
+    --gray-8: hsl(220, 5%, 55%);
+    --gray-7: hsl(220, 5%, 46%);
+    --gray-6: hsl(220, 5%, 37%);
+    --gray-5: hsl(220, 5%, 32%);
+    --gray-4: hsl(220, 5%, 28%);
+    --gray-3: hsl(224, 5%, 24%);
+    --gray-2: hsl(220, 6%, 18%);
+    --gray-1: hsl(220, 6%, 13%);
+    --gray-primary: var(--gray-1);
+    --blue-11: hsl(220, 100%, 80%);
+    --blue-10: hsl(220, 96%, 75%);
+    --blue-9: hsl(220, 93%, 70%);
+    --blue-8: hsl(220, 91%, 65%);
+    --blue-7: hsl(220, 87%, 61%);
+    --blue-6: hsl(220, 86%, 57%);
+    --blue-primary: var(--blue-6);
+    --blue-5: hsl(220, 61%, 51%);
+    --blue-4: hsl(220, 52%, 45%);
+    --blue-3: hsl(220, 46%, 38%);
+    --blue-2: hsl(220, 41%, 31%);
+    --blue-1: hsl(221, 35%, 22%);
+    --green-green-11: hsl(125, 79%, 91%);
+    --green-green-10: hsl(124, 55%, 82%);
+    --green-green-9: hsl(124, 45%, 74%);
+    --green-green-8: hsl(125, 40%, 67%);
+    --green-green-7: hsl(125, 36%, 60%);
+    --green-green-6: hsl(125, 32%, 53%);
+    --green-green-primary: var(--green-6);
+    --green-green-5: hsl(125, 27%, 47%);
+    --green-green-4: hsl(125, 24%, 40%);
+    --green-green-3: hsl(125, 22%, 34%);
+    --green-green-2: hsl(125, 20%, 27%);
+    --green-green-1: hsl(125, 18%, 18%);
+    --yellow-yellow-11: hsl(52, 100%, 87%);
+    --yellow-yellow-10: hsl(48, 95%, 82%);
+    --yellow-yellow-9: hsl(46, 88%, 76%);
+    --yellow-yellow-8: hsl(44, 86%, 71%);
+    --yellow-yellow-7: hsl(42, 85%, 65%);
+    --yellow-yellow-primary: var(--yellow-7);
+    --yellow-yellow-6: hsl(41, 61%, 59%);
+    --yellow-yellow-5: hsl(40, 43%, 53%);
+    --yellow-yellow-4: hsl(39, 36%, 46%);
+    --yellow-yellow-3: hsl(38, 33%, 38%);
+    --yellow-yellow-2: hsl(36, 30%, 28%);
+    --yellow-yellow-1: hsl(34, 27%, 19%);
+    --red-red-11: hsl(11, 74%, 93%);
+    --red-red-10: hsl(7, 75%, 87%);
+    --red-red-9: hsl(6, 73%, 81%);
+    --red-red-8: hsl(4, 70%, 74%);
+    --red-red-7: hsl(2, 66%, 67%);
+    --red-red-6: hsl(0, 64%, 61%);
+    --red-red-primary: var(--red-6);
+
+    --red-red-5: hsl(0, 44%, 54%);
+    --red-red-4: hsl(0, 33%, 46%);
+    --red-red-3: hsl(0, 29%, 37%);
+    --red-red-2: hsl(0, 25%, 30%);
+    --red-red-1: hsl(0, 21%, 21%);
+    --orange-orange-11: hsl(26, 100%, 89%);
+    --orange-orange-10: hsl(25, 88%, 83%);
+    --orange-orange-9: hsl(24, 82%, 78%);
+    --orange-orange-8: hsl(23, 79%, 72%);
+    --orange-orange-7: hsl(22, 70%, 66%);
+    --orange-orange-6: hsl(22, 69%, 61%);
+    --orange-orange-primary: var(--orange-6);
+
+    --orange-orange-5: hsl(21, 50%, 56%);
+    --orange-orange-4: hsl(20, 35%, 47%);
+    --orange-orange-3: hsl(19, 31%, 39%);
+    --orange-orange-2: hsl(18, 27%, 30%);
+    --orange-orange-1: hsl(17, 23%, 22%);
+    --purple-purple-11: hsl(266, 100%, 91%);
+    --purple-purple-10: hsl(266, 84%, 85%);
+    --purple-purple-9: hsl(266, 78%, 79%);
+    --purple-purple-8: hsl(267, 72%, 73%);
+    --purple-purple-7: hsl(267, 70%, 67%);
+    --purple-purple-6: hsl(266, 68%, 62%);
+    --purple-purple-primary: var(--purple-6);
+
+    --purple-purple-5: hsl(267, 46%, 53%);
+    --purple-purple-4: hsl(267, 38%, 44%);
+    --purple-purple-3: hsl(267, 33%, 36%);
+    --purple-purple-2: hsl(266, 27%, 27%);
+    --purple-purple-1: hsl(270, 13%, 19%);
+    --teal-teal-11: hsl(174, 55%, 82%);
+    --teal-teal-10: hsl(174, 49%, 74%);
+    --teal-teal-9: hsl(173, 45%, 65%);
+    --teal-teal-8: hsl(173, 43%, 56%);
+    --teal-teal-7: hsl(173, 46%, 48%);
+    --teal-teal-6: hsl(173, 64%, 39%);
+    --teal-teal-primary: var(--teal-6);
+
+    --teal-teal-5: hsl(173, 60%, 35%);
+    --teal-teal-4: hsl(174, 57%, 30%);
+    --teal-teal-3: hsl(175, 51%, 26%);
+    --teal-teal-2: hsl(176, 44%, 21%);
+    --teal-teal-1: hsl(180, 33%, 17%);
+
+
+    /* button */
+    --button-primary-active-bg:var(--blue-6);
+    --button-primary-active-text:var(--gray-14);
+    --button-primary-active-split:var(--blue-9);
+
+    --button-primary-hovered-bg:var(--blue-5);
+    --button-primary-hovered-text:var(--gray-14);
+
+    --button-primary-pressed-bg:var(--blue-4);
+    --button-primary-pressed-text:var(--gray-14);
+    --button-primary-pressed-split:var(--blue-9);
+
+    --button-primary-focused-bg:var(--blue-6);
+    --button-primary-focused-text:var(--gray-14);
+    --button-primary-focused-split:var(--blue-9);
+
+    --button-primary-disabled-bg:var(--gray-5);
+    --button-primary-disabled-text:var(--gray-8);
+    --button-primary-disabled-split:var(--gray-6);
+    --button-primary-disabled-split-arrow:var(--gray-7);
+
+    --slim-button-active-text:var(--gray-12);
+    --slim-button-active-border:var(--gray-5);
+
+    --slim-button-hovered-text:var(--gray-13);
+    --slim-button-hovered-border:var(--gray-7);
+
+    --slim-button-pressed-text:var(--gray-13);
+    --slim-button-pressed-bg:var(--gray-2);
+    --slim-button-pressed-border:var(--gray-7);
+
+    --slim-button-focused-text:var(--gray-12);
+    --slim-button-focused-bg:var(--gray-14);
+    --slim-button-focused-border:var(--gray-6);
+
+    --slim-button-disabled-text:var(--gray-8);
+    --slim-button-disabled-bg:var(--gray-5);
+
+    /* check box */
+    --check-box-checked-active-bg:var(--blue-6);
+    --check-box-checked-active-stroke:var(--gray-14);
+    --check-box-checked-active-label:var(--gray-12);
+    --check-box-checked-active-hint:var(--gray-7);
+
+    --check-box-checked-hovered-bg:var(--blue-5);
+    --check-box-checked-hovered-stroke:var(--gray-14);
+    --check-box-checked-hovered-label:var(--gray-12);
+    --check-box-checked-hovered-hint:var(--gray-7);
+
+    --check-box-checked-focused-bg:var(--blue-6);
+    --check-box-checked-focused-stroke:var(--gray-14);
+    --check-box-checked-focused-label:var(--gray-12);
+    --check-box-checked-focused-hint:var(--gray-7);
+
+    --check-box-checked-invalid-bg:var(--blue-6);
+    --check-box-checked-invalid-stroke:var(--gray-14);
+    --check-box-checked-invalid-border:var(--red-red-6);
+    --check-box-checked-invalid-label:var(--gray-12);
+    --check-box-checked-invalid-hint:var(--gray-7);
+
+    --check-box-checked-disabled-bg:var(--gray-3);
+    --check-box-checked-disabled-stroke:var(--gray-8);
+    --check-box-checked-disabled-label:var(--gray-7);
+    --check-box-checked-disabled-hint:var(--gray-7);
+
+    --check-box-unchecked-active-border:var(--gray-6);
+    --check-box-unchecked-active-label:var(--gray-12);
+    --check-box-unchecked-active-hint:var(--gray-7);
+
+    --check-box-unchecked-hovered-border:var(--gray-9);
+    --check-box-unchecked-hovered-label:var(--gray-12);
+    --check-box-unchecked-hovered-hint:var(--gray-7);
+
+    --check-box-unchecked-focused-border:var(--blue-6);
+    --check-box-unchecked-focused-label:var(--gray-12);
+    --check-box-unchecked-focused-hint:var(--gray-7);
+
+    --check-box-unchecked-invalid-border:var(--red-red-6);
+    --check-box-unchecked-invalid-label:var(--gray-12);
+    --check-box-unchecked-invalid-hint:var(--gray-7);
+
+    --check-box-unchecked-disabled-bg:var(--gray-3);
+    --check-box-unchecked-disabled-border:var(--gray-6);
+    --check-box-unchecked-disabled-label:var(--gray-7);
+    --check-box-unchecked-disabled-hint:var(--gray-7);
+
+
+    /* alert*/
+    --alert-bg:var(--gray-13);
+    --alert-stroke:var(--gray-10);
+
+    /* dialog-content */
+    /*window controller gray6*/
+    --dialog-header-bg:var(--gray-2);
+    --dialog-header-border:var(--gray-3);
+    --dialog-header-text:var(--gray-12);
+  }
+}
+
+@layer base {
+  * {
+
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/*---break---*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
