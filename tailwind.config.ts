@@ -131,8 +131,12 @@ const config = {
         small: ["13px", { lineHeight: "22px", fontWeight: "Medium" }],
         "small-bold": ["12px", { lineHeight: "22px", fontWeight: "Bold" }],
       },
+      boxShadow: {
+        popup: "0px 6px 20px rgba(145, 145, 145, 0.47)",
+      },
       colors: {
         blue: {
+          "4": "var(--blue-4)",
           "5": "var(--blue-5)",
           "6": "var(--blue-6)",
         },
@@ -186,35 +190,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        button: {
-          primary: {
-            active: {
-              bg: "var(--button-primary-active-bg)",
-              text: "var(--button-primary-active-text)",
-              split: "var(--button-primary-active-split)",
-            },
-            hovered: {
-              bg: "var(--button-primary-hovered-bg)",
-              text: "var(--button-primary-hovered-text)",
-            },
-            pressed: {
-              bg: "var(--button-primary-pressed-bg)",
-              text: "var(--button-primary-pressed-text)",
-              split: "var(--button-primary-pressed-split)",
-            },
-            focused: {
-              bg: "var(--button-primary-focused-bg)",
-              text: "var(--button-primary-focused-text)",
-              split: "var(--button-primary-focused-split)",
-            },
-            disabled: {
-              bg: "var(--button-primary-disabled-bg)",
-              text: "var(--button-primary-disabled-text)",
-              split: "var(--button-primary-disabled-split)",
-              splitArrow: "var(--button-primary-disabled-split-arrow)",
-            },
-          },
-        },
+
         dialog: {
           header: {
             bg: "var(--dialog-content-header-bg)",
@@ -248,13 +224,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    addDynamicIconSelectors(),
-    ({ addComponents, theme, ...others }: PluginAPI) => {
-      addComponentsColor({ addComponents, theme, ...others });
-    },
-  ],
+  plugins: [require("tailwindcss-animate"), addDynamicIconSelectors()],
 } satisfies Config;
 
 export default config;

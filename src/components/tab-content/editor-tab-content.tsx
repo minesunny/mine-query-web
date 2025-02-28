@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import {
   Select,
   SelectContent,
@@ -165,7 +165,7 @@ export function SQLEditorTabContent() {
           </SelectContent>
         </Select>
 
-        <Button variant="outline" className={`h-5 w-5 p-0 my-auto mx-4`}>
+        <Button className={`h-5 w-5 p-0 my-auto mx-4`}>
           <Pause className={`hidden`} />
           <Play className={`block`} />
         </Button>

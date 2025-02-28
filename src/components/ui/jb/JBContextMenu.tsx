@@ -9,7 +9,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
+} from "@/components/ui/context-menu/context-menu";
 import { Menu } from "@/models/menu";
 import { Icons } from "@/components/ui/Icons";
 

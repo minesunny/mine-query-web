@@ -1,10 +1,25 @@
 "use client";
 
 import * as React from "react";
-
-import { ContextMenuDialog } from "@/components/dialog-content/context-menu-dialog";
-import { NewDialog } from "@/components/dialog-content/input-dialog";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import "./theme.css";
+import {
+  Dialog,
+  DialogHeader,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog/dialog";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu/context-menu";
+import { Button } from "@/components/ui/button/button";
+import { Icons } from "@/components/ui/Icons";
+import { Separator } from "@radix-ui/react-menu";
 type DynamicTabsItem = {
   id: string;
   content: React.ReactNode;
@@ -210,19 +225,19 @@ const TabClass: Record<
   }
 > = {
   Default: {
-    tab: "bg-tabs-bg-selected",
-    closeIcon: "visible",
-    separator: "bg-tabs-bg-selected",
+    tab: "tab-item",
+    closeIcon: "invisible",
+    separator: "",
   },
   Selected: {
     tab: "bg-tabs-bg-selected",
     closeIcon: "visible",
-    separator: "bg-tabs-selection",
+    separator: "tab-item-separator",
   },
   "Selected Inactive": {
-    tab: "bg-tabs-selection-disabled",
+    tab: "",
     closeIcon: "group-hover:!visible",
-    separator: "bg-tabs-selection-disabled",
+    separator: "tab-item-separator-inactive",
   },
 };
 const DynamicTabItem: React.FC<{
@@ -244,131 +259,99 @@ const DynamicTabItem: React.FC<{
   closeLeft,
   rename,
 }) => {
+  const [inputValue, setInputValue] = React.useState(item.label);
   const tabClass = TabClass[type];
   return (
-    <ContextMenuDialog
-      menu={[
-        {
-          label: "Close",
-          onClick: () => close(item),
-        },
-        {
-          label: "Close Other Tabs",
-          onClick: () => closeOther && closeOther(item),
-        },
-        {
-          label: "Close Tabs To Left",
-          onClick: () => closeLeft && closeLeft(item),
-        },
-        {
-          label: "Close Tabs To Right",
-          onClick: () => closeRight && closeRight(item),
-          // eslint-disable-next-line react/display-name
-          dialog: React.forwardRef<
-            React.ElementRef<typeof DialogPrimitive.Trigger>,
-            React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
-          >(({ children, ...props }, ref) => (
-            <NewDialog
-              name={"Rename Tab"}
-              title={"Rename Tab"}
-              value={item.label}
-              ref={ref}
-              confirm={(value) => {
-                item.label = value;
-                rename && rename(item);
-              }}
-            />
-          )),
-        },
-        {
-          label: "Rename Tab",
-        },
-      ]}
-    >
-      <button> {item.id}</button>
-    </ContextMenuDialog>
+    <Dialog>
+      <ContextMenu>
+        <ContextMenuTrigger
+          className={`h-[38px] max-w-[240px] px-[10px] flex items-center ${tabClass.tab} opacity-80 group-hover:opacity-100`}
+        >
+          <button
+            id="content"
+            className={`h-[16px] flex flex-1 mr-[16px] `}
+            onClick={() => active(item)}
+          >
+            <div className={"h-[16px] w-[24px] pr-[8px] "}>
+              {item.icon && item.icon}
+            </div>
+            <span className={"text-default text-text"}>{item.label}</span>
+          </button>
+          <div
+            id="closeIcon"
+            className={`tab-item-icon-hover h-[16px] w-[16px] rounded-full`}
+            onClick={() => close(item)}
+          >
+            <Icons name={"CloseSmall"} className={`${tabClass.closeIcon}`} />
+          </div>
+        </ContextMenuTrigger>
+        <Separator
+          className={`w-full h-[3px] rounded-sm ${tabClass.separator}`}
+          id="separator"
+        />
+        <ContextMenuContent>
+          {closeOther && (
+            <ContextMenuItem inset onClick={() => closeOther(item)}>
+              Close Other Tabs
+            </ContextMenuItem>
+          )}
+          {closeLeft && (
+            <ContextMenuItem inset onClick={() => closeLeft(item)}>
+              Close Tabs To Left
+            </ContextMenuItem>
+          )}
+          {closeRight && (
+            <ContextMenuItem inset onClick={() => closeRight(item)}>
+              Close Tabs To Right
+            </ContextMenuItem>
+          )}
+          <DialogTrigger asChild>
+            {rename && (
+              <ContextMenuItem className={"indent-6"}>
+                <span>Rename</span>
+              </ContextMenuItem>
+            )}
+          </DialogTrigger>
+        </ContextMenuContent>
+      </ContextMenu>
+
+      <DialogContent
+        resizeable={false}
+        size={{
+          width: 345,
+          height: 100,
+        }}
+      >
+        <DialogHeader windowControl={false}>
+          <DialogTitle>Rename Tab</DialogTitle>
+        </DialogHeader>
+        <div
+          className={"bg-panel-bg-dialog-content w-full px-4 py-1 rounded-b-lg"}
+        >
+          <input
+            type="Text"
+            value={inputValue}
+            placeholder="Name"
+            onChange={(e) => setInputValue(e.target.value)}
+            className={
+              "w-full bg-panel-bg-dialog-content focus-visible:outline-none text-text text-sm"
+            }
+          />
+        </div>
+        <DialogFooter>
+          {/*<DialogClose asChild>*/}
+          {/*  <Button*/}
+          {/*    onClick={() => {*/}
+          {/*      rename && rename({ ...item, label: inputValue });*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    OK*/}
+          {/*  </Button>*/}
+          {/*</DialogClose>*/}
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
-  // return (
-  //   <>
-  //     <ContextMenu>
-  //       <ContextMenuTrigger
-  //         className={`h-[38px] max-w-[240px] px-[10px] flex items-center ${tabClass.tab} group-hover:bg-tabs-hover `}
-  //       >
-  //         <button
-  //           id="content"
-  //           className={`h-[16px] flex flex-1 mr-[16px]`}
-  //           onClick={() => active(item)}
-  //         >
-  //           <div className={"h-[16px] w-[24px] pr-[8px]"}>
-  //             {item.icon && item.icon}
-  //           </div>
-  //           <span className={"text-default text-text"}>{item.label}</span>
-  //         </button>
-  //         <div
-  //           id="closeIcon"
-  //           className={`group-hover:bg-panel-bg-content h-[16px] w-[16px] rounded-full`}
-  //           onClick={() => close(item)}
-  //         >
-  //           <Icons
-  //             name={"CloseSmall"}
-  //             className={`${type == "Selected" ? "visible" : "invisible group-hover:visible"}`}
-  //           />
-  //         </div>
-  //       </ContextMenuTrigger>
-  //       <ContextMenuContent
-  //         onCloseAutoFocus={(e) => e.preventDefault()}
-  //         hidden={hasOpenDialog}
-  //       >
-  //         <ContextMenuItem inset onClick={() => close(item)}>
-  //           Close
-  //         </ContextMenuItem>
-  //         <ContextMenuDialog
-  //           name={"Rename Tab"}
-  //           title={"Rename Tab"}
-  //           value={item.label}
-  //           trigger={
-  //             <ContextMenuItem
-  //               onSelect={(event) => {
-  //                 setHasOpenDialog(true);
-  //               }}
-  //             >
-  //               Rename Tab
-  //             </ContextMenuItem>
-  //           }
-  //           confirm={(value) => {
-  //             if (rename) {
-  //               rename({ ...item, label: value });
-  //             }
-  //           }}
-  //         >
-  //           <DialogHeader windowControl={false}>
-  //             <DialogTitle>{"title"}</DialogTitle>
-  //           </DialogHeader>
-  //         </ContextMenuDialog>
-  //
-  //         {closeOther && (
-  //           <ContextMenuItem inset onClick={() => closeOther(item)}>
-  //             Close Other Tabs
-  //           </ContextMenuItem>
-  //         )}
-  //         {closeLeft && (
-  //           <ContextMenuItem inset onClick={() => closeLeft(item)}>
-  //             Close Tabs To Left
-  //           </ContextMenuItem>
-  //         )}
-  //         {closeRight && (
-  //           <ContextMenuItem inset onClick={() => closeRight(item)}>
-  //             Close Tabs To Right
-  //           </ContextMenuItem>
-  //         )}
-  //       </ContextMenuContent>
-  //     </ContextMenu>
-  //     <Separator
-  //       className={`${tabClass.separator}  w-full h-[3px] rounded-sm`}
-  //       id="separator"
-  //     />
-  //   </>
-  // );
 };
 export { DynamicTabs };
 export type { DynamicTabsProps, DynamicTabsItem };

@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-
+import "./theme.css";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/ui/Icons";
 import { useContext, createContext, useEffect } from "react";
 import { Rnd } from "react-rnd";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 const DialogContext = createContext<{
   expanded: boolean;
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
@@ -248,7 +248,9 @@ const DialogContent = React.forwardRef<
                 }
               }}
               ref={ref}
-              className={cn("h-full w-full z-0 rounded-lg")}
+              className={cn(
+                "h-full w-full z-0 rounded-lg shadow-lg dialog-content",
+              )}
               {...others}
               onInteractOutside={(e) => {
                 !resizeable && e.preventDefault();
@@ -317,7 +319,7 @@ const DialogHeader = ({
   return (
     <div
       className={cn(
-        "flex text-center items-center h-10 bg-dialog-content-header-bg text-dialog-content-header-text rounded-t-lg border-dialog-content-header-border border-b",
+        "flex text-center items-center h-7 rounded-t-lg border-b dialog-content-header",
         className,
       )}
       {...props}

@@ -19,7 +19,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,

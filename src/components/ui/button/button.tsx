@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-
+import "./theme.css";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
@@ -11,11 +11,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary:
-          "bg-button-primary-active text-button-primary-active " +
-          "hover:bg-button-primary-hovered hover:text-button-primary-hovered " +
-          "focused:border-button-primary-focused focused:text-button-primary-focused focused:bg-transparent " +
-          "disabled:bg-button-primary-disabled disabled:text-button-primary-disabled",
+        primary: "button-primary ",
       },
       size: {
         primary: "m-w-[72px] h-[28px] my-[6px] mx-0 fill-current",

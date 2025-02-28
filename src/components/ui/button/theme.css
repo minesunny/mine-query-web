@@ -1,0 +1,57 @@
+@tailwind components;
+@layer components {
+    :root {
+        .button-primary {
+            background-color: var(--blue-4);
+            color: var(--gray-14);
+        }
+        .button-primary:hover {
+            background-color: var(--blue-3);
+            color: var(--gray-14);
+        }
+        .button-primary:active {
+            background-color: var(--blue-2);
+            color: var(--gray-14);
+        }
+        .button-primary:focus {
+            background-color: var(--blue-4);
+            color: var(--gray-14);
+            outline-offset: 2px;
+            outline: var(--blue-3) solid 2px;
+        }
+        .button-primary:disabled {
+            background-color: var(--gray-12);
+            color: var(--gray-8);
+        }
+    }
+    .dark {
+        .button-primary {
+            background-color: var(--blue-6);
+            color: var(--gray-14);
+        }
+        .button-primary:hover {
+            background-color: var(--blue-5);
+            color: var(--gray-14);
+        }
+        .button-primary:active {
+            background-color: var(--blue-4);
+            color: var(--gray-14);
+        }
+        .button-primary:focus {
+            background-color: var(--blue-6);
+            color: var(--gray-14);
+            outline-offset: 2px;
+            outline: var(--blue-6) solid 2px;
+        }
+        .button-primary:disabled {
+            background-color: var(--gray-5);
+            color: var(--gray-8);
+        }
+    }
+
+}/* Button */
+
+
+
+
+

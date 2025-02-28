@@ -1,0 +1,40 @@
+@tailwind components;
+
+@layer components {
+    :root {
+        .tab-item {
+            color: var(--gray-1);
+        }
+        .tab-item-icon {
+            fill: var(--blue-13);
+        }
+        .tab-item-icon:hover {
+            background-color: var(--gray-11);
+        }
+        .tab-item-separator {
+            background-color: var(--blue-primary);
+        }
+
+        .tab-item-separator-inactive {
+            background-color: var(--gray-6);
+        }
+    }
+    .dark {
+        .tab-item {
+            color: var(--gray-12);
+        }
+        .tab-item-icon {
+            fill: var(--blue-8);
+        }
+        .tab-item-icon:hover {
+            background-color: var(--gray-5);
+        }
+        .tab-item-separator {
+            background-color: var(--blue-primary);
+        }
+
+        .tab-item-separator-inactive {
+            background-color: var(--gray-8);
+        }
+    }
+}

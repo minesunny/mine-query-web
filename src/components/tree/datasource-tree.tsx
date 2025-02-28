@@ -15,7 +15,7 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
+} from "@/components/ui/context-menu/context-menu";
 
 const OBJECT_ICONS = {
   ROOT: <Icons name={"DataBase"} />,
