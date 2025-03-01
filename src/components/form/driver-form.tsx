@@ -1,6 +1,6 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input/input";
 import { useForm } from "react-hook-form";
 import {
   FormControl,

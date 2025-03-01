@@ -22,9 +22,9 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
         enableSystem
         disableTransitionOnChange
       >
-        <div className="relative flex h-lvh flex-col bg-background">
+        <div className="relative flex h-dvh flex-col bg-background">
           <SiteHeader />
-          <main className="h-4/5">{children}</main>
+          <main className="h-full">{children}</main>
           <SiteFooter />
         </div>
       </Providers>

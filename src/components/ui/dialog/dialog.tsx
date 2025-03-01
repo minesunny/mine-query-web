@@ -5,11 +5,11 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import "./theme.css";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/ui/Icons";
-import { useContext, createContext, useEffect } from "react";
+import { useContext, createContext, useEffect, useCallback } from "react";
 import { Rnd } from "react-rnd";
 import { Button } from "@/components/ui/button/button";
 const DialogContext = createContext<{
-  expanded: boolean;
+  expanded: boolean | undefined;
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   expanded: false,
@@ -25,7 +25,7 @@ const Dialog = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>
 >(({ ...props }, ref) => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(undefined);
   return (
     <DialogContext.Provider value={{ expanded, setExpanded }}>
       <DialogPrimitive.Root {...props} />
@@ -82,6 +82,11 @@ const DialogContent = React.forwardRef<
       x: 0,
       y: 0,
     });
+    const memDefaultValue = useCallback(
+      () => defaultValue,
+      [defaultValue],
+    );
+
     useEffect(() => {
       if (expanded) {
         if (
@@ -106,17 +111,19 @@ const DialogContent = React.forwardRef<
           rndRef.current.getSelfElement() &&
           overLayRef.current
         ) {
-          (rndRef.current.getSelfElement() as HTMLElement).style.transition =
+          if (expanded == false) {
+            (rndRef.current.getSelfElement() as HTMLElement).style.transition =
             "width 0.5s ease, height 0.5s ease, transform 0.5s ease";
+          }
           rndRef.current.updateSize({
-            width: defaultValue.width,
-            height: defaultValue.height,
+            width: memDefaultValue().width,
+            height: memDefaultValue().height,
           });
           rndRef.current.updatePosition({
-            x: defaultValue.x,
-            y: defaultValue.y,
+            x: memDefaultValue().x,
+            y: memDefaultValue().y,
           });
-          setTimeout(() => {
+          expanded == false && setTimeout(() => {
             if (rndRef.current && rndRef.current.getSelfElement()) {
               (
                 rndRef.current.getSelfElement() as HTMLElement
@@ -125,7 +132,7 @@ const DialogContent = React.forwardRef<
           }, 500);
         }
       }
-    }, [expanded]);
+    }, [expanded, memDefaultValue]);
 
     return (
       <DialogPortal>
@@ -253,7 +260,7 @@ const DialogContent = React.forwardRef<
               )}
               {...others}
               onInteractOutside={(e) => {
-                !resizeable && e.preventDefault();
+                resizeable && e.preventDefault();
               }}
             >
               {children}
@@ -328,16 +335,16 @@ const DialogHeader = ({
         <div className={"h-[12px] flex group mx-[10px] space-x-1"}>
           <DialogPrimitive.Close
             id={"close"}
-            className={`rounded-full bg-[#ED6A5F] h-[12px] w-[12px]`}
+            className={"rounded-full bg-[#ED6A5F] h-[12px] w-[12px]"}
           >
-            <Icons name={"CloseMini"} className={`hidden group-hover:block`} />
+            <Icons name={"CloseMini"} className={"hidden group-hover:block"} />
           </DialogPrimitive.Close>
           <button
-            className={`rounded-full bg-[#606161] h-[12px] w-[12px]`}
+            className={"rounded-full bg-[#606161] h-[12px] w-[12px]"}
           ></button>
           <button
             id={"expand"}
-            className={`rounded-full bg-[#61C454] h-[12px] w-[12px]`}
+            className={"rounded-full bg-[#61C454] h-[12px] w-[12px]"}
             onClick={() => {
               if (expanding) return;
               setExpanded(!expanded);
@@ -346,7 +353,7 @@ const DialogHeader = ({
               }, 500);
             }}
           >
-            <Icons name={"AddMini"} className={`hidden group-hover:block`} />
+            <Icons name={"AddMini"} className={"hidden group-hover:block"} />
           </button>
         </div>
       )}

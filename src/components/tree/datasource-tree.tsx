@@ -1,13 +1,12 @@
 //use client
 import React, { useEffect, useRef, useState } from "react";
-import "./index.css";
+import "./theme.css";
 import Tree from "rc-tree";
 import { DataNode, NodeType } from "@/models/data-node";
 import { getChildNode, getRootNode, refreshNode } from "@/api/data-node-api";
 import { Icons } from "@/components/ui/Icons";
 import { Menu } from "@/models/menu";
 import { menuApi, useMenuApi } from "@/api/menu-api";
-import { JBContextMenu } from "@/components/ui/jb/JBContextMenu";
 import { contextMenu } from "@/lib/utils";
 import {
   ContextMenu,
@@ -16,6 +15,8 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
+import { DataSourceType } from "@/models";
+import { GenericContextMenu } from "../ui/context-menu/generic-context-menu";
 
 const OBJECT_ICONS = {
   ROOT: <Icons name={"DataBase"} />,
@@ -88,16 +89,17 @@ const handleIcons = (node: DataNode) => {
   }
 };
 
-const DatasourceTree: React.FC = () => {
-  const [treeData, setTreeData] = useState<DataNode[]>();
+const DataSourceTree: React.FC = () => {
+  const [treeData, setTreeData] = useState<DataNode[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [loadedKeys, setLoadedKeys] = useState<string[]>([]);
   const divRef = useRef<HTMLDivElement>(null);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
   const [menu, setMenu] = useState<Menu[]>();
   useEffect(() => {
     getRootNode().then((data) => {
       handleIcons(data);
-      setTreeData(data.children);
+      data?.children && setTreeData(data.children);
     });
     if (!divRef.current) {
       return;
@@ -156,6 +158,7 @@ const DatasourceTree: React.FC = () => {
 
   return (
     <div className={"h-full w-full"}>
+      <GenericContextMenu ref={contextMenuRef} menu={menu}/>
       <Tree
         height={treeHeight}
         onRightClick={({ event, node }) => {
@@ -172,24 +175,16 @@ const DatasourceTree: React.FC = () => {
         onLoad={onLoad}
         titleRender={(node) => {
           return (
-            <ContextMenu>
-              <ContextMenuTrigger>
-                <div className={"flex items-center"}>
-                  {node.icon}
-                  <span>{node.title}</span>
-                </div>
-              </ContextMenuTrigger>
-              <ContextMenuContent>
-                {menu?.map((item) => {
-                  return (
-                    <>
-                      <ContextMenuItem>{item.name}</ContextMenuItem>
-                      {item.separator && <ContextMenuSeparator />}
-                    </>
-                  );
-                })}
-              </ContextMenuContent>
-            </ContextMenu>
+            <div
+              className={"flex items-center"}
+              onContextMenu={(e) => {
+                contextMenu(e, contextMenuRef);
+                e.preventDefault();
+              }}
+            >
+              {node.icon}
+              <span>{node.title}</span>
+            </div>
           );
         }}
         virtual={true}
@@ -209,4 +204,4 @@ const DatasourceTree: React.FC = () => {
     </div>
   );
 };
-export default DatasourceTree;
+export default DataSourceTree;

@@ -13,7 +13,7 @@ import {
 import { Menu } from "@/models/menu";
 import { Icons } from "@/components/ui/Icons";
 
-export const JBContextMenu = React.forwardRef<
+export const GenericContextMenu = React.forwardRef<
   React.ElementRef<typeof ContextMenuTrigger>,
   React.ComponentPropsWithoutRef<typeof ContextMenuTrigger> & {
     menu: Menu[] | undefined;
@@ -28,7 +28,7 @@ export const JBContextMenu = React.forwardRef<
     )}
   </ContextMenu>
 ));
-JBContextMenu.displayName = "JBContextMenu";
+GenericContextMenu.displayName = "TreeItemContextMenu";
 
 const renderMenuItems = (menu: Menu[]): React.ReactNode => {
   return menu.map((item) => {

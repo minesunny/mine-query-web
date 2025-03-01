@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client";
 import { useEffect, useState } from "react";
-import DatasourceTree from "@/components/tree/datasource-tree";
+import DataSourceTree from "@/components/tree/datasource-tree";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <div className={"h-[500px] w-[100px] overflow-hidden"}>
-      <DatasourceTree />
+      <DataSourceTree />
     </div>
   );
 }

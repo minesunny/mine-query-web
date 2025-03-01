@@ -85,7 +85,7 @@ export function SQLEditorTabContent() {
     selectOnLineNumbers: true,
   };
   return (
-    <div className={`h-full w-full`}>
+    <div className={"h-full w-full"}>
       <TabList
         tabList={defaultTabItems}
         onAddTab={tableListProps.onAddTab}
@@ -165,9 +165,9 @@ export function SQLEditorTabContent() {
           </SelectContent>
         </Select>
 
-        <Button className={`h-5 w-5 p-0 my-auto mx-4`}>
-          <Pause className={`hidden`} />
-          <Play className={`block`} />
+        <Button className={"h-5 w-5 p-0 my-auto mx-4"}>
+          <Pause className={"hidden"} />
+          <Play className={"block"} />
         </Button>
       </div>
       <Editor options={options} value={activeEditor?.code} />

@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "MinQuery",
+  name: "MineQuery",
   description: "Make beautiful websites regardless of your design experience.",
   ogImage: "https://nextui.org/twitter-cards/nextui.jpeg",
   author: "Junior Garcia",

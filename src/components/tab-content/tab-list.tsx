@@ -81,7 +81,6 @@ export function TabList({
         />
       ))}
       <Button
-        variant="outline"
         onClick={handleAddTab}
         className={"rounded-full h-7 w-7 p-0 my-auto bg-slate-200"}
       >
@@ -105,7 +104,7 @@ const TabItem = ({
   handleRemoveTab: (tabItem: TabItem) => void;
 }) => {
   return (
-    <div className={`h-[36px] max-w-[200px] flex-1 relative`}>
+    <div className={"h-[36px] max-w-[200px] flex-1 relative"}>
       <div
         className={`h-full max-w-[218px] ${active ? "block" : "hidden"} mx-[-9px]`}
       >
@@ -158,18 +157,18 @@ const TabItem = ({
           className={`h-full w-full rounded-lg ${active ? "" : "hover:bg-slate-100"} my-auto flex`}
           onClick={() => handleClickTab(tabItem)}
         >
-          <div className={`h-full w-full flex justify-center`}>
+          <div className={"h-full w-full flex justify-center"}>
             <div className={"flex-1 w-[20px] ml-1 py-[4px]"}>
-              <X className={`h-[20px] w-[20px] rounded-full`} />
+              <X className={"h-[20px] w-[20px] rounded-full"} />
             </div>
             <div
-              className={`h-full w-full truncate overflow-hidden whitespace-nowrap text-ellipsis text-sm py-[4px]`}
+              className={"h-full w-full truncate overflow-hidden whitespace-nowrap text-ellipsis text-sm py-[4px]"}
             >
               {tabItem.label}
             </div>
             <div className={"flex-1 w-[20px] mr-1 py-[4px]"}>
               <X
-                className={`h-[20px] w-[20px] rounded-full hover:bg-slate-200`}
+                className={"h-[20px] w-[20px] rounded-full hover:bg-slate-200"}
                 onClick={(event) => {
                   event.stopPropagation();
                   handleRemoveTab(tabItem);

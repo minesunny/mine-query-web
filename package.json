@@ -8,26 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "prettier": {
-    "semi": true,
-    "singleQuote": false,
-    "trailingComma": "all",
-    "tabWidth": 2,
-    "printWidth": 80
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "quotes": [
-        2,
-        "double"
-      ],
-      "semi": "warn"
-    }
-  },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@iconify/json": "^2.2.309",

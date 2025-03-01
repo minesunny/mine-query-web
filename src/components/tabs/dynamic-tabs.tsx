@@ -8,7 +8,6 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog/dialog";
 import {
@@ -17,9 +16,9 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
-import { Button } from "@/components/ui/button/button";
 import { Icons } from "@/components/ui/Icons";
 import { Separator } from "@radix-ui/react-menu";
+import { Input } from "../ui/input/input";
 type DynamicTabsItem = {
   id: string;
   content: React.ReactNode;
@@ -260,16 +259,17 @@ const DynamicTabItem: React.FC<{
   rename,
 }) => {
   const [inputValue, setInputValue] = React.useState(item.label);
+  const [open, setOpen] = React.useState(false);
   const tabClass = TabClass[type];
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <ContextMenu>
         <ContextMenuTrigger
           className={`h-[38px] max-w-[240px] px-[10px] flex items-center ${tabClass.tab} opacity-80 group-hover:opacity-100`}
         >
           <button
             id="content"
-            className={`h-[16px] flex flex-1 mr-[16px] `}
+            className={"h-[16px] flex flex-1 mr-[16px] "}
             onClick={() => active(item)}
           >
             <div className={"h-[16px] w-[24px] pr-[8px] "}>
@@ -279,7 +279,7 @@ const DynamicTabItem: React.FC<{
           </button>
           <div
             id="closeIcon"
-            className={`tab-item-icon-hover h-[16px] w-[16px] rounded-full`}
+            className={"tab-item-icon-hover h-[16px] w-[16px] rounded-full"}
             onClick={() => close(item)}
           >
             <Icons name={"CloseSmall"} className={`${tabClass.closeIcon}`} />
@@ -319,36 +319,27 @@ const DynamicTabItem: React.FC<{
         resizeable={false}
         size={{
           width: 345,
-          height: 100,
+          height: 85,
         }}
       >
         <DialogHeader windowControl={false}>
           <DialogTitle>Rename Tab</DialogTitle>
         </DialogHeader>
-        <div
-          className={"bg-panel-bg-dialog-content w-full px-4 py-1 rounded-b-lg"}
-        >
-          <input
+        <div className={"w-full px-4 py-1 rounded-b-lg"}>
+          <Input
             type="Text"
             value={inputValue}
             placeholder="Name"
+            onMouseDown={(e) => e.stopPropagation()}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                rename && rename({ ...item, label: inputValue });
+                setOpen(false);
+              }
+            }}
             onChange={(e) => setInputValue(e.target.value)}
-            className={
-              "w-full bg-panel-bg-dialog-content focus-visible:outline-none text-text text-sm"
-            }
           />
         </div>
-        <DialogFooter>
-          {/*<DialogClose asChild>*/}
-          {/*  <Button*/}
-          {/*    onClick={() => {*/}
-          {/*      rename && rename({ ...item, label: inputValue });*/}
-          {/*    }}*/}
-          {/*  >*/}
-          {/*    OK*/}
-          {/*  </Button>*/}
-          {/*</DialogClose>*/}
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

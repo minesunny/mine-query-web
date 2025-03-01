@@ -10,7 +10,7 @@ export const getChildNode = (
   key: string,
   nodeType: NodeType,
 ): Promise<DataNode> => {
-  return instance.get<any, DataNode>(`/nodeTree/child`, {
+  return instance.get<any, DataNode>("/nodeTree/child", {
     params: {
       dataSourceId: dataSourceId,
       key: key,
@@ -24,7 +24,7 @@ export const refreshNode = (
   key: string,
   nodeType: NodeType,
 ): Promise<DataNode> => {
-  return instance.get<any, DataNode>(`/nodeTree/refresh`, {
+  return instance.get<any, DataNode>("/nodeTree/refresh", {
     params: {
       dataSourceId: dataSourceId,
       key: key,

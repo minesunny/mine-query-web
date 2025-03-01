@@ -21,7 +21,7 @@ export default function Page() {
     <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
       <ResizablePanel
         defaultSize={15}
-        className={"h-full min-w-36 overflow-y-scroll"}
+        className={"h-full min-w-36 overflow-y-scroll bg-secondary"}
       >
         <DatasourceTree />
       </ResizablePanel>
@@ -33,7 +33,7 @@ export default function Page() {
             <PageContent />
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={25}>
+          <ResizablePanel defaultSize={25} className={"bg-secondary"}>
             <div className="flex h-full items-center justify-center p-6">
               <span className="font-semibold  bg-teal-1">Three</span>
             </div>
