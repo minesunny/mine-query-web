@@ -22,6 +22,8 @@ export interface SQLEditorEnv {
 
 interface SQLEditorEnvStore {
   editors: SQLEditorEnv[];
+  activeId: string;
+  setActive: (item: SQLEditorEnv | string) => void;
   addEditor: (item: SQLEditorEnv) => void;
   removeEditor: (editId: string) => void;
   updateEditor: (editorId: string, updatedItem: Partial<SQLEditorEnv>) => void;
@@ -37,6 +39,15 @@ const SQLEditorEnvStoreSlice: StateCreator<
   ]
 > = (set) => ({
   editors: [],
+  activeId: "",
+  setActive: (item) =>
+    set((state) => {
+      const editorId = typeof item === "string" ? item : item.editorId;
+      const find = state.editors.find((editor) => editor.editorId == editorId);
+      if (find) {
+        state.activeId = editorId;
+      }
+    }),
   addEditor: (item) =>
     set((state) => {
       state.editors.push(item);
@@ -52,7 +63,6 @@ const SQLEditorEnvStoreSlice: StateCreator<
       const index = state.editors.findIndex(
         (item) => item.editorId === editorId,
       );
-      console.log(updatedItem);
       if (index !== -1) {
         state.editors[index] = { ...state.editors[index], ...updatedItem };
       }

@@ -7,7 +7,6 @@ import {
 import React from "react";
 import { ResultTabContent } from "@/components/tab-content/result-tab-content";
 
-import { DynamicTabs } from "@/components/tabs/dynamic-tabs";
 import { Dialog } from "@radix-ui/react-dialog";
 import {
   ContextMenu,
@@ -24,6 +23,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog/dialog";
 import { Button } from "@/components/ui/button/button";
+import { SQLEditor } from "@/components/editor/sql-editor";
 
 export function PageContent() {
   return (
@@ -32,20 +32,7 @@ export function PageContent() {
         defaultSize={55}
         className={"h-full min-w-36 overflow-y-scroll"}
       >
-        <DynamicTabs
-          items={[
-            {
-              id: "1",
-              label: "SQL Editor",
-              content: <div>{Math.random() + "abc"}</div>,
-            },
-            {
-              id: "2",
-              label: "SQL Editor 2",
-              content: <div>{new Date().getTime() + "def"}</div>,
-            },
-          ]}
-        />
+        <SQLEditor/>
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>
