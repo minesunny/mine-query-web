@@ -18,6 +18,11 @@ export interface SQLEditorEnv {
   editorId: string;
   code: string;
   name: string;
+  cursor?: {
+    row: number;
+    column: number;
+  };
+  executing?: boolean;
 }
 
 interface SQLEditorEnvStore {
@@ -25,7 +30,7 @@ interface SQLEditorEnvStore {
   activeId: string;
   setActive: (item: SQLEditorEnv | string) => void;
   addEditor: (item: SQLEditorEnv) => void;
-  removeEditor: (editId: string) => void;
+  removeEditor: (editId: string | string[]) => void;
   updateEditor: (editorId: string, updatedItem: Partial<SQLEditorEnv>) => void;
 }
 
@@ -54,9 +59,16 @@ const SQLEditorEnvStoreSlice: StateCreator<
     }),
   removeEditor: (editorId) =>
     set((state) => {
-      state.editors = state.editors.filter(
-        (item) => item.editorId !== editorId,
-      );
+      if (typeof editorId === "string") {
+        state.editors = state.editors.filter(
+          (item) => item.editorId !== editorId,
+        );
+      } else if (editorId != undefined) {
+        const editorIds = editorId as string[];
+        state.editors = state.editors.filter(
+          (item) => !editorIds.includes(item.editorId),
+        );
+      }
     }),
   updateEditor: (editorId, updatedItem) =>
     set((state) => {
@@ -91,4 +103,5 @@ export const defaultSQLEditEnv: SQLEditorEnv = {
   code: "",
   dataSourceType: DataSourceType.SQLite,
   name: "defaultName",
+  executing: false,
 };

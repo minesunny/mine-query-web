@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/dialog/dialog";
 import { Button } from "@/components/ui/button/button";
 import { SQLEditor } from "@/components/editor/sql-editor";
+import { SVG } from "@/components/ui/Icons";
 
 export function PageContent() {
   return (
@@ -32,7 +33,8 @@ export function PageContent() {
         defaultSize={55}
         className={"h-full min-w-36 overflow-y-scroll"}
       >
-        <SQLEditor/>
+        {/* <SQLEditor/> */}
+        <SVG name="run" />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>

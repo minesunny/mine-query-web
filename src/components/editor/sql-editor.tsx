@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
-import Editor from "@monaco-editor/react";
 import { Button } from "@/components/ui/button/button";
 import {
   Select,
@@ -9,22 +9,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Pause, Play } from "lucide-react";
-import {
-  TabItem,
-  TableListProps,
-  TabList,
-} from "@/components/tab-content/tab-list";
+
 import {
   defaultSQLEditEnv,
   SQLEditorEnv,
   useSQLEditorEnvStore,
 } from "@/store/SQLEditorEnvStore";
-import { DataSourceType } from "@/models";
+import { DataSourceSchema, DataSourceType } from "@/models";
 import {
   DynamicTabItems,
   DynamicTabsItem,
 } from "@/components/ui/dynamic-tabs/dynamic-tabs";
-
+import AceEditor from "react-ace";
+import * as ace from "ace-builds";
 export function SQLEditor() {
   const useSQLEditorState = useSQLEditorEnvStore((state) => state.editors);
   const addSQLEditor = useSQLEditorEnvStore((state) => state.addEditor);
@@ -32,8 +29,8 @@ export function SQLEditor() {
   const updateSQLEditor = useSQLEditorEnvStore((state) => state.updateEditor);
   const [newItem, setNewItem] = useState<DynamicTabsItem>();
   const [activeEditor, setActiveEditor] = useState<SQLEditorEnv | undefined>();
+  const [changeEditor, setChangeEditor] = useState<bool>(false);
   const [defaultTabItems, setDefaultTabItems] = useState<DynamicTabsItem[]>([]);
-  const monacoRef = useRef(null);
   useEffect(() => {
     if (useSQLEditorState.length == 0) {
       addSQLEditor(defaultSQLEditEnv);
@@ -74,21 +71,25 @@ export function SQLEditor() {
     });
   };
 
-  const onRemoveTab = (tabItem: DynamicTabsItem) => {
-    removeSQLEditor(tabItem.id);
+  const onRemoveTab = (tabItems: DynamicTabsItem[]) => {
+    removeSQLEditor(tabItems.map((item) => item.id));
   };
   const onActiveTab = (tabItem: DynamicTabsItem) => {
-    console.log(tabItem);
     const editor = useSQLEditorState.filter(
       (item) => item.editorId === tabItem.id,
     );
     setActiveEditor(editor[0]);
+    const cursor = editor[0].cursor;
+    ace.edit("UNIQUE_ID_OF_DIV").setValue(editor[0].code);
+    if (cursor) {
+      ace.edit("UNIQUE_ID_OF_DIV").gotoLine(cursor.row + 1, cursor.column);
+    } else {
+      ace.edit("UNIQUE_ID_OF_DIV").gotoLine(1, 0);
+    }
   };
-  const options = {
-    selectOnLineNumbers: true,
-  };
+
   return (
-    <div className={"h-full w-full"}>
+    <div className={"h-full w-full flex flex-col"}>
       <Button
         onClick={() => {
           onAddTab();
@@ -100,34 +101,48 @@ export function SQLEditor() {
         tabItems={defaultTabItems}
         activeTabItem={defaultTabItems[0]}
         newTabItem={newItem}
-        // onCloseAllTabItems={onRemoveTab}
         onActiveTabItem={onActiveTab}
         onDisActiveTabItem={(tabItem) => {
           const editor = useSQLEditorState.filter(
             (item) => item.editorId === tabItem.id,
           );
           if (editor.length > 0) {
-            const value = monacoRef.current.editor
-              .getModel(
-                "http://myserver/foo-schema.json/" + editor[0].editorId,
-              )
-              .getValue();
+            var value = ace.edit("UNIQUE_ID_OF_DIV").getValue();
+            var position = ace.edit("UNIQUE_ID_OF_DIV").getCursorPosition();
             updateSQLEditor(editor[0].editorId, {
               code: value,
+              cursor: {
+                column: position.column,
+                row: position.row,
+              },
             });
           }
         }}
+        onCloseTabItem={(tabItem) => {
+          onRemoveTab([tabItem]);
+        }}
+        onCloseOtherTabItems={(tabItems) => {
+          onRemoveTab(tabItems);
+        }}
+        onCloseLeftTabItems={(tabItems) => {
+          onRemoveTab(tabItems);
+        }}
+        onCloseRightTabItems={(tabItems) => {
+          onRemoveTab(tabItems);
+        }}
+        onRenameTabItem={(item: DynamicTabsItem) => {}}
       />
       {activeEditor && (
         <>
           <SQLEditorBar editorId={activeEditor.editorId} />
-          <Editor
-            options={options}
-            value={activeEditor.code}
-            path={"http://myserver/foo-schema.json/" + activeEditor.editorId}
-            onMount={(editor, monaco) => {
-              monacoRef.current = monaco;
+          <AceEditor
+            style={{
+              flex: "1",
+              width: "100%",
             }}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+            defaultValue={activeEditor.code}
           />
         </>
       )}
@@ -138,8 +153,6 @@ export function SQLEditor() {
 const SQLEditorBar: React.FC<{
   editorId: string;
 }> = ({ editorId }) => {
-  const addSQLEditor = useSQLEditorEnvStore((state) => state.addEditor);
-  const removeSQLEditor = useSQLEditorEnvStore((state) => state.removeEditor);
   const updateSQLEditor = useSQLEditorEnvStore((state) => state.updateEditor);
   const [databaseList, setDatabaseList] = useState(["a", "b", "c", "d"]);
   const [schemaList, setSchemaList] = useState(["a", "b", "c", "d"]);

@@ -298,14 +298,16 @@ const DynamicTabItems: React.FC<
   const [activeItem, setActiveItem] =
     React.useState<DynamicTabsItem>(activeTabItem);
   const [inputValue, setInputValue] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<string>("");
   React.useEffect(() => {
     setItems([...tabItems]);
     setActiveItem(activeTabItem);
   }, [tabItems, activeTabItem]);
-
   React.useEffect(() => {
     if (newTabItem != undefined) {
+      if (items.length == 0) {
+        setActiveItem(newTabItem);
+      }
       setItems([...items, newTabItem]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -313,11 +315,11 @@ const DynamicTabItems: React.FC<
 
   const active = (tabItem: DynamicTabsItem) => {
     if (tabItem.id !== activeItem.id) {
+      disActive(activeItem);
       setActiveItem(tabItem);
       if (onActiveTabItem) {
         onActiveTabItem(tabItem);
       }
-      disActive(activeItem);
     }
   };
 
@@ -334,10 +336,10 @@ const DynamicTabItems: React.FC<
     if (onCloseTabItem) {
       onCloseTabItem(tabItem);
     }
-    if (activeItem.id === tabItem.id) {
+    if (activeItem.id === tabItem.id && index < newTabs.length && index >= 0) {
       setActiveItem(newTabs[index]);
       if (onActiveTabItem) {
-        onActiveTabItem(tabItem);
+        onActiveTabItem(newTabs[index]);
       }
     }
   };
@@ -353,7 +355,11 @@ const DynamicTabItems: React.FC<
     const id = tabItem.id;
     let index = 0;
     let item0;
+    let leftActive = false;
     for (; index < items.length; index++) {
+      if (items[index].id === activeItem.id){
+        leftActive = true;
+      }
       if (items[index].id === id) {
         item0 = items[index];
         break;
@@ -363,7 +369,7 @@ const DynamicTabItems: React.FC<
     if (onCloseLeftTabItems) {
       onCloseLeftTabItems(items.slice(0, index));
     }
-    if (activeItem.id === id && item0) {
+    if (leftActive && item0) {
       setActiveItem(item0);
       if (onActiveTabItem) {
         onActiveTabItem(item0);
@@ -375,8 +381,12 @@ const DynamicTabItems: React.FC<
     const id = tabItem.id;
     let index = 0;
     let item0;
+    let rightActive = false;
 
     for (; index < items.length; index++) {
+      if (items[index].id === activeItem.id) {
+        rightActive = true;
+      }
       if (items[index].id === id) {
         item0 = items[index];
         break;
@@ -387,7 +397,7 @@ const DynamicTabItems: React.FC<
       onCloseRightTabItems(items.slice(index));
     }
 
-    if (activeItem.id === id && item0) {
+    if (rightActive && item0) {
       setActiveItem(item0);
       if (onActiveTabItem) {
         onActiveTabItem(item0);
@@ -397,15 +407,15 @@ const DynamicTabItems: React.FC<
 
   const closeOtherTabs = (tabItem: DynamicTabsItem) => {
     const id = tabItem.id;
-    let closeItems = items.filter((tab) => tab.id == id);
-    setItems(closeItems.filter((tab) => items));
+    let closeItems = items.filter((tab) => tab.id != id);
+    setItems([tabItem]);
     if (onCloseOtherTabItems) {
-      onCloseOtherTabItems(items.filter((tab) => tab.id != id));
+      onCloseOtherTabItems(closeItems);
     }
-    if (activeItem.id !== id && items.length > 0) {
-      setActiveItem(items[0]);
+    if (activeItem.id !== id) {
+      setActiveItem(tabItem);
       if (onActiveTabItem) {
-        onActiveTabItem(items[0]);
+        onActiveTabItem(tabItem);
       }
     }
   };
@@ -423,8 +433,13 @@ const DynamicTabItems: React.FC<
     <div className={"h-[41px] w-full flex items-center justify-start"}>
       {items &&
         items.map((item) => (
-          <div className={"flex-wrap flex-row group"} key={item.id}>
-            <Dialog open={open} onOpenChange={setOpen}>
+          <div className={"flex-wrap flex-row group"} key={item.id} id="item">
+            <Dialog
+              open={open === item.id}
+              onOpenChange={(open: boolean) => {
+                open ? setOpen(item.id) : setOpen("");
+              }}
+            >
               <ContextMenu>
                 <ContextMenuTrigger
                   className={`h-[38px] max-w-[240px] px-[10px] flex items-center ${activeItem.id == item.id ? TabClass["Selected"].tab : ""} opacity-80 group-hover:opacity-100`}
@@ -503,7 +518,7 @@ const DynamicTabItems: React.FC<
                     onKeyDown={(event) => {
                       if (event.key === "Enter") {
                         rename({ ...item, label: inputValue });
-                        setOpen(false);
+                        setOpen("");
                       }
                     }}
                     onChange={(e) => setInputValue(e.target.value)}
