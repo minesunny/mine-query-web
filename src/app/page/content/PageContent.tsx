@@ -33,8 +33,7 @@ export function PageContent() {
         defaultSize={55}
         className={"h-full min-w-36 overflow-y-scroll"}
       >
-        {/* <SQLEditor/> */}
-        <SVG name="run" />
+        <SQLEditor/>
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>

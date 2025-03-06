@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/select/select";
 import { Pause, Play } from "lucide-react";
 
 import {
@@ -22,8 +22,10 @@ import {
 } from "@/components/ui/dynamic-tabs/dynamic-tabs";
 import AceEditor from "react-ace";
 import * as ace from "ace-builds";
+import { useSQLEditorOptionStore } from "@/store/SQLEditorOption";
 export function SQLEditor() {
   const useSQLEditorState = useSQLEditorEnvStore((state) => state.editors);
+  const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
   const addSQLEditor = useSQLEditorEnvStore((state) => state.addEditor);
   const removeSQLEditor = useSQLEditorEnvStore((state) => state.removeEditor);
   const updateSQLEditor = useSQLEditorEnvStore((state) => state.updateEditor);
@@ -130,7 +132,11 @@ export function SQLEditor() {
         onCloseRightTabItems={(tabItems) => {
           onRemoveTab(tabItems);
         }}
-        onRenameTabItem={(item: DynamicTabsItem) => {}}
+        onRenameTabItem={(item: DynamicTabsItem) => {
+          updateSQLEditor(item.id, {
+            name: item.label
+          });
+        }}
       />
       {activeEditor && (
         <>
@@ -140,7 +146,13 @@ export function SQLEditor() {
               flex: "1",
               width: "100%",
             }}
-            name="UNIQUE_ID_OF_DIV"
+            lineHeight={useSQLOptionState.lineHeight}
+            showGutter={useSQLOptionState.showGutter}
+            mode={useSQLOptionState.mode}
+            name={useSQLOptionState.name}
+            setOptions={{
+              showLineNumbers: useSQLOptionState.showLineNumbers
+            }}
             editorProps={{ $blockScrolling: true }}
             defaultValue={activeEditor.code}
           />
