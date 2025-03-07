@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button/button";
-import { Pause, Play } from "lucide-react";
 import "./theme.css";
 import {
   defaultSQLEditEnv,
@@ -15,8 +14,10 @@ import {
 } from "@/components/ui/dynamic-tabs/dynamic-tabs";
 import AceEditor from "react-ace";
 import * as ace from "ace-builds";
+
+import { SQLEditorBar } from "@/components/editor/editr-bar";
 import { useSQLEditorOptionStore } from "@/store/SQLEditorOption";
-export function SQLEditor() {
+const SQLEditor: React.FC = () => {
   const useSQLEditorState = useSQLEditorEnvStore((state) => state.editors);
   const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
   const addSQLEditor = useSQLEditorEnvStore((state) => state.addEditor);
@@ -24,7 +25,6 @@ export function SQLEditor() {
   const updateSQLEditor = useSQLEditorEnvStore((state) => state.updateEditor);
   const [newItem, setNewItem] = useState<DynamicTabsItem>();
   const [activeEditor, setActiveEditor] = useState<SQLEditorEnv | undefined>();
-  const [changeEditor, setChangeEditor] = useState<bool>(false);
   const [defaultTabItems, setDefaultTabItems] = useState<DynamicTabsItem[]>([]);
   useEffect(() => {
     if (useSQLEditorState.length == 0) {
@@ -37,7 +37,7 @@ export function SQLEditor() {
       ]);
     } else {
       setDefaultTabItems(
-        useSQLEditorState.map((value, index) => ({
+        useSQLEditorState.map((value) => ({
           id: value.editorId,
           label: value.name,
         })),
@@ -75,12 +75,14 @@ export function SQLEditor() {
     );
     setActiveEditor(editor[0]);
     const cursor = editor[0].cursor;
-    ace.edit("UNIQUE_ID_OF_DIV").setValue(editor[0].code);
+    const aceEditor = ace.edit(useSQLOptionState.name);
+    aceEditor.setValue(editor[0].code);
     if (cursor) {
-      ace.edit("UNIQUE_ID_OF_DIV").gotoLine(cursor.row + 1, cursor.column);
+      aceEditor.gotoLine(cursor.row + 1, cursor.column);
     } else {
-      ace.edit("UNIQUE_ID_OF_DIV").gotoLine(1, 0);
+      aceEditor.gotoLine(1, 0);
     }
+    aceEditor.focus();
   };
 
   return (
@@ -102,8 +104,10 @@ export function SQLEditor() {
             (item) => item.editorId === tabItem.id,
           );
           if (editor.length > 0) {
-            var value = ace.edit("UNIQUE_ID_OF_DIV").getValue();
-            var position = ace.edit("UNIQUE_ID_OF_DIV").getCursorPosition();
+            const value = ace.edit(useSQLOptionState.name).getValue();
+            const position = ace
+              .edit(useSQLOptionState.name)
+              .getCursorPosition();
             updateSQLEditor(editor[0].editorId, {
               code: value,
               cursor: {
@@ -153,15 +157,5 @@ export function SQLEditor() {
       )}
     </div>
   );
-}
-
-const SQLEditorBar: React.FC<{
-  editorId: string;
-}> = ({ editorId }) => {
-  return (
-    <Button className={"h-5 w-5 p-0 my-auto mx-4"}>
-      <Pause className={"hidden"} />
-      <Play className={"block"} />
-    </Button>
-  );
 };
+export { SQLEditor };

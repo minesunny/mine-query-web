@@ -2,6 +2,9 @@
 
 @layer components {
   :root {
+    .editor-bar {
+
+    }
     .editor-bar-select-content, .editor-bar-select-trigger {
       background-color: var(--secondary);
       color: var(--secondary-foreground);
@@ -10,12 +13,21 @@
     .editor-bar-select-trigger:hover {
       background-color: var(--red-1);
     }
-    
+
     .editor-bar-select-item:hover {
       background-color: var(--blue-1);
     }
   }
   .dark {
+    .editor-bar {
+      background-color: var(--gray-2);
+    }
+    .editor-bar-button:hover {
+      background-color: var(--gray-4);
+    }
+    .editor-bar-button-split {
+      background-color: var(--gray-5);
+    }
     .editor-bar-select-content, .editor-bar-select-trigger {
       background-color: var(--secondary);
       color: var(--gray-13);

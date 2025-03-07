@@ -4,13 +4,12 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import "./theme.css";
 import { cn } from "@/lib/utils";
-import { Icons } from "@/components/ui/Icons";
+import { SVG } from "@/components/ui/Icons";
 import { useContext, createContext, useEffect, useCallback } from "react";
 import { Rnd } from "react-rnd";
-import { Button } from "@/components/ui/button/button";
 const DialogContext = createContext<{
   expanded: boolean | undefined;
-  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setExpanded: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }>({
   expanded: false,
   setExpanded: () => {},
@@ -25,7 +24,9 @@ const Dialog = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>
 >(({ ...props }, ref) => {
-  const [expanded, setExpanded] = React.useState(undefined);
+  const [expanded, setExpanded] = React.useState<boolean | undefined>(
+    undefined,
+  );
   return (
     <DialogContext.Provider value={{ expanded, setExpanded }}>
       <DialogPrimitive.Root {...props} />
@@ -82,10 +83,7 @@ const DialogContent = React.forwardRef<
       x: 0,
       y: 0,
     });
-    const memDefaultValue = useCallback(
-      () => defaultValue,
-      [defaultValue],
-    );
+    const memDefaultValue = useCallback(() => defaultValue, [defaultValue]);
 
     useEffect(() => {
       if (expanded) {
@@ -113,7 +111,7 @@ const DialogContent = React.forwardRef<
         ) {
           if (expanded == false) {
             (rndRef.current.getSelfElement() as HTMLElement).style.transition =
-            "width 0.5s ease, height 0.5s ease, transform 0.5s ease";
+              "width 0.5s ease, height 0.5s ease, transform 0.5s ease";
           }
           rndRef.current.updateSize({
             width: memDefaultValue().width,
@@ -123,13 +121,14 @@ const DialogContent = React.forwardRef<
             x: memDefaultValue().x,
             y: memDefaultValue().y,
           });
-          expanded == false && setTimeout(() => {
-            if (rndRef.current && rndRef.current.getSelfElement()) {
-              (
-                rndRef.current.getSelfElement() as HTMLElement
-              ).style.transition = "";
-            }
-          }, 500);
+          expanded == false &&
+            setTimeout(() => {
+              if (rndRef.current && rndRef.current.getSelfElement()) {
+                (
+                  rndRef.current.getSelfElement() as HTMLElement
+                ).style.transition = "";
+              }
+            }, 500);
         }
       }
     }, [expanded, memDefaultValue]);
@@ -337,7 +336,7 @@ const DialogHeader = ({
             id={"close"}
             className={"rounded-full bg-[#ED6A5F] h-[12px] w-[12px]"}
           >
-            <Icons name={"CloseMini"} className={"hidden group-hover:block"} />
+            {/*<Icons name={"CloseMini"} className={"hidden group-hover:block"} />*/}
           </DialogPrimitive.Close>
           <button
             className={"rounded-full bg-[#606161] h-[12px] w-[12px]"}
@@ -353,7 +352,7 @@ const DialogHeader = ({
               }, 500);
             }}
           >
-            <Icons name={"AddMini"} className={"hidden group-hover:block"} />
+            {/*<Icons name={"AddMini"} className={"hidden group-hover:block"} />*/}
           </button>
         </div>
       )}

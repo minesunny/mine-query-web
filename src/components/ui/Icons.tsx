@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
 import React from "react";
+import { Separator } from "@/components/ui/separator";
 
 const requireAll = (
   requireContext: ReturnType<typeof require.context>,
@@ -8,8 +9,6 @@ const requireAll = (
 };
 
 const req = require.context("/public/icons/jb", true, /\.svg$/);
-const svgModules = requireAll(req);
-
 requireAll(req);
 
 export const SVG: React.FC<{

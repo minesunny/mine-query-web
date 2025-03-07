@@ -1,4 +1,3 @@
-import { TabItem, TableListProps } from "@/components/tab-content/tab-list";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -7,25 +6,7 @@ import {
 import React from "react";
 import { ResultTabContent } from "@/components/tab-content/result-tab-content";
 
-import { Dialog } from "@radix-ui/react-dialog";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu/context-menu";
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog/dialog";
-import { Button } from "@/components/ui/button/button";
 import { SQLEditor } from "@/components/editor/sql-editor";
-import { SVG } from "@/components/ui/Icons";
-import { SQLEditorBarSourceSelect } from "@/components/editor/editor-bar-select";
 
 export function PageContent() {
   return (
@@ -34,7 +15,7 @@ export function PageContent() {
         defaultSize={55}
         className={"h-full min-w-36 overflow-y-scroll"}
       >
-        <SQLEditorBarSourceSelect editorId="" />
+        <SQLEditor />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>

@@ -7,15 +7,11 @@ import {
   SelectValue,
   SelectLabel,
 } from "@/components/ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import "./theme.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSQLEditorEnvStore } from "@/store/SQLEditorEnvStore";
+import { Separator } from "@/components/ui/separator";
 const SQLEditorBarTransactionSelect: React.FC<{
   editorId: string;
 }> = ({ editorId }) => {
@@ -25,7 +21,7 @@ const SQLEditorBarTransactionSelect: React.FC<{
         console.log(open);
       }}
     >
-      <SelectTrigger className="w-16 h-6 editor-bar-select-trigger text-xs">
+      <SelectTrigger className="w-24 h-6 editor-bar-select-trigger text-xs">
         <SelectValue placeholder="模式" />
       </SelectTrigger>
       <SelectContent className="editor-bar-select-content">
@@ -68,7 +64,7 @@ const SQLEditorBarSourceSelect: React.FC<{
   }, [editorId]);
 
   return (
-    <div className="h-[26px] w-full flex py-[1px] border-0">
+    <div className="h-6 w-auto flex py-[1px] border-0">
       <Select
         onValueChange={(value) => {
           updateSQLEditor(editorId, {
@@ -100,7 +96,10 @@ const SQLEditorBarSourceSelect: React.FC<{
           })}
         </SelectContent>
       </Select>
-
+      <Separator
+        orientation="vertical"
+        className={"editor-bar-button-split mx-2 h-5"}
+      />
       <Select
         defaultValue={schema}
         value={schema}
@@ -123,7 +122,7 @@ const SQLEditorBarSourceSelect: React.FC<{
         <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-xs">
           <SelectValue placeholder="模式" className="truncate" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="editor-bar-select-content">
           {schemaList.map((item, index) => {
             return (
               <SelectItem

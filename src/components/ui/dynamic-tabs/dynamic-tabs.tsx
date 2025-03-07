@@ -357,7 +357,7 @@ const DynamicTabItems: React.FC<
     let item0;
     let leftActive = false;
     for (; index < items.length; index++) {
-      if (items[index].id === activeItem.id){
+      if (items[index].id === activeItem.id) {
         leftActive = true;
       }
       if (items[index].id === id) {
@@ -449,24 +449,16 @@ const DynamicTabItems: React.FC<
                     className={"h-[16px] flex flex-1 mr-[16px] "}
                     onClick={() => active(item)}
                   >
-                    <div className={"h-[16px] w-[24px] pr-[8px] "}>
-                      {item.icon && item.icon}
-                    </div>
                     <span className={"text-default text-text"}>
                       {item.label}
                     </span>
                   </button>
                   <div
                     id="closeIcon"
-                    className={
-                      "tab-item-icon-hover h-[16px] w-[16px] rounded-full"
-                    }
+                    className={`tab-item-icon h-[16px] w-[16px] rounded-full ${activeItem.id == item.id ? TabClass["Selected"].closeIcon : "invisible group-hover:visible"}`}
                     onClick={() => close(item)}
                   >
-                    <SVG
-                      name={"CloseSmall"}
-                      // className={`${activeItem.id == item.id ? TabClass["Selected"].closeIcon : ""}`}
-                    />
+                    <SVG name={"closeSmall"} />
                   </div>
                 </ContextMenuTrigger>
                 <Separator
