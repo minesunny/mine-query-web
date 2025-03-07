@@ -30,8 +30,9 @@ interface SQLEditorEnvStore {
   activeId: string;
   setActive: (item: SQLEditorEnv | string) => void;
   addEditor: (item: SQLEditorEnv) => void;
-  removeEditor: (editId: string | string[]) => void;
+  removeEditor: (editorId: string | string[]) => void;
   updateEditor: (editorId: string, updatedItem: Partial<SQLEditorEnv>) => void;
+  getEditor: (editorId: string) => SQLEditorEnv|undefined;
 }
 
 const SQLEditorEnvStoreSlice: StateCreator<
@@ -42,7 +43,7 @@ const SQLEditorEnvStoreSlice: StateCreator<
     ["zustand/subscribeWithSelector", never],
     ["zustand/persist", unknown],
   ]
-> = (set) => ({
+> = (set, get) => ({
   editors: [],
   activeId: "",
   setActive: (item) =>
@@ -79,6 +80,9 @@ const SQLEditorEnvStoreSlice: StateCreator<
         state.editors[index] = { ...state.editors[index], ...updatedItem };
       }
     }),
+  getEditor: (editorId) => {
+    return get().editors.find((editor) => editor.editorId == editorId);
+  }
 });
 
 export const useSQLEditorEnvStore = createWithEqualityFn<SQLEditorEnvStore>()(

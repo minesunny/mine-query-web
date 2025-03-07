@@ -16,7 +16,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
-import { Icons } from "@/components/ui/Icons";
+import { SVG } from "@/components/ui/Icons";
 import { Separator } from "@radix-ui/react-menu";
 import { Input } from "../input/input";
 import { constants } from "buffer";
@@ -463,9 +463,9 @@ const DynamicTabItems: React.FC<
                     }
                     onClick={() => close(item)}
                   >
-                    <Icons
+                    <SVG
                       name={"CloseSmall"}
-                      className={`${activeItem.id == item.id ? TabClass["Selected"].closeIcon : ""}`}
+                      // className={`${activeItem.id == item.id ? TabClass["Selected"].closeIcon : ""}`}
                     />
                   </div>
                 </ContextMenuTrigger>
