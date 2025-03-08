@@ -18,7 +18,7 @@ export default function Page() {
 
   if (!mounted) return null;
   return (
-    <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
+    <ResizablePanelGroup direction="horizontal" className="rounded-lg border-0">
       <ResizablePanel
         defaultSize={15}
         className={"h-full min-w-36 overflow-y-scroll bg-secondary"}
@@ -33,7 +33,7 @@ export default function Page() {
             <PageContent />
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={25} className={"bg-secondary"}>
+          <ResizablePanel defaultSize={25} className={"bg-secondary border-0"}>
             <div className="flex h-full items-center justify-center p-6">
               <span className="font-semibold  bg-teal-1">Three</span>
             </div>

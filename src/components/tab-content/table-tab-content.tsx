@@ -236,7 +236,7 @@ export function TableTableContent() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border-0">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
