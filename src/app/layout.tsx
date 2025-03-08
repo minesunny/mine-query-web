@@ -5,8 +5,13 @@ import "./globals.css";
 import { Providers } from "@/app/providers";
 import { fontSans } from "@/config/fonts";
 import { cn } from "@/lib/utils";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+
+import {
+  SiteLeft,
+  SiteRight,
+  SiteFooter,
+  SiteHeader,
+} from "@/components/site-bar";
 
 const RootLayout = ({ children }: React.PropsWithChildren) => (
   <html lang="en" suppressHydrationWarning>
@@ -22,9 +27,16 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
         enableSystem
         disableTransitionOnChange
       >
-        <div className="relative flex h-dvh flex-col bg-background">
+        {/* bg-background */}
+        <div className={"flex h-dvh flex-col bg-background"}>
           <SiteHeader />
-          <main className="h-full">{children}</main>
+          <div className={"flex-1 w-full flex flex-row"}>
+            <SiteLeft />
+            <div className={"h-full flex-1 flex flex-col"}>
+              <main className="h-full">{children}</main>
+            </div>
+            <SiteRight />
+          </div>
           <SiteFooter />
         </div>
       </Providers>

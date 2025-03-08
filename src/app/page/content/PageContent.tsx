@@ -32,20 +32,7 @@ export function PageContent() {
         defaultSize={55}
         className={"h-full min-w-36 overflow-y-scroll"}
       >
-        <DynamicTabs
-          items={[
-            {
-              id: "1",
-              label: "SQL Editor",
-              content: <div>{Math.random() + "abc"}</div>,
-            },
-            {
-              id: "2",
-              label: "SQL Editor 2",
-              content: <div>{new Date().getTime() + "def"}</div>,
-            },
-          ]}
-        />
+       
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>

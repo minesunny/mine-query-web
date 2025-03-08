@@ -406,9 +406,7 @@
 }
 
 @layer base {
-  * {
-    border: 0;
-  }
+
   body {
     background-color: var(--primary-background);
     color: var(--primary-foreground);
