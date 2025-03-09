@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
   SelectLabel,
-} from "@/components/ui/select";
+} from "@/components/ui/select/select";
 
 import "./theme.css";
 import React, { useEffect, useState } from "react";

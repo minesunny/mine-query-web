@@ -1,5 +1,3 @@
-import { SQLEditorOption } from './SQLEditorOption';
-import { DataSourceType } from "@/models";
 import { StateCreator } from "zustand";
 import {
   createJSONStorage,
@@ -47,16 +45,16 @@ const SQLEditorOptionStoreSlice: StateCreator<
     }),
 });
 
-export const useSQLEditorOptionStore = createWithEqualityFn<SQLEditorOptionStore>()(
-  immer(
-    devtools(
-      subscribeWithSelector(
-        persist(SQLEditorOptionStoreSlice, {
-          name: "SQLEditorOptionStore",
-          storage: createJSONStorage(() => localStorage),
-        }),
+export const useSQLEditorOptionStore =
+  createWithEqualityFn<SQLEditorOptionStore>()(
+    immer(
+      devtools(
+        subscribeWithSelector(
+          persist(SQLEditorOptionStoreSlice, {
+            name: "SQLEditorOptionStore",
+            storage: createJSONStorage(() => localStorage),
+          }),
+        ),
       ),
     ),
-  ),
-);
-
+  );

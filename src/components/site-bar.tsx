@@ -3,20 +3,23 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { MainNav } from "@/components/main-nav";
 import { UserNav } from "@/components/user-nav";
 import { useSiteBarStore } from "@/store/SiteBarStore";
-import { LineSplit, Encoding } from "@/models/const";
+import { LineSplit, Encoding, LineSplitLiteral } from "@/models/const";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/tooltip/tooltip";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select/select";
+import * as React from "react";
 
 export function SiteHeader() {
   return (
@@ -49,56 +52,135 @@ export function SiteFooter() {
   return (
     <div
       className={
-        "h-8 w-full bg-secondary border-t border-primary flex justify-between px-5 items-center"
+        "h-8 w-full bg-secondary flex justify-between px-8 items-center"
       }
     >
       <div id="path" className="w-[500px] flex flex-row">
-        <div>useSiteBarState</div>
-        <div>-</div>
-        <div>useSiteBarState</div>
-        <div>-</div>
-        <div>useSiteBarState</div>
+        {/*<div>useSiteBarState</div>*/}
+        {/*<div>-</div>*/}
+        {/*<div>useSiteBarState</div>*/}
+        {/*<div>-</div>*/}
+        {/*<div>useSiteBarState</div>*/}
       </div>
-      <div className={"flex gap-6 items-center w-[500px]"}>
-        <div id="position">1:18</div>
-
-        {/* select  */}
-        <div id="lineSplit">CRLF</div>
-
-        {/* select  */}
-
-        <Select>
-          <SelectTrigger className="h-4 w-[100px]">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger id="encoding">
-                  <SelectValue placeholder="Theme"></SelectValue>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>缩进4个空格</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
-
-        {/* select  */}
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger id="space" className="h-6 text-center">
-              4个空格
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>缩进4个空格</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <div className={"flex gap-6 items-center w-50"}>
+        <LineSplitSelect />
+        <EncodingSelect />
       </div>
     </div>
   );
 }
+const EncodingSelect: React.FC = () => {
+  const useSiteBarState = useSiteBarStore((state) => state.siteBarOption);
+  const updateSiteBar = useSiteBarStore((state) => state.updateSiteBarOption);
+  return (
+    <Select
+      defaultValue={useSiteBarState.encoding}
+      onValueChange={(value) => {
+        updateSiteBar({ encoding: value as (typeof Encoding)[number] });
+      }}
+    >
+      <SelectTrigger className="h-6 w-20 text-xs border-0 rounded-sm">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger id="encoding">
+              <SelectValue
+                placeholder="Theme"
+                className={"w-full"}
+              ></SelectValue>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className={"text-xs"}>
+                {"File Encoding:" + useSiteBarState.encoding}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </SelectTrigger>
+      <SelectContent className={"border-0 flex flex-row"}>
+        <SelectGroup>
+          <SelectLabel>File Encoding</SelectLabel>
+          {Encoding.map((item) => {
+            return (
+              <SelectItem
+                key={item}
+                value={item}
+                className={"text-xs h-6 w-full"}
+              >
+                {item}
+              </SelectItem>
+            );
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};
+const LineSplitSelect: React.FC = () => {
+  const useSiteBarState = useSiteBarStore((state) => state.siteBarOption);
+  const updateSiteBar = useSiteBarStore((state) => state.updateSiteBarOption);
+  return (
+    <Select
+      defaultValue={useSiteBarState.editorLineSplit}
+      onValueChange={(value) => {
+        updateSiteBar({ editorLineSplit: value as (typeof LineSplit)[number] });
+      }}
+    >
+      <SelectTrigger className="h-6 w-20 text-xs border-0 rounded-sm">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger id="encoding">
+              <SelectValue
+                placeholder="Theme"
+                className={"w-full"}
+              ></SelectValue>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className={"text-xs"}>
+                {"Line Separator:" +
+                  LineSplitLiteral[useSiteBarState.editorLineSplit]}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </SelectTrigger>
+      <SelectContent className={"border-0 flex flex-row"}>
+        <SelectGroup>
+          <SelectLabel>Line Separator</SelectLabel>
+          <SelectItem
+            value="CRLF"
+            className={"text-xs h-6 w-full"}
+            muteText={
+              <span className="text-xs text-muted indent-1">
+                - Windows(\r\n)
+              </span>
+            }
+          >
+            CRLF
+          </SelectItem>
+          <SelectItem
+            value="CR"
+            className={"text-xs h-6 w-full"}
+            muteText={
+              <span className="text-xs text-muted indent-1">
+                - Classic Mac OS (\r)
+              </span>
+            }
+          >
+            CR
+          </SelectItem>
+          <SelectItem
+            value="LF"
+            className={"text-xs h-6 w-full"}
+            muteText={
+              <span className="text-xs text-muted indent-1">
+                - Unix and macOS (\n)
+              </span>
+            }
+          >
+            LF
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};

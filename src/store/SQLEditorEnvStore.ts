@@ -22,6 +22,7 @@ export interface SQLEditorEnv {
     row: number;
     column: number;
   };
+  path?: string; // datasourceName-databaseName-schemaName-
   executing?: boolean;
 }
 
@@ -32,7 +33,7 @@ interface SQLEditorEnvStore {
   addEditor: (item: SQLEditorEnv) => void;
   removeEditor: (editorId: string | string[]) => void;
   updateEditor: (editorId: string, updatedItem: Partial<SQLEditorEnv>) => void;
-  getEditor: (editorId: string) => SQLEditorEnv|undefined;
+  getEditor: (editorId: string) => SQLEditorEnv | undefined;
 }
 
 const SQLEditorEnvStoreSlice: StateCreator<
@@ -82,7 +83,7 @@ const SQLEditorEnvStoreSlice: StateCreator<
     }),
   getEditor: (editorId) => {
     return get().editors.find((editor) => editor.editorId == editorId);
-  }
+  },
 });
 
 export const useSQLEditorEnvStore = createWithEqualityFn<SQLEditorEnvStore>()(

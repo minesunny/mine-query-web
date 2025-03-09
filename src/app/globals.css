@@ -161,7 +161,7 @@
 
     --check-box-checked-invalid-bg:var(--blue-4);
     --check-box-checked-invalid-stroke:var(--gray-14);
-    --check-box-checked-invalid-border:var(--red-red-4);
+    --check-box-checked-invalid-border:var(--red-4);
     --check-box-checked-invalid-label:var(--gray-1);
     --check-box-checked-invalid-hint:var(--gray-6);
 
@@ -362,7 +362,7 @@
 
     --check-box-checked-invalid-bg:var(--blue-6);
     --check-box-checked-invalid-stroke:var(--gray-14);
-    --check-box-checked-invalid-border:var(--red-red-6);
+    --check-box-checked-invalid-border:var(--red-6);
     --check-box-checked-invalid-label:var(--gray-12);
     --check-box-checked-invalid-hint:var(--gray-7);
 
@@ -383,7 +383,7 @@
     --check-box-unchecked-focused-label:var(--gray-12);
     --check-box-unchecked-focused-hint:var(--gray-7);
 
-    --check-box-unchecked-invalid-border:var(--red-red-6);
+    --check-box-unchecked-invalid-border:var(--red-6);
     --check-box-unchecked-invalid-label:var(--gray-12);
     --check-box-unchecked-invalid-hint:var(--gray-7);
 
