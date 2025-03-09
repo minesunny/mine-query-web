@@ -21,23 +21,23 @@ const SQLEditorBarTransactionSelect: React.FC<{
         console.log(open);
       }}
     >
-      <SelectTrigger className="w-24 h-6 editor-bar-select-trigger text-xs">
+      <SelectTrigger className="w-24 h-6 editor-bar-select-trigger text-default font-inter">
         <SelectValue placeholder="模式" />
       </SelectTrigger>
       <SelectContent className="editor-bar-select-content">
         <SelectGroup className="mx-2">
-          <SelectLabel className="text-xs py-1 editor-bar-select-item -indent-6 rounded-md">
+          <SelectLabel className="text-default font-inter py-1 editor-bar-select-item -indent-6 rounded-md">
             事务模式
           </SelectLabel>
           <SelectItem
             value={"自动"}
-            className="text-xs focus:outline-none py-1 editor-bar-select-item rounded-md"
+            className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
           >
             自动
           </SelectItem>
           <SelectItem
             value={"手动"}
-            className="text-xs focus:outline-none py-1 editor-bar-select-item rounded-md"
+            className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
           >
             手动
           </SelectItem>
@@ -79,7 +79,7 @@ const SQLEditorBarSourceSelect: React.FC<{
           }
         }}
       >
-        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-xs">
+        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-default font-inter">
           <SelectValue placeholder="数据库" className="truncate" />
         </SelectTrigger>
         <SelectContent className="editor-bar-select-content">
@@ -88,7 +88,7 @@ const SQLEditorBarSourceSelect: React.FC<{
               <SelectItem
                 key={index}
                 value={item}
-                className="text-xs focus:outline-none py-1 editor-bar-select-item rounded-md"
+                className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
               >
                 {item}
               </SelectItem>
@@ -119,7 +119,7 @@ const SQLEditorBarSourceSelect: React.FC<{
           }
         }}
       >
-        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-xs">
+        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-default font-inter">
           <SelectValue placeholder="模式" className="truncate" />
         </SelectTrigger>
         <SelectContent className="editor-bar-select-content">
@@ -128,7 +128,7 @@ const SQLEditorBarSourceSelect: React.FC<{
               <SelectItem
                 key={index}
                 value={item}
-                className="text-xs focus:outline-none py-1 editor-bar-select-item rounded-md"
+                className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
               >
                 {item}
               </SelectItem>

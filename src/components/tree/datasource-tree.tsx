@@ -4,30 +4,21 @@ import "./theme.css";
 import Tree from "rc-tree";
 import { DataNode, NodeType } from "@/models/data-node";
 import { getChildNode, getRootNode, refreshNode } from "@/api/data-node-api";
-import { Icons } from "@/components/ui/Icons";
 import { Menu } from "@/models/menu";
 import { menuApi, useMenuApi } from "@/api/menu-api";
 import { contextMenu } from "@/lib/utils";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu/context-menu";
-import { DataSourceType } from "@/models";
+import { SVG } from "@/components/ui/Icons";
 import { GenericContextMenu } from "../ui/context-menu/generic-context-menu";
-
 const OBJECT_ICONS = {
-  ROOT: <Icons name={"DataBase"} />,
-  DATASOURCE: <Icons name={"DataBase"} />,
-  DATABASE: <Icons name={"DataBase"} />,
-  SCHEMA: <Icons name={"Schema"} />,
-  TABLE_GROUP: <Icons name={"ObjectGroup"} />,
-  TABLE: <Icons name={"Table"} />,
-  VIEWS_GROUP: <Icons name={"ObjectGroup"} />,
-  COLUMN_GROUP: <Icons name={"ObjectGroup"} />,
-  COLUMN: <Icons name={"Column"} />,
+  ROOT: <SVG name={"DataBase"} />,
+  DATASOURCE: <SVG name={"DataBase"} />,
+  DATABASE: <SVG name={"DataBase"} />,
+  SCHEMA: <SVG name={"Schema"} />,
+  TABLE_GROUP: <SVG name={"ObjectGroup"} />,
+  TABLE: <SVG name={"Table"} />,
+  VIEWS_GROUP: <SVG name={"ObjectGroup"} />,
+  COLUMN_GROUP: <SVG name={"ObjectGroup"} />,
+  COLUMN: <SVG name={"Column"} />,
 };
 
 const updateTreeData = (list: DataNode[], result: DataNode): DataNode[] =>
@@ -78,7 +69,7 @@ const getChildNodeKeys = (data: DataNode[]) => {
 
 const handleIcons = (node: DataNode) => {
   if (node.nodeType === NodeType.DATASOURCE && node.dataSourceType) {
-    node.icon = <Icons name={node.dataSourceType} />;
+    node.icon = <SVG name={node.dataSourceType} />;
   } else if (node.nodeType) {
     node.icon = OBJECT_ICONS[node.nodeType];
   }
@@ -158,7 +149,7 @@ const DataSourceTree: React.FC = () => {
 
   return (
     <div className={"h-full w-full"}>
-      <GenericContextMenu ref={contextMenuRef} menu={menu}/>
+      <GenericContextMenu ref={contextMenuRef} menu={menu} />
       <Tree
         height={treeHeight}
         onRightClick={({ event, node }) => {
@@ -194,11 +185,11 @@ const DataSourceTree: React.FC = () => {
           if (data.isLeaf) {
             return false;
           }
-          return data.expanded ? (
-            <Icons name={"TreeExpended"} />
-          ) : (
-            <Icons name={"TreeClosed"} />
-          );
+          // return data.expanded ? (
+          //   // <Icons name={"TreeExpended"} />
+          // ) : (
+          //   // <Icons name={"TreeClosed"} />
+          // );
         }}
       />
     </div>

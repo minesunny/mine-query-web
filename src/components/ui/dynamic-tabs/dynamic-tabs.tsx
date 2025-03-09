@@ -19,7 +19,6 @@ import {
 import { SVG } from "@/components/ui/Icons";
 import { Separator } from "@radix-ui/react-menu";
 import { Input } from "../input/input";
-import { constants } from "buffer";
 type DynamicTabsItem = {
   id: string;
   label: string;
@@ -446,10 +445,10 @@ const DynamicTabItems: React.FC<
                 >
                   <button
                     id="content"
-                    className={"h-[16px] flex flex-1 mr-[16px] "}
+                    className={"h-[16px] flex flex-1 mr-[16px]"}
                     onClick={() => active(item)}
                   >
-                    <span className={"text-default text-text"}>
+                    <span className={"font-inter text-default"}>
                       {item.label}
                     </span>
                   </button>

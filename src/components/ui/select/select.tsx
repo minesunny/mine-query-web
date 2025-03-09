@@ -105,7 +105,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+    className={cn("py-1.5 pl-8 pr-2 font-inter text-default", className)}
     {...props}
   />
 ));
@@ -120,7 +120,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 select-item",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 font-inter text-default outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 select-item",
       className,
     )}
     {...props}
@@ -134,7 +134,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     {muteText &&
       (typeof muteText === "string" ? (
-        <span className="text-default text-muted">{muteText}</span>
+        <span className="font-inter text-default text-muted">{muteText}</span>
       ) : (
         muteText
       ))}

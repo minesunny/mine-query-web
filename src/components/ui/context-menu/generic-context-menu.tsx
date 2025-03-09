@@ -11,7 +11,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
 import { Menu } from "@/models/menu";
-import { Icons } from "@/components/ui/Icons";
+import { SVG } from "@/components/ui/Icons";
 
 export const GenericContextMenu = React.forwardRef<
   React.ElementRef<typeof ContextMenuTrigger>,
@@ -53,12 +53,12 @@ const renderMenuItems = (menu: Menu[]): React.ReactNode => {
             disabled={item.disable}
           >
             <div className="mr-[8px] w-[16px] h-[16px]">
-              {item.iconName && <Icons name={item.iconName} />}
+              {item.iconName && <SVG name={item.iconName} />}
             </div>
             {item.name}
             {item.closeIconName && (
               <div className="absolute right-[10px]">
-                <Icons name={item.closeIconName} />
+                <SVG name={item.closeIconName} />
               </div>
             )}
             {item.shortCutName && (

@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from "@/components/ui/select/select";
 import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { Button } from "@/components/ui/button/button";
 
 export function SiteHeader() {
   return (
@@ -56,11 +58,18 @@ export function SiteFooter() {
       }
     >
       <div id="path" className="w-[500px] flex flex-row">
-        {/*<div>useSiteBarState</div>*/}
-        {/*<div>-</div>*/}
-        {/*<div>useSiteBarState</div>*/}
-        {/*<div>-</div>*/}
-        {/*<div>useSiteBarState</div>*/}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger id="encoding" asChild>
+              <Button>Hover</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className={"text-xs"}>
+                {"File Encoding:" + useSiteBarState.encoding}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
       <div className={"flex gap-6 items-center w-50"}>
         <LineSplitSelect />
@@ -72,6 +81,7 @@ export function SiteFooter() {
 const EncodingSelect: React.FC = () => {
   const useSiteBarState = useSiteBarStore((state) => state.siteBarOption);
   const updateSiteBar = useSiteBarStore((state) => state.updateSiteBarOption);
+  const [open, setOpen] = React.useState(false);
   return (
     <Select
       defaultValue={useSiteBarState.encoding}
@@ -79,10 +89,18 @@ const EncodingSelect: React.FC = () => {
         updateSiteBar({ encoding: value as (typeof Encoding)[number] });
       }}
     >
-      <SelectTrigger className="h-6 w-20 text-xs border-0 rounded-sm">
+      <SelectTrigger
+        className="h-6 w-20 text-xs border-0 rounded-sm"
+        onMouseEnter={() => {
+          setOpen(true);
+        }}
+        onMouseLeave={() => {
+          setOpen(false);
+        }}
+      >
         <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger id="encoding">
+          <Tooltip open={open}>
+            <TooltipTrigger id="encoding" asChild>
               <SelectValue
                 placeholder="Theme"
                 className={"w-full"}
@@ -118,6 +136,8 @@ const EncodingSelect: React.FC = () => {
 const LineSplitSelect: React.FC = () => {
   const useSiteBarState = useSiteBarStore((state) => state.siteBarOption);
   const updateSiteBar = useSiteBarStore((state) => state.updateSiteBarOption);
+  const [open, setOpen] = React.useState(false);
+
   return (
     <Select
       defaultValue={useSiteBarState.editorLineSplit}
@@ -125,10 +145,18 @@ const LineSplitSelect: React.FC = () => {
         updateSiteBar({ editorLineSplit: value as (typeof LineSplit)[number] });
       }}
     >
-      <SelectTrigger className="h-6 w-20 text-xs border-0 rounded-sm">
+      <SelectTrigger
+        className="h-6 w-20 text-xs border-0 rounded-sm"
+        onMouseEnter={() => {
+          setOpen(true);
+        }}
+        onMouseLeave={() => {
+          setOpen(false);
+        }}
+      >
         <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger id="encoding">
+          <Tooltip open={open}>
+            <TooltipTrigger id="lineSeparator" asChild>
               <SelectValue
                 placeholder="Theme"
                 className={"w-full"}

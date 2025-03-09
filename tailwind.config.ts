@@ -108,28 +108,22 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ["-apple-system"],
+      },
       fontWeight: {},
       fontSize: {
-        h1: ["20px", { lineHeight: "24px", fontWeight: "Semibold" }],
-        h2: ["16px", { lineHeight: "20px", fontWeight: "Semibold" }],
-        default: ["13px", { lineHeight: "16px", fontWeight: "Medium" }],
-        "default-semibold": [
-          "13px",
-          { lineHeight: "16px", fontWeight: "Semibold" },
-        ],
-        paragraph: ["13px", { lineHeight: "18px", fontWeight: "Medium" }],
-        medium: ["12px", { lineHeight: "16px", fontWeight: "Medium" }],
-        "medium-semibold": [
-          "12px",
-          { lineHeight: "16px", fontWeight: "Semibold" },
-        ],
-        "editor-default": [
-          "12px",
-          { lineHeight: "22px", fontWeight: "Medium" },
-        ],
-        "editor-bold": ["12px", { lineHeight: "22px", fontWeight: "Bold" }],
-        small: ["13px", { lineHeight: "22px", fontWeight: "Medium" }],
-        "small-bold": ["12px", { lineHeight: "22px", fontWeight: "Bold" }],
+        h1: ["20px", { lineHeight: "24px", fontWeight: 700 }],
+        h2: ["16px", { lineHeight: "20px", fontWeight: 700 }],
+        default: ["13px", { lineHeight: "16px", fontWeight: 500 }],
+        "default-semibold": ["13px", { lineHeight: "16px", fontWeight: 700 }],
+        paragraph: ["13px", { lineHeight: "18px", fontWeight: 500 }],
+        medium: ["12px", { lineHeight: "16px", fontWeight: 500 }],
+        "medium-semibold": ["12px", { lineHeight: "16px", fontWeight: 700 }],
+        "editor-default": ["12px", { lineHeight: "22px", fontWeight: 500 }],
+        "editor-bold": ["12px", { lineHeight: "22px", fontWeight: 700 }],
+        small: ["13px", { lineHeight: "22px", fontWeight: 500 }],
+        "small-bold": ["12px", { lineHeight: "22px", fontWeight: 700 }],
       },
       boxShadow: {
         popup: "0px 6px 20px rgba(145, 145, 145, 0.47)",
