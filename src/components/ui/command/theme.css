@@ -2,38 +2,33 @@
 
 @layer components {
   :root {
-    .editor-bar {
-
-    }
-    .editor-bar-select-content, .editor-bar-select-trigger {
+    .command-content,
+    .command-trigger {
       background-color: var(--secondary);
       color: var(--secondary-foreground);
       caret-color: var(--gray-2);
     }
-    .editor-bar-select-trigger:hover {
+    .command-trigger:hover {
       background-color: var(--red-1);
     }
 
-    .editor-bar-select-item:hover {
+    .command-item:hover {
       background-color: var(--blue-1);
     }
   }
   .dark {
-    .editor-bar {
-      background-color: var(--gray-2);
-    }
-
-    .editor-bar-select-content, .editor-bar-select-trigger {
+    .command-content,
+    .command-trigger {
       background-color: var(--secondary);
       color: var(--gray-13);
       caret-color: var(--gray-13);
     }
 
-    .editor-bar-select-trigger:hover {
+    .command-trigger:hover {
       background-color: var(--gray-3);
     }
 
-    .editor-bar-select-item:hover {
+    .command-item:hover {
       background-color: var(--blue-2);
     }
   }

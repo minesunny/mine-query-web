@@ -3,14 +3,17 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import "./theme.css";
 import { cn } from "@/lib/utils";
+import { SVG } from "../Icons";
+import { Separator } from "../separator";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium " +
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-default font-inter " +
     "disabled:pointer-events-none " +
     "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
+        outline: "",
         primary: "button-primary",
         icon: "bg-primary",
       },
@@ -51,4 +54,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+const SVGButton = React.forwardRef<HTMLButtonElement, { name: string }>(
+  ({ name }, ref) => {
+    return (
+      <>
+        <Button variant={"icon"} className={"svg-button h-6 w-6"}>
+          <SVG name={name} />
+        </Button>
+        <Separator
+          orientation="vertical"
+          className={"svg-button-split mx-2 h-5"}
+        />
+      </>
+    );
+  },
+);
+SVGButton.displayName = "SVGButton";
+
+export { Button, buttonVariants, SVGButton };

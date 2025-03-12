@@ -8,7 +8,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuShortcut,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu/dropdown-menu";
 import { Button } from "@/components/ui/button/button";
 
 export function UserNav() {

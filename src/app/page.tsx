@@ -9,6 +9,7 @@ import {
 
 import { PageContent } from "@/app/page/content/PageContent";
 import DatasourceTree from "@/components/tree/datasource-tree";
+import TableDemo from "./page/content/TableDemo";
 
 export default function Page() {
   const [mounted, setMounted] = useState(false);
@@ -29,8 +30,7 @@ export default function Page() {
       <ResizablePanel defaultSize={85}>
         <ResizablePanelGroup direction="horizontal">
           <ResizablePanel defaultSize={75}>
-            {/*<SQLEditor />*/}
-            <PageContent />
+            <TableDemo />
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={25} className={"bg-secondary border-0"}>

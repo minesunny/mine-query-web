@@ -1,7 +1,7 @@
 import { useSQLEditorEnvStore } from "@/store/SQLEditorEnvStore";
 import React, { useState } from "react";
 import "./theme.css";
-import { Button } from "@/components/ui/button/button";
+import { Button, SVGButton } from "@/components/ui/button/button";
 import { SVG } from "@/components/ui/Icons";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -17,36 +17,13 @@ const SQLEditorBar: React.FC<{
   return (
     <div className="h-9 w-300 flex border-0 bg-secondary items-center">
       <Separator orientation="vertical" className={"mx-6 h-5"} />
-      <Button variant={"icon"} className={"editor-bar-button h-6 w-6"}>
-        <SVG name={"run"} />
-      </Button>
-      <Separator
-        orientation="vertical"
-        className={"editor-bar-button-split mx-2 h-5"}
-      />
+      <SVGButton name={"run"} />
+      <SVGButton name={"history"} />
 
-      <Button variant={"icon"} className={"editor-bar-button h-6 w-6"}>
-        <SVG name={"history"} />
-      </Button>
-      <Separator
-        orientation="vertical"
-        className={"editor-bar-button-split mx-2 h-5"}
-      />
+      <SVGButton name={"viewParameters"} />
 
-      <Button variant={"icon"} className={"editor-bar-button h-6 w-6"}>
-        <SVG name={"viewParameters"} />
-      </Button>
-      <Separator
-        orientation="vertical"
-        className={"editor-bar-button-split mx-2 h-5"}
-      />
-      <Button variant={"icon"} className={"editor-bar-button h-6 w-6"}>
-        <SVG name={"settings"} />
-      </Button>
-      <Separator
-        orientation="vertical"
-        className={"editor-bar-button-split mx-2 h-5"}
-      />
+      <SVGButton name={"settings"} />
+
       <SQLEditorBarTransactionSelect editorId={editorId} />
       <Separator
         orientation="vertical"
@@ -57,17 +34,8 @@ const SQLEditorBar: React.FC<{
         orientation="vertical"
         className={"editor-bar-button-split mx-2 h-5"}
       />
-      <Button
-        variant={"icon"}
-        className={"editor-bar-button h-6 w-6 disabled:!cursor-not-allowed"}
-        disabled={editor == undefined || editor.running}
-      >
-        <SVG name={"runStop"} />
-      </Button>
-      <Separator
-        orientation="vertical"
-        className={"editor-bar-button-split mx-2 h-5"}
-      />
+      <SVGButton name={"runStop"} />
+
     </div>
   );
 };
