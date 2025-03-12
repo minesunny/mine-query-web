@@ -24,6 +24,7 @@ export interface SQLEditorEnv {
   };
   path?: string; // datasourceName-databaseName-schemaName-
   executing?: boolean;
+  dataIds?: string[];
 }
 
 interface SQLEditorEnvStore {

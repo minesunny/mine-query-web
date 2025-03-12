@@ -4,7 +4,6 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import React from "react";
-import { ResultTabContent } from "@/components/tab-content/result-tab-content";
 
 import { SQLEditor } from "@/components/editor/sql-editor";
 
@@ -19,7 +18,7 @@ export function PageContent() {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={45}>
-        <ResultTabContent />
+        {/*<ResultTabContent />*/}
       </ResizablePanel>
     </ResizablePanelGroup>
   );

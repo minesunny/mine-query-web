@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { z } from "zod";
 
-import { columns } from "@/components/table/columns";
+import { columns } from "@/components/result/columns";
 import { DataTable } from "@/components/ui/table/data-table";
 import { taskSchema } from "@/components/ui/data/schema";
 
