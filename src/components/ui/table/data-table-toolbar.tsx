@@ -1,17 +1,16 @@
-"use client"
+"use client";
 
-import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { Table } from "@tanstack/react-table";
 
 import { Button, SVGButton } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
-import { DataTableViewOptions } from "./data-table-view-options"
+import { DataTableViewOptions } from "./data-table-view-options";
 
-import { priorities, statuses } from "../data/data"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import { priorities, statuses } from "../data/data";
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>;
 }
 
 export function DataTableToolbar<TData>({
@@ -64,7 +63,7 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <X />
+            <SVGButton name="plus" />
           </Button>
         )}
       </div>

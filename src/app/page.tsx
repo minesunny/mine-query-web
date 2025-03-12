@@ -19,26 +19,27 @@ export default function Page() {
 
   if (!mounted) return null;
   return (
-    <ResizablePanelGroup direction="horizontal" className="rounded-lg border-0">
-      <ResizablePanel
-        defaultSize={15}
-        className={"h-full min-w-36 overflow-y-scroll bg-secondary"}
-      >
-        <DatasourceTree />
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={85}>
+    <ResizablePanelGroup direction="vertical" className="rounded-lg border-0">
+      <ResizablePanel defaultSize={75}>
         <ResizablePanelGroup direction="horizontal">
-          <ResizablePanel defaultSize={75}>
-            <TableDemo />
+          <ResizablePanel defaultSize={10} className={"bg-secondary border-0"}>
+            left
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={25} className={"bg-secondary border-0"}>
-            <div className="flex h-full items-center justify-center p-6">
-              <span className="font-semibold  bg-teal-1">Three</span>
-            </div>
+          <ResizablePanel defaultSize={80}>mid</ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={10} className={"bg-secondary border-0"}>
+            right
           </ResizablePanel>
         </ResizablePanelGroup>
+      </ResizablePanel>
+      <ResizableHandle />
+
+      <ResizablePanel
+        defaultSize={20}
+        className={"w-full overflow-y-scroll bg-secondary"}
+      >
+        <TableDemo />
       </ResizablePanel>
     </ResizablePanelGroup>
   );

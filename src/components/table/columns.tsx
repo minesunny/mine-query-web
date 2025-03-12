@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "../data/data"
-import { Task } from "../data/schema"
-import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
+import { labels, priorities, statuses } from "../ui/data/data";
+import { Task } from "../ui/data/schema";
+import { DataTableColumnHeader } from "../ui/table/data-table-column-header";
+import { DataTableRowActions } from "../ui/table/data-table-row-actions";
 
 export const columns: ColumnDef<Task>[] = [
   {
     id: "select",
-    enableResizing:true,
+    enableResizing: true,
     size: 100,
     header: ({ table }) => (
       <Checkbox

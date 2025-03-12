@@ -54,7 +54,7 @@ export function SiteFooter() {
   return (
     <div
       className={
-        "h-8 w-full bg-secondary flex justify-between px-8 items-center"
+        "h-auto w-full bg-secondary flex justify-between px-8 items-center"
       }
     >
       <div id="path" className="w-[500px] flex flex-row">

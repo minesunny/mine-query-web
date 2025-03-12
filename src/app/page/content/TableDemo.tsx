@@ -1,8 +1,7 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { z } from "zod";
 
-import { columns } from "@/components/ui/table/columns";
+import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/ui/table/data-table";
 import { taskSchema } from "@/components/ui/data/schema";
 
@@ -12,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 // Simulate a database read for tasks.
- function getTasks() {
-  const data = [
+function getTasks() {
+  const tasks = [
     {
       id: "TASK-8782",
       title:
@@ -797,13 +796,10 @@ export const metadata: Metadata = {
     },
   ];
 
-   const tasks = data;
-
   return z.array(taskSchema).parse(tasks);
 }
 
-export default  function TableDemo() {
-
+export default function TableDemo() {
   return (
     <>
       <DataTable data={getTasks()} columns={columns} />
