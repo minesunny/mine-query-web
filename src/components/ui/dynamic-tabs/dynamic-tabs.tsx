@@ -16,9 +16,17 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
-import { Separator } from "@radix-ui/react-menu";
 import { Input } from "../input/input";
-import { SVGButton } from "../button/button";
+import { SVG } from "../Icons";
+import { Separator } from "../separator";
+const tabsIndexOf = (items: DynamicTabsItem[], id: string) => {
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].id === id) {
+      return i;
+    }
+  }
+  return -1;
+};
 type DynamicTabsItem = {
   id: string;
   label: string;
@@ -31,211 +39,204 @@ type DynamicTabsContent = {
   content: React.ReactNode;
 };
 
-type DynamicTabsProps = {
-  items: DynamicTabsItem[];
-  contents: DynamicTabsContent[];
-  onActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
-  onDisActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
-  onClose?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
-  onCloseAll?: (
-    items: DynamicTabsItem[],
-    contents: (DynamicTabsContent | undefined)[],
-  ) => void;
-  onCloseOther?: (
-    items: DynamicTabsItem[],
-    contents: (DynamicTabsContent | undefined)[],
-  ) => void;
-  onCloseLeft?: (
-    items: DynamicTabsItem[],
-    contents: (DynamicTabsContent | undefined)[],
-  ) => void;
-  onCloseRight?: (
-    items: DynamicTabsItem[],
-    contents: (DynamicTabsContent | undefined)[],
-  ) => void;
-  onRename?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
-};
-const tabsIndexOf = (items: DynamicTabsItem[], id: string) => {
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].id === id) {
-      return i;
-    }
-  }
-  return -1;
-};
-const DynamicTabs: React.FC<DynamicTabsProps> = ({
-  items,
-  contents,
-  onActive,
-  onDisActive,
-  onClose,
-  onCloseAll,
-  onCloseOther,
-  onCloseRight,
-  onCloseLeft,
-  onRename,
-}) => {
-  const [contentsState, setContentsState] =
-    React.useState<DynamicTabsContent[]>(contents);
-  const [activeTab, setActiveTab] = React.useState<DynamicTabsItem>(items[0]);
-  const active = (item: DynamicTabsItem) => {
-    setActiveTab(item);
-    if (onActive) {
-      onActive(
-        item,
-        contentsState.find((ele) => ele.id == item.id),
-      );
-    }
-  };
+// type DynamicTabsProps = {
+//   items: DynamicTabsItem[];
+//   contents: DynamicTabsContent[];
+//   onActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
+//   onDisActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
+//   onClose?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
+//   onCloseAll?: (
+//     items: DynamicTabsItem[],
+//     contents: (DynamicTabsContent | undefined)[],
+//   ) => void;
+//   onCloseOther?: (
+//     items: DynamicTabsItem[],
+//     contents: (DynamicTabsContent | undefined)[],
+//   ) => void;
+//   onCloseLeft?: (
+//     items: DynamicTabsItem[],
+//     contents: (DynamicTabsContent | undefined)[],
+//   ) => void;
+//   onCloseRight?: (
+//     items: DynamicTabsItem[],
+//     contents: (DynamicTabsContent | undefined)[],
+//   ) => void;
+//   onRename?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
+// };
 
-  const disActive = (item: DynamicTabsItem) => {
-    if (onDisActive) {
-      onDisActive(
-        item,
-        contentsState.find((ele) => ele.id == item.id),
-      );
-    }
-  };
+// const DynamicTabs: React.FC<DynamicTabsProps> = ({
+//   items,
+//   contents,
+//   onActive,
+//   onDisActive,
+//   onClose,
+//   onCloseAll,
+//   onCloseOther,
+//   onCloseRight,
+//   onCloseLeft,
+//   onRename,
+// }) => {
+//   const [contentsState, setContentsState] =
+//     React.useState<DynamicTabsContent[]>(contents);
+//   const [activeTab, setActiveTab] = React.useState<DynamicTabsItem>(items[0]);
+//   const active = (item: DynamicTabsItem) => {
+//     setActiveTab(item);
+//     if (onActive) {
+//       onActive(
+//         item,
+//         contentsState.find((ele) => ele.id == item.id),
+//       );
+//     }
+//   };
 
-  const close = (item: DynamicTabsItem) => {
-    if (onClose) {
-      onClose(
-        item,
-        contentsState.find((ele) => ele.id == item.id),
-      );
-    }
-  };
-  const closeAllTabs = (items: DynamicTabsItem[]) => {
-    setContentsState([]);
-    const contents: (DynamicTabsContent | undefined)[] = [];
-    items.forEach((item, index) => {
-      contents.push(contentsState.find((ele) => ele.id == item.id));
-    });
-    if (onCloseAll) {
-      onCloseAll(items, contents);
-    }
-  };
+//   const disActive = (item: DynamicTabsItem) => {
+//     if (onDisActive) {
+//       onDisActive(
+//         item,
+//         contentsState.find((ele) => ele.id == item.id),
+//       );
+//     }
+//   };
 
-  const closeLeftTabs = (items: DynamicTabsItem[]) => {
-    const contents: (DynamicTabsContent | undefined)[] = [];
-    const remainContents: DynamicTabsContent[] = [];
-    items.forEach((item, index) => {
-      contents.push(contentsState.find((ele) => ele.id == item.id));
-    });
+//   const close = (item: DynamicTabsItem) => {
+//     if (onClose) {
+//       onClose(
+//         item,
+//         contentsState.find((ele) => ele.id == item.id),
+//       );
+//     }
+//   };
+//   const closeAllTabs = (items: DynamicTabsItem[]) => {
+//     setContentsState([]);
+//     const contents: (DynamicTabsContent | undefined)[] = [];
+//     items.forEach((item, index) => {
+//       contents.push(contentsState.find((ele) => ele.id == item.id));
+//     });
+//     if (onCloseAll) {
+//       onCloseAll(items, contents);
+//     }
+//   };
 
-    contentsState.forEach((item, index) => {
-      const con = contents.find((ele) => {
-        if (ele == undefined) {
-          return undefined;
-        }
-        return ele.id == item.id;
-      });
-      if (con == undefined) {
-        remainContents.push(item);
-      }
-    });
-    setContentsState([...remainContents]);
-    if (onCloseLeft) {
-      onCloseLeft(items, contents);
-    }
-  };
+//   const closeLeftTabs = (items: DynamicTabsItem[]) => {
+//     const contents: (DynamicTabsContent | undefined)[] = [];
+//     const remainContents: DynamicTabsContent[] = [];
+//     items.forEach((item, index) => {
+//       contents.push(contentsState.find((ele) => ele.id == item.id));
+//     });
 
-  const closeRightTabs = (item: DynamicTabsItem) => {
-    const contents: (DynamicTabsContent | undefined)[] = [];
-    const remainContents: DynamicTabsContent[] = [];
-    items.forEach((item, index) => {
-      contents.push(contentsState.find((ele) => ele.id == item.id));
-    });
-    contentsState.forEach((item, index) => {
-      const con = contents.find((ele) => {
-        if (ele == undefined) {
-          return undefined;
-        }
-        return ele.id == item.id;
-      });
-      if (con == undefined) {
-        remainContents.push(item);
-      }
-    });
-    setContentsState([...remainContents]);
-    if (onCloseRight) {
-      onCloseRight(items, contents);
-    }
-  };
+//     contentsState.forEach((item, index) => {
+//       const con = contents.find((ele) => {
+//         if (ele == undefined) {
+//           return undefined;
+//         }
+//         return ele.id == item.id;
+//       });
+//       if (con == undefined) {
+//         remainContents.push(item);
+//       }
+//     });
+//     setContentsState([...remainContents]);
+//     if (onCloseLeft) {
+//       onCloseLeft(items, contents);
+//     }
+//   };
 
-  const closeOtherTabs = (items: DynamicTabsItem[]) => {
-    const contents: (DynamicTabsContent | undefined)[] = [];
-    const remainContents: DynamicTabsContent[] = [];
-    items.forEach((item, index) => {
-      contents.push(contentsState.find((ele) => ele.id == item.id));
-    });
-    contentsState.forEach((item, index) => {
-      const con = contents.find((ele) => {
-        if (ele == undefined) {
-          return undefined;
-        }
-        return ele.id == item.id;
-      });
-      if (con == undefined) {
-        remainContents.push(item);
-      }
-    });
-    setContentsState([...remainContents]);
-    if (onCloseOther) {
-      onCloseOther(items, contents);
-    }
-  };
-  const rename = (item: DynamicTabsItem) => {
-    const newContents = contentsState.map((tab) =>
-      tab.id === item.id ? { ...tab, label: item.label } : tab,
-    );
-    setContentsState(newContents);
-    if (onRename) {
-      onRename(
-        item,
-        contentsState.find((ele) => ele.id == item.id),
-      );
-    }
-  };
+//   const closeRightTabs = (item: DynamicTabsItem) => {
+//     const contents: (DynamicTabsContent | undefined)[] = [];
+//     const remainContents: DynamicTabsContent[] = [];
+//     items.forEach((item, index) => {
+//       contents.push(contentsState.find((ele) => ele.id == item.id));
+//     });
+//     contentsState.forEach((item, index) => {
+//       const con = contents.find((ele) => {
+//         if (ele == undefined) {
+//           return undefined;
+//         }
+//         return ele.id == item.id;
+//       });
+//       if (con == undefined) {
+//         remainContents.push(item);
+//       }
+//     });
+//     setContentsState([...remainContents]);
+//     if (onCloseRight) {
+//       onCloseRight(items, contents);
+//     }
+//   };
 
-  return (
-    <div className={"w-[500px] h-[500px] bg-editor-content "}>
-      <DynamicTabItems
-        tabItems={items}
-        activeTabItem={items[0]}
-        onActiveTabItem={active}
-        onCloseLeftTabItems={closeLeftTabs}
-        onCloseRightTabItems={closeAllTabs}
-        newTabItem={{
-          id: "",
-          label: "",
-        }}
-        onCloseAllTabItems={closeAllTabs}
-        onDisActiveTabItem={disActive}
-        onRenameTabItem={rename}
-        onCloseOtherTabItems={closeOtherTabs}
-      />
-      {contentsState &&
-        contentsState.map((content, index) => (
-          <TabContent
-            key={index}
-            content={content}
-            isActive={activeTab?.id == content.id}
-          />
-        ))}
-    </div>
-  );
-};
+//   const closeOtherTabs = (items: DynamicTabsItem[]) => {
+//     const contents: (DynamicTabsContent | undefined)[] = [];
+//     const remainContents: DynamicTabsContent[] = [];
+//     items.forEach((item, index) => {
+//       contents.push(contentsState.find((ele) => ele.id == item.id));
+//     });
+//     contentsState.forEach((item, index) => {
+//       const con = contents.find((ele) => {
+//         if (ele == undefined) {
+//           return undefined;
+//         }
+//         return ele.id == item.id;
+//       });
+//       if (con == undefined) {
+//         remainContents.push(item);
+//       }
+//     });
+//     setContentsState([...remainContents]);
+//     if (onCloseOther) {
+//       onCloseOther(items, contents);
+//     }
+//   };
+//   const rename = (item: DynamicTabsItem) => {
+//     const newContents = contentsState.map((tab) =>
+//       tab.id === item.id ? { ...tab, label: item.label } : tab,
+//     );
+//     setContentsState(newContents);
+//     if (onRename) {
+//       onRename(
+//         item,
+//         contentsState.find((ele) => ele.id == item.id),
+//       );
+//     }
+//   };
 
-const TabContent: React.FC<{ content: DynamicTabsContent; isActive: boolean }> =
-  React.memo(({ content, isActive }) => {
-    return (
-      <div className={`${isActive ? "visible" : "hidden"} w-full h-full`}>
-        {content.content};
-      </div>
-    );
-  });
-TabContent.displayName = "TabContent";
+//   return (
+//     <div className={"w-[500px] h-[500px] bg-editor-content "}>
+//       <DynamicTabItems
+//         tabItems={items}
+//         activeTabItem={items[0]}
+//         onActiveTabItem={active}
+//         onCloseLeftTabItems={closeLeftTabs}
+//         onCloseRightTabItems={closeAllTabs}
+//         newTabItem={{
+//           id: "",
+//           label: "",
+//         }}
+//         onCloseAllTabItems={closeAllTabs}
+//         onDisActiveTabItem={disActive}
+//         onRenameTabItem={rename}
+//         onCloseOtherTabItems={closeOtherTabs}
+//       />
+//       {contentsState &&
+//         contentsState.map((content, index) => (
+//           <TabContent
+//             key={index}
+//             content={content}
+//             isActive={activeTab?.id == content.id}
+//           />
+//         ))}
+//     </div>
+//   );
+// };
+
+// const TabContent: React.FC<{ content: DynamicTabsContent; isActive: boolean }> =
+//   React.memo(({ content, isActive }) => {
+//     return (
+//       <div className={`${isActive ? "visible" : "hidden"} w-full h-full`}>
+//         {content.content};
+//       </div>
+//     );
+//   });
+// TabContent.displayName = "TabContent";
 type TabType = "Default" | "Selected" | "Selected Inactive";
 const TabClass: Record<
   TabType,
@@ -275,11 +276,13 @@ type DynamicTabItemProp = {
 
 const DynamicTabItems: React.FC<
   DynamicTabItemProp & {
+    closeLast?: boolean;
     tabItems: DynamicTabsItem[];
     activeTabItem: DynamicTabsItem;
     newTabItem?: DynamicTabsItem | undefined;
   }
 > = ({
+  closeLast,
   tabItems,
   onActiveTabItem,
   onCloseTabItem,
@@ -327,6 +330,9 @@ const DynamicTabItems: React.FC<
     }
   };
   const close = (tabItem: DynamicTabsItem) => {
+    if (!closeLast && items.length == 1) {
+      return;
+    }
     let index = tabsIndexOf(items, tabItem.id);
     const newTabs = items.filter((tab) => tab.id !== tabItem.id);
     index = index >= newTabs.length ? newTabs.length - 1 : index;
@@ -343,6 +349,9 @@ const DynamicTabItems: React.FC<
   };
 
   const closeAllTabs = (tabItems: DynamicTabsItem[]) => {
+    if (!closeLast) {
+      return;
+    }
     setItems([]);
     if (onCloseAllTabItems) {
       onCloseAllTabItems(tabItems);
@@ -352,6 +361,9 @@ const DynamicTabItems: React.FC<
   const closeLeftTabs = (tabItem: DynamicTabsItem) => {
     const id = tabItem.id;
     let index = 0;
+    if (items[index].id === tabItem.id) {
+      return;
+    }
     let item0;
     let leftActive = false;
     for (; index < items.length; index++) {
@@ -377,11 +389,13 @@ const DynamicTabItems: React.FC<
 
   const closeRightTabs = (tabItem: DynamicTabsItem) => {
     const id = tabItem.id;
-    let index = 0;
+    let index = items.length - 1;
+    if (items[index].id === tabItem.id) {
+      return;
+    }
     let item0;
     let rightActive = false;
-
-    for (; index < items.length; index++) {
+    for (; index >= 0; index--) {
       if (items[index].id === activeItem.id) {
         rightActive = true;
       }
@@ -390,9 +404,9 @@ const DynamicTabItems: React.FC<
         break;
       }
     }
-    setItems(items.slice(0, index));
+    setItems(items.slice(0, index + 1));
     if (onCloseRightTabItems) {
-      onCloseRightTabItems(items.slice(index));
+      onCloseRightTabItems(items.slice(index + 1));
     }
 
     if (rightActive && item0) {
@@ -426,6 +440,14 @@ const DynamicTabItems: React.FC<
       onRenameTabItem(tabItem);
     }
   };
+  const closeClass = (id: string) => {
+    if (!closeLast && items.length == 1) {
+      return "invisible";
+    }
+    return activeItem.id == id
+      ? TabClass["Selected"].closeIcon
+      : "invisible group-hover:visible";
+  };
   return (
     <div className={"h-[41px] w-full flex items-center justify-start"}>
       {items &&
@@ -452,10 +474,10 @@ const DynamicTabItems: React.FC<
                   </button>
                   <div
                     id="closeIcon"
-                    className={`tab-item-icon h-[16px] w-[16px] rounded-full ${activeItem.id == item.id ? TabClass["Selected"].closeIcon : "invisible group-hover:visible"}`}
+                    className={`tab-item-icon h-[16px] w-[16px] rounded-full ${closeClass(item.id)}`}
                     onClick={() => close(item)}
                   >
-                    <SVGButton name={"closeSmall"} />
+                    <SVG name={"closeSmall"} />
                   </div>
                 </ContextMenuTrigger>
                 <Separator
@@ -468,12 +490,12 @@ const DynamicTabItems: React.FC<
                       Close Other Tabs
                     </ContextMenuItem>
                   )}
-                  {onCloseLeftTabItems && (
+                  {onCloseLeftTabItems && index != 0 && (
                     <ContextMenuItem inset onClick={() => closeLeftTabs(item)}>
                       Close Tabs To Left
                     </ContextMenuItem>
                   )}
-                  {onCloseRightTabItems && (
+                  {onCloseRightTabItems && index != items.length - 1 && (
                     <ContextMenuItem inset onClick={() => closeRightTabs(item)}>
                       Close Tabs To Right
                     </ContextMenuItem>
@@ -521,5 +543,5 @@ const DynamicTabItems: React.FC<
   );
 };
 
-export { DynamicTabs, DynamicTabItems };
-export type { DynamicTabsProps, DynamicTabsItem, DynamicTabsContent };
+export { DynamicTabItems };
+export type { DynamicTabsItem, DynamicTabsContent };

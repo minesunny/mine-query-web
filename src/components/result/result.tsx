@@ -87,16 +87,40 @@ export const Result: React.FC = () => {
       <div className={"flex flex-col"}>
         <DynamicTabItems
           tabItems={items}
-          activeTabItem={items[0]}
+          activeTabItem={active}
           onActiveTabItem={(item) => {
             setActive(item);
           }}
           onDisActiveTabItem={(tabItem) => {}}
-          onCloseTabItem={(tabItem) => {}}
-          onCloseOtherTabItems={(tabItems) => {}}
+          onCloseTabItem={(tabItem) => {
+            setItems(items.filter((item) => item.id != tabItem.id));
+            setContents(contents.filter((item) => item.id != tabItem.id));
+          }}
+          onCloseOtherTabItems={(tabItems) => {
+            setItems(
+              items.filter(
+                (item) => !tabItems.find((tab) => tab.id === item.id),
+              ),
+            );
+            setItems(
+              items.filter(
+                (item) => !tabItems.find((tab) => tab.id === item.id),
+              ),
+            );
+          }}
           onCloseLeftTabItems={(tabItems) => {}}
           onCloseRightTabItems={(tabItems) => {}}
-          onRenameTabItem={(item: DynamicTabsItem) => {}}
+          onRenameTabItem={(item: DynamicTabsItem) => {
+            const index = items.findIndex((it) => it.id === item.id);
+            if (index == -1) {
+              return;
+            }
+            setItems([
+              ...items.slice(0, index),
+              item,
+              ...items.slice(index + 1),
+            ]);
+          }}
         />
         {contents &&
           contents.map((content, index) => {
