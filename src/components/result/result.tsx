@@ -1,19 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DynamicTabItems,
   DynamicTabsItem,
 } from "@/components/ui/dynamic-tabs/dynamic-tabs";
-import { SVGButton } from "@/components/ui/button/button";
 
-const Result: React.FC = () => {
+import { event } from "@/store/Event";
+import { executeApi } from "@/api/execute-api";
+import { ExecuteResultItem } from "@/models/execute";
+import { ResultSetTable } from "./result-set-table";
+
+export const Result: React.FC = () => {
+  const [items, setItems] = useState<DynamicTabsItem[]>([
+    {
+      id: "string",
+      label: "string",
+    },
+  ]);
+  const [active, setActive] = useState<DynamicTabsItem>(items[0]);
+  const [contents, setContents] = useState<
+    {
+      id: string;
+      content: ExecuteResultItem | undefined;
+    }[]
+  >([
+    {
+      id: "string",
+      content: undefined,
+    },
+  ]);
+  useEffect(() => {
+    const unsubscribe = event.subscribe("execute", (data) => {
+      executeApi.executeStatement(data.executeContext).then((result) => {
+        const resultItems: ExecuteResultItem[] = result.items;
+        const newItems: DynamicTabsItem[] = [];
+        const newContents: {
+          id: string;
+          content: ExecuteResultItem | undefined;
+        }[] = [];
+        const existTabs: number[][] = [];
+
+        resultItems.forEach((result, index) => {
+          const find = contents.findIndex(
+            (content) =>
+              result.statement.statement + " " + index === content.id,
+          );
+          if (find != -1) {
+            existTabs.push([find, index]);
+          } else {
+            newItems.push({
+              id: result.statement.statement + " " + index,
+              label: "test label " + index,
+            });
+            newContents.push({
+              id: result.statement.statement + " " + index,
+              content: result,
+            });
+          }
+        });
+        items.forEach((item, index) => {
+          const find = existTabs.find((exist) => exist[0] == index);
+          if (find) {
+            newItems.unshift(item);
+            newContents.unshift({
+              id: item.id,
+              content: resultItems[find[1]],
+            });
+          } else {
+            newItems.unshift(item);
+            newContents.unshift(contents[index]);
+          }
+        });
+        newContents;
+        setItems([...newItems]);
+        setContents([...newContents]);
+      });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={"w-full h-full"}>
       <div className={"flex flex-col"}>
         <DynamicTabItems
-          tabItems={}
-          activeTabItem={}
-          newTabItem={}
-          onActiveTabItem={}
+          tabItems={items}
+          activeTabItem={items[0]}
+          onActiveTabItem={(item) => {
+            setActive(item);
+          }}
           onDisActiveTabItem={(tabItem) => {}}
           onCloseTabItem={(tabItem) => {}}
           onCloseOtherTabItems={(tabItems) => {}}
@@ -21,7 +98,29 @@ const Result: React.FC = () => {
           onCloseRightTabItems={(tabItems) => {}}
           onRenameTabItem={(item: DynamicTabsItem) => {}}
         />
-        <SVGButton name={"plus"} />
+        {contents &&
+          contents.map((content, index) => {
+            if (content.content) {
+              return (
+                <div
+                  key={index}
+                  className={`${active.id == content.id ? "visible" : "hidden"} w-full h-full`}
+                >
+                  <ResultSetTable
+                    editorId=""
+                    resultId=""
+                    columns={content.content.columns}
+                    data={content.content.values}
+                  />
+                </div>
+              );
+            } else {
+              <div
+                key={index}
+                className={`${active.id == content.id ? "visible" : "hidden"} w-full h-full`}
+              ></div>;
+            }
+          })}
       </div>
     </div>
   );

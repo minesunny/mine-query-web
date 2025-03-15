@@ -26,7 +26,7 @@ import {
   ColumnResizeMode,
   ColumnResizeDirection,
 } from "@tanstack/react-table";
-
+import { RowValue } from "@/models/value";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { ScrollArea, ScrollBar } from "../scroll-area";
@@ -91,13 +91,13 @@ export function DataTable<TData, TValue>({
         <div className="rounded-md">
           <Table style={{ width: table.getCenterTotalSize() }}>
             <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
+              {table.getHeaderGroups().map((headerGroup, index) => (
+                <TableRow key={index}>
+                  {headerGroup.headers.map((header, index) => {
                     return (
                       <TableHead
                         className={"relative"}
-                        key={header.id}
+                        key={index}
                         colSpan={header.colSpan}
                         style={{
                           width: header.getSize(),
@@ -143,14 +143,14 @@ export function DataTable<TData, TValue>({
             </TableHeader>
             <TableBody>
               {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
+                table.getRowModel().rows.map((row, index) => (
                   <TableRow
-                    key={row.id}
+                    key={index}
                     data-state={row.getIsSelected() && "selected"}
                   >
-                    {row.getVisibleCells().map((cell) => (
+                    {row.getVisibleCells().map((cell, index) => (
                       <TableCell
-                        key={cell.id}
+                        key={index}
                         style={{
                           width: cell.column.getSize(),
                           minWidth: cell.column.columnDef.minSize,

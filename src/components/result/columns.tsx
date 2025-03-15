@@ -4,12 +4,33 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "../ui/data/data";
-import { Task } from "../ui/data/schema";
 import { DataTableColumnHeader } from "../ui/table/data-table-column-header";
 import { DataTableRowActions } from "../ui/table/data-table-row-actions";
+import { RowColumn } from "@/models/column";
+import { CellValue, RowValue } from "@/models/value";
 
-export const columns: ColumnDef<Task>[] = [
+export const ResultColumns = (columnMeta: RowColumn): ColumnDef<RowValue>[] => {
+  const columnHeader: ColumnDef<RowValue>[] = columnMeta.map((value, index) => {
+    return {
+      accessorKey: `${index}`,
+      size: 100,
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={value.name} />
+      ),
+      accessorFn: (row) => row[index],
+      filterFn: (row, id, value) => {
+        return value.includes(row.getValue(id));
+      },
+      cell: ({ getValue }) => {
+        const value = getValue() as CellValue;
+        return <div>{value.value}</div>;
+      },
+    };
+  });
+  return [columns[0], ...columnHeader, ...columns.toSpliced(0, 1)];
+};
+
+const columns: ColumnDef<RowValue>[] = [
   {
     id: "select",
     enableResizing: true,
@@ -37,7 +58,7 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    id: "id",
     size: 100,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Task" />
@@ -45,78 +66,6 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: "title",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
-    ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-      return (
-        <div>ff</div>
-        // <div className="flex space-x-2">
-        //   {label && <Badge variant="outline">{label.label}</Badge>}
-        //   <span className="truncate font-medium">{row.getValue("title")}</span>
-        // </div>
-      );
-    },
-  },
-  {
-    accessorKey: "status",
-    size: 100,
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status"),
-      );
-
-      if (!status) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    size: 100,
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority"),
-      );
-
-      if (!priority) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
   },
   {
     size: 100,

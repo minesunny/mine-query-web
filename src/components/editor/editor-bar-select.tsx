@@ -16,11 +16,7 @@ const SQLEditorBarTransactionSelect: React.FC<{
   editorId: string;
 }> = ({ editorId }) => {
   return (
-    <Select
-      onOpenChange={(open) => {
-        console.log(open);
-      }}
-    >
+    <Select onOpenChange={(open) => {}}>
       <SelectTrigger className="w-24 h-6 editor-bar-select-trigger text-default font-inter">
         <SelectValue placeholder="模式" />
       </SelectTrigger>

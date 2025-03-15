@@ -16,9 +16,9 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu/context-menu";
-import { SVG } from "@/components/ui/Icons";
 import { Separator } from "@radix-ui/react-menu";
 import { Input } from "../input/input";
+import { SVGButton } from "../button/button";
 type DynamicTabsItem = {
   id: string;
   label: string;
@@ -37,7 +37,6 @@ type DynamicTabsProps = {
   onActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
   onDisActive?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
   onClose?: (item: DynamicTabsItem, content?: DynamicTabsContent) => void;
-  create?: () => [item: DynamicTabsItem, content?: DynamicTabsContent];
   onCloseAll?: (
     items: DynamicTabsItem[],
     contents: (DynamicTabsContent | undefined)[],
@@ -70,7 +69,6 @@ const DynamicTabs: React.FC<DynamicTabsProps> = ({
   onActive,
   onDisActive,
   onClose,
-  create,
   onCloseAll,
   onCloseOther,
   onCloseRight,
@@ -199,6 +197,7 @@ const DynamicTabs: React.FC<DynamicTabsProps> = ({
       );
     }
   };
+
   return (
     <div className={"w-[500px] h-[500px] bg-editor-content "}>
       <DynamicTabItems
@@ -217,9 +216,9 @@ const DynamicTabs: React.FC<DynamicTabsProps> = ({
         onCloseOtherTabItems={closeOtherTabs}
       />
       {contentsState &&
-        contentsState.map((content) => (
+        contentsState.map((content, index) => (
           <TabContent
-            key={content.id + "_content"}
+            key={index}
             content={content}
             isActive={activeTab?.id == content.id}
           />
@@ -278,7 +277,7 @@ const DynamicTabItems: React.FC<
   DynamicTabItemProp & {
     tabItems: DynamicTabsItem[];
     activeTabItem: DynamicTabsItem;
-    newTabItem: DynamicTabsItem | undefined;
+    newTabItem?: DynamicTabsItem | undefined;
   }
 > = ({
   tabItems,
@@ -297,7 +296,7 @@ const DynamicTabItems: React.FC<
   const [activeItem, setActiveItem] =
     React.useState<DynamicTabsItem>(activeTabItem);
   const [inputValue, setInputValue] = React.useState("");
-  const [open, setOpen] = React.useState<string>("");
+  const [open, setOpen] = React.useState<string>("-");
   React.useEffect(() => {
     setItems([...tabItems]);
     setActiveItem(activeTabItem);
@@ -427,12 +426,11 @@ const DynamicTabItems: React.FC<
       onRenameTabItem(tabItem);
     }
   };
-
   return (
     <div className={"h-[41px] w-full flex items-center justify-start"}>
       {items &&
-        items.map((item) => (
-          <div className={"flex-wrap flex-row group"} key={item.id} id="item">
+        items.map((item, index) => (
+          <div className={"flex-wrap flex-row group"} key={index} id="item">
             <Dialog
               open={open === item.id}
               onOpenChange={(open: boolean) => {
@@ -457,7 +455,7 @@ const DynamicTabItems: React.FC<
                     className={`tab-item-icon h-[16px] w-[16px] rounded-full ${activeItem.id == item.id ? TabClass["Selected"].closeIcon : "invisible group-hover:visible"}`}
                     onClick={() => close(item)}
                   >
-                    <SVG name={"closeSmall"} />
+                    <SVGButton name={"closeSmall"} />
                   </div>
                 </ContextMenuTrigger>
                 <Separator
@@ -524,4 +522,4 @@ const DynamicTabItems: React.FC<
 };
 
 export { DynamicTabs, DynamicTabItems };
-export type { DynamicTabsProps, DynamicTabsItem };
+export type { DynamicTabsProps, DynamicTabsItem, DynamicTabsContent };

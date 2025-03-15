@@ -7,10 +7,11 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import { PageContent } from "@/app/page/content/PageContent";
 import DatasourceTree from "@/components/tree/datasource-tree";
-import TableDemo from "./page/content/TableDemo";
-
+import { Result } from "@/components/result/result";
+import { Button } from "@/components/ui/button/button";
+import { event } from "@/store/Event";
+import { DataSourceType, ObjectType } from "@/models";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -36,10 +37,34 @@ export default function Page() {
       <ResizableHandle />
 
       <ResizablePanel
-        defaultSize={20}
+        defaultSize={25}
         className={"w-full overflow-y-scroll bg-secondary"}
       >
-        <TableDemo />
+        <Button
+          onClick={() => {
+            event.publish("execute", {
+              executeId: Math.random().toString(),
+              executeContext: {
+                dataSourceType: DataSourceType.SQLite,
+                dataBaseName: "main",
+                schemaName: "main",
+                objectName: "main",
+                objectType: ObjectType.TABLE,
+                editorId: "string",
+                query: "select * from a",
+                dataSourceId: "string",
+                limit: 100,
+                offset: 0,
+                statement: {
+                  statement: "select * from a " + Math.random().toString(),
+                },
+              },
+            });
+          }}
+        >
+          click
+        </Button>
+        <Result />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
