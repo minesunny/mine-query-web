@@ -30,6 +30,7 @@ const tabsIndexOf = (items: DynamicTabsItem[], id: string) => {
 type DynamicTabsItem = {
   id: string;
   label: string;
+  closeable?: boolean;
   icon?: React.ReactNode;
   closeIcon?: React.ReactNode;
 };

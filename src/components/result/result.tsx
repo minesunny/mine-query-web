@@ -8,24 +8,27 @@ import { event } from "@/store/Event";
 import { executeApi } from "@/api/execute-api";
 import { ExecuteResultItem } from "@/models/execute";
 import { ResultSetTable } from "./result-set-table";
+import { LogTable } from "@/components/result/log/log-table";
+import { DataSourceType, ObjectType } from "@/models";
 
+type ResultContentProps = {
+  id: string;
+  type?: "result" | "log";
+  content?: ExecuteResultItem;
+};
 export const Result: React.FC = () => {
   const [items, setItems] = useState<DynamicTabsItem[]>([
     {
-      id: "string",
-      label: "string",
+      id: "日志",
+      label: "日志",
+      closeable: false,
     },
   ]);
   const [active, setActive] = useState<DynamicTabsItem>(items[0]);
-  const [contents, setContents] = useState<
+  const [contents, setContents] = useState<ResultContentProps[]>([
     {
-      id: string;
-      content: ExecuteResultItem | undefined;
-    }[]
-  >([
-    {
-      id: "string",
-      content: undefined,
+      id: "日志",
+      type: "log",
     },
   ]);
   useEffect(() => {
@@ -33,12 +36,8 @@ export const Result: React.FC = () => {
       executeApi.executeStatement(data.executeContext).then((result) => {
         const resultItems: ExecuteResultItem[] = result.items;
         const newItems: DynamicTabsItem[] = [];
-        const newContents: {
-          id: string;
-          content: ExecuteResultItem | undefined;
-        }[] = [];
+        const newContents: ResultContentProps[] = [];
         const existTabs: number[][] = [];
-
         resultItems.forEach((result, index) => {
           const find = contents.findIndex(
             (content) =>
@@ -139,10 +138,29 @@ export const Result: React.FC = () => {
                 </div>
               );
             } else {
-              <div
-                key={index}
-                className={`${active.id == content.id ? "visible" : "hidden"} w-full h-full`}
-              ></div>;
+              return (
+                <div
+                  key={index}
+                  className={`${active.id == content.id ? "visible" : "hidden"} w-full h-full`}
+                >
+                  <LogTable
+                    logs={[
+                      {
+                        type: "EVENT",
+                        id: "1",
+                        content: "test",
+                        time: new Date().getTime().toString(),
+                        dataSourceId: "1",
+                        dataSourceType: DataSourceType.SQLite,
+                        databaseName: "test",
+                        schemaName: "test",
+                        objectType: ObjectType.DATASOURCE,
+                        objectName: "test",
+                      },
+                    ]}
+                  />
+                </div>
+              );
             }
           })}
       </div>

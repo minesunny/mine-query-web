@@ -36,7 +36,7 @@ const useEventStore = createStore<EventStore>()(
           statement: {
             statement: "select * from a",
           },
-        }
+        },
       },
     },
     publishEvent: (value) =>
@@ -46,23 +46,28 @@ const useEventStore = createStore<EventStore>()(
           ...value,
         },
       })),
-  }))
+  })),
 );
 type EventMap = {
   execute: ExecuteEvent;
-
 };
 type EventType = "execute";
 
 type EventHandler<T = any> = (data: T) => void;
 
 const event = {
-
-  subscribe<E extends keyof EventMap>(event: E, handler: EventHandler<EventMap[E]>): () => void {
+  subscribe<E extends keyof EventMap>(
+    event: E,
+    handler: EventHandler<EventMap[E]>,
+  ): () => void {
     switch (event) {
       case "execute":
-        return useEventStore.subscribe((state) => state.event.execute as EventMap[E], handler);
+        return useEventStore.subscribe(
+          (state) => state.event.execute as EventMap[E],
+          handler,
+        );
     }
+    return () => {};
   },
   publish<E extends keyof EventMap>(event: E, data: EventMap[E]): void {
     switch (event) {
@@ -76,7 +81,4 @@ const event = {
 };
 
 export { event };
-export type {
-  EventType,
-  ExecuteEvent,
-};
+export type { EventType, ExecuteEvent };
