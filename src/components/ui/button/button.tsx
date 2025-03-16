@@ -54,21 +54,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-const SVGButton = React.forwardRef<HTMLButtonElement, { name: string }>(
-  ({ name }, ref) => {
-    return (
-      <>
-        <Button variant={"icon"} className={"svg-button h-6 w-6"}>
-          <SVG name={name} />
-        </Button>
-        <Separator
-          orientation="vertical"
-          className={"svg-button-split mx-2 h-5"}
-        />
-      </>
-    );
-  },
-);
+const SVGButton = React.forwardRef<
+  HTMLButtonElement,
+  { name: string; variant?: "secondary" | "primary" }
+>(({ name, variant }, ref) => {
+  const variantClass =
+    variant === "secondary" ? "svg-secondary-button" : "svg-button";
+  const variantSplitClass =
+    variant === "secondary" ? "svg-secondary-button-split" : "svg-button-split";
+  return (
+    <>
+      <Button variant={"icon"} className={`${variantClass} h-6 w-6`}>
+        <SVG name={name} />
+      </Button>
+      <Separator
+        orientation="vertical"
+        className={`${variantSplitClass} mx-2 h-5`}
+      />
+    </>
+  );
+});
 SVGButton.displayName = "SVGButton";
 
 export { Button, buttonVariants, SVGButton };

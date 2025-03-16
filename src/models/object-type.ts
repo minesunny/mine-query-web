@@ -5,6 +5,7 @@ export enum ObjectType {
   DATABASE   = "DATABASE",
   SCHEMA = "SCHEMA",
   TABLE = "TABLE",
+  VIEW = "VIEW",
   COLUMN = "COLUMN",
 }
 export const ObjectTypeTypeSchema = z.enum([
@@ -12,5 +13,6 @@ export const ObjectTypeTypeSchema = z.enum([
   "DATABASE",
   "SCHEMA",
   "TABLE",
+  "VIEW",
   "COLUMN",
 ]);

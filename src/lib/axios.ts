@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://43.143.64.106:8080", // 设置基本的请求路径
+  baseURL: "http://localhost:8080", // 设置基本的请求路径
   timeout: 5000, // 请求超时时间（单位：毫秒）
   headers: {
     "Content-Type": "application/json", // 设置默认请求头

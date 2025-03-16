@@ -7,9 +7,11 @@ import { getChildNode, getRootNode, refreshNode } from "@/api/data-node-api";
 import { Menu } from "@/models/menu";
 import { menuApi, useMenuApi } from "@/api/menu-api";
 import { contextMenu } from "@/lib/utils";
-import { SVG } from "@/components/ui/Icons";
+import { DataSourceSVG, NodeSVG, SVG } from "@/components/ui/Icons";
 import { GenericContextMenu } from "../ui/context-menu/generic-context-menu";
-const OBJECT_ICONS = {
+import { Button, SVGButton } from "../ui/button/button";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+const OBJECT_SVG = {
   ROOT: <SVG name={"DataBase"} />,
   DATASOURCE: <SVG name={"DataBase"} />,
   DATABASE: <SVG name={"DataBase"} />,
@@ -68,11 +70,10 @@ const getChildNodeKeys = (data: DataNode[]) => {
 };
 
 const handleIcons = (node: DataNode) => {
-  if (node.nodeType === NodeType.DATASOURCE && node.dataSourceType) {
-    node.icon = <SVG name={node.dataSourceType} />;
-  } else if (node.nodeType) {
-    node.icon = OBJECT_ICONS[node.nodeType];
-  }
+  // node.icon = <NodeSVG node={node.nodeType} dataSource={node.dataSourceType} />;
+  node.icon = (
+    <NodeSVG node={NodeType.COLUMN} dataSource={node.dataSourceType} />
+  );
   if (node.children) {
     for (let i = 0; i < node.children.length; i++) {
       handleIcons(node.children[i]);
@@ -148,51 +149,76 @@ const DataSourceTree: React.FC = () => {
   const [treeHeight, setTreeHeight] = useState<number>(0);
 
   return (
-    <div className={"h-full w-full"}>
-      <GenericContextMenu ref={contextMenuRef} menu={menu} />
-      <Tree
-        height={treeHeight}
-        onRightClick={({ event, node }) => {
-          node.nodeType = NodeType.DATASOURCE;
-          menuApi.getMenu(node).then((menu) => {
-            setMenu(menu);
-          });
-        }}
-        loadData={onLoadData}
-        treeData={treeData}
-        defaultExpandAll={true}
-        expandedKeys={expandedKeys}
-        loadedKeys={loadedKeys}
-        onLoad={onLoad}
-        titleRender={(node) => {
-          return (
-            <div
-              className={"flex items-center h-5 bg-red-400"}
-              onContextMenu={(e) => {
-                contextMenu(e, contextMenuRef);
-                e.preventDefault();
-              }}
-            >
-              {node.icon}
-              <span>{node.title}</span>
+    <ScrollArea className={"h-full w-full"}>
+      <div className={"h-full w-full min-w-[250px]"}>
+        <GenericContextMenu ref={contextMenuRef} menu={menu} />
+        <div id="dataSourceBar" className={"h-16 w-full border-primary"}>
+          <div
+            id="title"
+            className={
+              "h-8 w-full border-b border-primary font-inter text-small leading-8 flex justify-between"
+            }
+          >
+            <div className="indent-8">数据库资源管理器</div>
+            <div className={"flex items-center"}>
+              <SVGButton name={"remove"} variant="secondary" />
             </div>
-          );
-        }}
-        virtual={true}
-        itemHeight={20}
-        onExpand={onExpand}
-        switcherIcon={(data) => {
-          if (data.isLeaf) {
-            return false;
-          }
-          // return data.expanded ? (
-          //   // <Icons name={"TreeExpended"} />
-          // ) : (
-          //   // <Icons name={"TreeClosed"} />
-          // );
-        }}
-      />
-    </div>
+          </div>
+          <div
+            id="bar"
+            className={"h-8 w-full border-b border-primary flex items-center"}
+          >
+            <SVGButton name="add" variant="secondary" />
+            <SVGButton name="manageDataSources" variant="secondary" />
+            <SVGButton name="refresh" variant="secondary" />
+            <SVGButton name="runStop" variant="secondary" />
+            <SVGButton name="show" variant="secondary" />
+          </div>
+        </div>
+        <Tree
+          height={treeHeight}
+          onRightClick={({ event, node }) => {
+            node.nodeType = NodeType.DATASOURCE;
+            menuApi.getMenu(node).then((menu) => {
+              setMenu(menu);
+            });
+          }}
+          loadData={onLoadData}
+          treeData={treeData}
+          defaultExpandAll={true}
+          expandedKeys={expandedKeys}
+          loadedKeys={loadedKeys}
+          onLoad={onLoad}
+          titleRender={(node) => {
+            return (
+              <div
+                className={"flex items-center h-5"}
+                onContextMenu={(e) => {
+                  contextMenu(e, contextMenuRef);
+                  e.preventDefault();
+                }}
+              >
+                <span className="font-inter text-default">{node.title}</span>
+              </div>
+            );
+          }}
+          virtual={true}
+          itemHeight={20}
+          onExpand={onExpand}
+          switcherIcon={(data) => {
+            if (data.isLeaf) {
+              return false;
+            }
+            return data.expanded ? (
+              <SVG name={"chevronDown"} height="16px" width="16px" />
+            ) : (
+              <SVG name={"chevronRight"} height="16px" width="16px" />
+            );
+          }}
+        />
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 };
 export default DataSourceTree;

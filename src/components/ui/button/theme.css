@@ -54,5 +54,18 @@
     .svg-button-split {
       background-color: var(--gray-5);
     }
+
+
+
+    .svg-secondary-button {
+      background-color: var(--secondary-background);
+    }
+    .svg-secondary-button:hover {
+      background-color: var(--gray-6);
+    }
+
+    .svg-secondary-button-split {
+      background-color: var(--gray-5);
+    }
   }
 } /* Button */

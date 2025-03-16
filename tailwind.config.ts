@@ -149,10 +149,10 @@ const config = {
           "11": "var(--gray-11)",
           "12": "var(--gray-12)",
           "13": "var(--gray-13)",
-          "14": "var(--gray-14-white)",
+          "14": "var(--gray-14)",
         },
         primary: {
-          DEFAULT: "var(--primary)",
+          DEFAULT: "var(--primary-background)",
           foreground: "var(--primary-foreground)",
         },
         secondary: {

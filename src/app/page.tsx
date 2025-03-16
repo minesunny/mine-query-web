@@ -7,11 +7,11 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import DatasourceTree from "@/components/tree/datasource-tree";
 import { Result } from "@/components/result/result";
 import { Button } from "@/components/ui/button/button";
 import { event } from "@/store/Event";
 import { DataSourceType, ObjectType } from "@/models";
+import DataSourceTree from "@/components/tree/datasource-tree";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -20,11 +20,15 @@ export default function Page() {
 
   if (!mounted) return null;
   return (
-    <ResizablePanelGroup direction="vertical" className="rounded-lg border-0">
+    <ResizablePanelGroup direction="vertical" className="border-0">
       <ResizablePanel defaultSize={75}>
         <ResizablePanelGroup direction="horizontal">
-          <ResizablePanel defaultSize={10} className={"bg-secondary border-0"}>
-            <DatasourceTree />
+          <ResizablePanel
+            defaultSize={10}
+            minSize={5}
+            className={"bg-secondary border-0"}
+          >
+            <DataSourceTree />
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={80}>mid</ResizablePanel>

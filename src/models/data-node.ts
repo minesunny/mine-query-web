@@ -14,11 +14,13 @@ export type DataNode = {
 };
 
 export enum NodeType {
-  ROOT = "ROOT",
   DATASOURCE = "DATASOURCE",
   DATABASE = "DATABASE",
   SCHEMA = "SCHEMA",
   TABLE_GROUP = "TABLE_GROUP",
   TABLE = "TABLE",
+  VIEW_GROUP = "VIEW_GROUP",
+  VIEW = "VIEW",
+  COLUMN_GROUP = "COLUMN_GROUP",
   COLUMN = "COLUMN",
 }
