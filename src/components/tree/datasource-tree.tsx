@@ -167,7 +167,7 @@ const DataSourceTree: React.FC = () => {
         titleRender={(node) => {
           return (
             <div
-              className={"flex items-center"}
+              className={"flex items-center h-5 bg-red-400"}
               onContextMenu={(e) => {
                 contextMenu(e, contextMenuRef);
                 e.preventDefault();

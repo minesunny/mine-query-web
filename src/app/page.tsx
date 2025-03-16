@@ -24,7 +24,7 @@ export default function Page() {
       <ResizablePanel defaultSize={75}>
         <ResizablePanelGroup direction="horizontal">
           <ResizablePanel defaultSize={10} className={"bg-secondary border-0"}>
-            left
+            <DatasourceTree />
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={80}>mid</ResizablePanel>
