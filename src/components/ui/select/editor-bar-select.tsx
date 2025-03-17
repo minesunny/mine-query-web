@@ -17,23 +17,23 @@ const SQLEditorBarTransactionSelect: React.FC<{
 }> = ({ editorId }) => {
   return (
     <Select onOpenChange={(open) => {}}>
-      <SelectTrigger className="w-24 h-6 editor-bar-select-trigger text-default font-inter">
+      <SelectTrigger className="editor-bar-select-trigger h-6 w-24 font-inter text-default">
         <SelectValue placeholder="模式" />
       </SelectTrigger>
       <SelectContent className="editor-bar-select-content">
         <SelectGroup className="mx-2">
-          <SelectLabel className="text-default font-inter py-1 editor-bar-select-item -indent-6 rounded-md">
+          <SelectLabel className="editor-bar-select-item rounded-md py-1 -indent-6 font-inter text-default">
             事务模式
           </SelectLabel>
           <SelectItem
             value={"自动"}
-            className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
+            className="editor-bar-select-item rounded-md py-1 font-inter text-default focus:outline-none"
           >
             自动
           </SelectItem>
           <SelectItem
             value={"手动"}
-            className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
+            className="editor-bar-select-item rounded-md py-1 font-inter text-default focus:outline-none"
           >
             手动
           </SelectItem>
@@ -48,7 +48,6 @@ const SQLEditorBarSourceSelect: React.FC<{
   const [dataBaseList, setDataBaseList] = useState<string[]>([]);
   const [schemaList, setSchemaList] = useState<string[]>([]);
   const getSQLEditor = useSQLEditorEnvStore((state) => state.getEditor);
-
   const updateSQLEditor = useSQLEditorEnvStore((state) => state.updateEditor);
   const [dataBase, setDatabase] = useState<string>();
   const [schema, setSchema] = useState<string>();
@@ -60,7 +59,7 @@ const SQLEditorBarSourceSelect: React.FC<{
   }, [editorId]);
 
   return (
-    <div className="h-6 w-auto flex py-[1px] border-0">
+    <div className="flex h-6 w-auto border-0 py-[1px]">
       <Select
         onValueChange={(value) => {
           updateSQLEditor(editorId, {
@@ -75,7 +74,7 @@ const SQLEditorBarSourceSelect: React.FC<{
           }
         }}
       >
-        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-default font-inter">
+        <SelectTrigger className="editor-bar-select-trigger h-6 w-32 font-inter text-default">
           <SelectValue placeholder="数据库" className="truncate" />
         </SelectTrigger>
         <SelectContent className="editor-bar-select-content">
@@ -84,7 +83,7 @@ const SQLEditorBarSourceSelect: React.FC<{
               <SelectItem
                 key={index}
                 value={item}
-                className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
+                className="editor-bar-select-item rounded-md py-1 font-inter text-default focus:outline-none"
               >
                 {item}
               </SelectItem>
@@ -115,7 +114,7 @@ const SQLEditorBarSourceSelect: React.FC<{
           }
         }}
       >
-        <SelectTrigger className="w-32 h-6 editor-bar-select-trigger text-default font-inter">
+        <SelectTrigger className="editor-bar-select-trigger h-6 w-32 font-inter text-default">
           <SelectValue placeholder="模式" className="truncate" />
         </SelectTrigger>
         <SelectContent className="editor-bar-select-content">
@@ -124,7 +123,7 @@ const SQLEditorBarSourceSelect: React.FC<{
               <SelectItem
                 key={index}
                 value={item}
-                className="text-default font-inter focus:outline-none py-1 editor-bar-select-item rounded-md"
+                className="editor-bar-select-item rounded-md py-1 font-inter text-default focus:outline-none"
               >
                 {item}
               </SelectItem>

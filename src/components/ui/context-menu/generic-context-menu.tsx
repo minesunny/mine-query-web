@@ -22,7 +22,7 @@ export const GenericContextMenu = React.forwardRef<
   <ContextMenu>
     <ContextMenuTrigger ref={ref} />
     {menu && menu.length > 0 && (
-      <ContextMenuContent className="w-64 absolute">
+      <ContextMenuContent className="absolute w-64">
         {renderMenuItems(menu)}
       </ContextMenuContent>
     )}
@@ -36,7 +36,7 @@ const renderMenuItems = (menu: Menu[]): React.ReactNode => {
       return (
         <ContextMenuSub key={item.key}>
           <ContextMenuSubTrigger className="h-[24px] px-[8px] py-[4px] text-xs">
-            <div className="mr-[8px] w-[16px] h-[16px]"></div>
+            <div className="mr-[8px] h-[16px] w-[16px]"></div>
             {item.name}
           </ContextMenuSubTrigger>
           <ContextMenuSubContent>
@@ -52,7 +52,7 @@ const renderMenuItems = (menu: Menu[]): React.ReactNode => {
             className="h-[24px] px-[8px] py-[4px] text-xs"
             disabled={item.disable}
           >
-            <div className="mr-[8px] w-[16px] h-[16px]">
+            <div className="mr-[8px] h-[16px] w-[16px]">
               {item.iconName && <SVG name={item.iconName} />}
             </div>
             {item.name}

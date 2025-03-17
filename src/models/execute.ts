@@ -32,4 +32,9 @@ type ExecuteContext = {
   statement: ExecuteStatement;
 };
 
-export type { ExecuteStatement, ExecuteResult, ExecuteResultItem, ExecuteContext };
+export type {
+  ExecuteStatement,
+  ExecuteResult,
+  ExecuteResultItem,
+  ExecuteContext,
+};

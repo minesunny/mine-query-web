@@ -20,16 +20,17 @@ import {
   SelectValue,
 } from "@/components/ui/select/select";
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { Button } from "@/components/ui/button/button";
+import { Button, DynamicSVGButton } from "@/components/ui/button";
+
+import { useEnvStoreStore } from "@/store/Env";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-secondary border-b border-primary">
+    <header className="sticky top-0 z-50 w-full border-b border-primary bg-secondary">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <MainNav />
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <nav className="flex items-center ml-auto space-x-4">
+          <nav className="ml-auto flex items-center space-x-4">
             <ModeToggle />
             <UserNav />
           </nav>
@@ -39,13 +40,28 @@ export function SiteHeader() {
   );
 }
 export function SiteLeft() {
+  const setCollapsible = useEnvStoreStore((state) => state.setCollapsible);
+  const { collapsible } = useEnvStoreStore((state) => state.env);
   return (
-    <div className={"h-full w-8 bg-secondary border-r border-primary"}></div>
+    <div
+      className={
+        "flex h-full w-8 flex-row justify-center border-r border-primary bg-secondary pt-1"
+      }
+    >
+      <DynamicSVGButton
+        name={"dbms"}
+        variant="secondary"
+        onClick={() => {
+          setCollapsible(!collapsible);
+        }}
+        split={false}
+      />
+    </div>
   );
 }
 export function SiteRight() {
   return (
-    <div className={"h-full w-8 bg-secondary border-l border-primary"}></div>
+    <div className={"h-full w-8 border-l border-primary bg-secondary"}></div>
   );
 }
 
@@ -54,10 +70,10 @@ export function SiteFooter() {
   return (
     <div
       className={
-        "h-auto w-full bg-secondary flex justify-between px-8 items-center border-t border-primary"
+        "flex h-auto w-full items-center justify-between border-t border-primary bg-secondary px-8"
       }
     >
-      <div id="path" className="w-[500px] flex flex-row">
+      <div id="path" className="flex w-[500px] flex-row">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger id="encoding" asChild>
@@ -71,7 +87,7 @@ export function SiteFooter() {
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className={"flex gap-6 items-center w-50"}>
+      <div className={"w-50 flex items-center gap-6"}>
         <LineSplitSelect />
         <EncodingSelect />
       </div>
@@ -90,7 +106,7 @@ const EncodingSelect: React.FC = () => {
       }}
     >
       <SelectTrigger
-        className="h-6 w-20 text-xs border-0 rounded-sm"
+        className="h-6 w-20 rounded-sm border-0 text-xs"
         onMouseEnter={() => {
           setOpen(true);
         }}
@@ -114,7 +130,7 @@ const EncodingSelect: React.FC = () => {
           </Tooltip>
         </TooltipProvider>
       </SelectTrigger>
-      <SelectContent className={"border-0 flex flex-row"}>
+      <SelectContent className={"flex flex-row border-0"}>
         <SelectGroup>
           <SelectLabel>File Encoding</SelectLabel>
           {Encoding.map((item) => {
@@ -122,7 +138,7 @@ const EncodingSelect: React.FC = () => {
               <SelectItem
                 key={item}
                 value={item}
-                className={"text-xs h-6 w-full"}
+                className={"h-6 w-full text-xs"}
               >
                 {item}
               </SelectItem>
@@ -146,7 +162,7 @@ const LineSplitSelect: React.FC = () => {
       }}
     >
       <SelectTrigger
-        className="h-6 w-20 text-xs border-0 rounded-sm"
+        className="h-6 w-20 rounded-sm border-0 text-xs"
         onMouseEnter={() => {
           setOpen(true);
         }}
@@ -171,14 +187,14 @@ const LineSplitSelect: React.FC = () => {
           </Tooltip>
         </TooltipProvider>
       </SelectTrigger>
-      <SelectContent className={"border-0 flex flex-row"}>
+      <SelectContent className={"flex flex-row border-0"}>
         <SelectGroup>
           <SelectLabel>Line Separator</SelectLabel>
           <SelectItem
             value="CRLF"
-            className={"text-xs h-6 w-full"}
+            className={"h-6 w-full text-xs"}
             muteText={
-              <span className="text-xs text-muted indent-1">
+              <span className="text-muted indent-1 text-xs">
                 - Windows(\r\n)
               </span>
             }
@@ -187,9 +203,9 @@ const LineSplitSelect: React.FC = () => {
           </SelectItem>
           <SelectItem
             value="CR"
-            className={"text-xs h-6 w-full"}
+            className={"h-6 w-full text-xs"}
             muteText={
-              <span className="text-xs text-muted indent-1">
+              <span className="text-muted indent-1 text-xs">
                 - Classic Mac OS (\r)
               </span>
             }
@@ -198,9 +214,9 @@ const LineSplitSelect: React.FC = () => {
           </SelectItem>
           <SelectItem
             value="LF"
-            className={"text-xs h-6 w-full"}
+            className={"h-6 w-full text-xs"}
             muteText={
-              <span className="text-xs text-muted indent-1">
+              <span className="text-muted indent-1 text-xs">
                 - Unix and macOS (\n)
               </span>
             }

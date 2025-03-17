@@ -1,0 +1,31 @@
+@tailwind components;
+
+@layer components {
+  :root {
+    .tab-trigger {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
+    }
+    .tab-separator {
+      background-color: var(--blue-primary);
+    }
+  }
+  .dark {
+    .tab-trigger {
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
+    }
+    .tab-separator {
+      background-color: var(--blue-primary);
+    }
+
+    .tab-item-separator-inactive {
+      background-color: var(--gray-8);
+    }
+    .cell {
+      border-color: var(--secondary);
+    }
+  }
+}

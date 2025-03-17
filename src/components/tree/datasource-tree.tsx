@@ -1,28 +1,17 @@
 //use client
 import React, { useEffect, useRef, useState } from "react";
-import "./theme.css";
 import Tree from "rc-tree";
 import { DataNode, NodeType } from "@/models/data-node";
 import { getChildNode, getRootNode, refreshNode } from "@/api/data-node-api";
 import { Menu } from "@/models/menu";
-import { menuApi, useMenuApi } from "@/api/menu-api";
+import { menuApi } from "@/api/menu-api";
 import { contextMenu } from "@/lib/utils";
-import { DataSourceSVG, NodeSVG, SVG } from "@/components/ui/Icons";
-import { GenericContextMenu } from "../ui/context-menu/generic-context-menu";
-import { Button, SVGButton } from "../ui/button/button";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-const OBJECT_SVG = {
-  ROOT: <SVG name={"DataBase"} />,
-  DATASOURCE: <SVG name={"DataBase"} />,
-  DATABASE: <SVG name={"DataBase"} />,
-  SCHEMA: <SVG name={"Schema"} />,
-  TABLE_GROUP: <SVG name={"ObjectGroup"} />,
-  TABLE: <SVG name={"Table"} />,
-  VIEWS_GROUP: <SVG name={"ObjectGroup"} />,
-  COLUMN_GROUP: <SVG name={"ObjectGroup"} />,
-  COLUMN: <SVG name={"Column"} />,
-};
-
+import { NodeSVG, SVG } from "@/components/ui/Icons";
+import { GenericContextMenu } from "@/components/ui/context-menu/generic-context-menu";
+import { SVGButton } from "@/components/ui/button/button";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useEnvStoreStore } from "@/store/Env";
+import "./theme.css";
 const updateTreeData = (list: DataNode[], result: DataNode): DataNode[] =>
   list.map((node) => {
     if (node.key === result.key) {
@@ -147,28 +136,35 @@ const DataSourceTree: React.FC = () => {
     setLoadedKeys(keys as string[]);
   };
   const [treeHeight, setTreeHeight] = useState<number>(0);
+  const setCollapsible = useEnvStoreStore((state) => state.setCollapsible);
 
   return (
     <ScrollArea className={"h-full w-full"}>
       <div className={"h-full w-full min-w-[250px]"}>
         <GenericContextMenu ref={contextMenuRef} menu={menu} />
+        <div className={"absolute right-0 top-1 flex items-center"}>
+          <SVGButton
+            name={"remove"}
+            variant="secondary"
+            onClick={() => {
+              setCollapsible(true);
+            }}
+          />
+        </div>
         <div id="dataSourceBar" className={"h-16 w-full border-primary"}>
           <div
             id="title"
             className={
-              "h-8 w-full border-b border-primary font-inter text-small leading-8 flex justify-between"
+              "flex h-8 w-full justify-between border-b border-primary font-inter text-small leading-8"
             }
           >
             <div className="indent-8">数据库资源管理器</div>
-            <div className={"flex items-center"}>
-              <SVGButton name={"remove"} variant="secondary" />
-            </div>
           </div>
           <div
             id="bar"
-            className={"h-8 w-full border-b border-primary flex items-center"}
+            className={"flex h-8 w-full items-center border-b border-primary"}
           >
-            <SVGButton name="add" variant="secondary" />
+            <SVGButton name="add" variant="secondary" onClick={() => {}} />
             <SVGButton name="manageDataSources" variant="secondary" />
             <SVGButton name="refresh" variant="secondary" />
             <SVGButton name="runStop" variant="secondary" />
@@ -192,7 +188,7 @@ const DataSourceTree: React.FC = () => {
           titleRender={(node) => {
             return (
               <div
-                className={"flex items-center h-5"}
+                className={"flex h-5 items-center"}
                 onContextMenu={(e) => {
                   contextMenu(e, contextMenuRef);
                   e.preventDefault();

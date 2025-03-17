@@ -3,16 +3,29 @@
 @layer components {
   :root {
     .input {
-      background-color: var(--secondary-background);
-      color:var(--secondary-foreground);
-      caret-color:var(--gray-2);
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
     }
   }
   .dark {
     .input {
-      background-color: var(--secondary-background);
-      color:var(--gray-13);
-      caret-color:var(--gray-13);
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
+      border-color: var(--gray-6);
+    }
+    .input:focus {
+      box-shadow: 0 0 0 2px var(--blue-6);
+      border-color: transparent;
+    }
+
+    .soft-input:focus {
+      box-shadow: none !important;
+      border-color: var(--gray-6) !important;
+    }
+    .input:disabled {
+      color: var(--gray-2);
     }
   }
 }

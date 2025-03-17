@@ -111,6 +111,7 @@ const config = {
       fontFamily: {
         inter: ["-apple-system"],
       },
+
       fontWeight: {},
       fontSize: {
         h1: ["20px", { lineHeight: "24px", fontWeight: 700 }],
@@ -166,6 +167,9 @@ const config = {
             border: "var(--dialog-content-header-border)",
           },
         },
+      },
+      borderColor: {
+        default: "var(--gray-6)",
       },
       borderRadius: {
         lg: "var(--radius)",

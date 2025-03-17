@@ -14,6 +14,7 @@ export type DataNode = {
 };
 
 export enum NodeType {
+  ROOT = "ROOT",
   DATASOURCE = "DATASOURCE",
   DATABASE = "DATABASE",
   SCHEMA = "SCHEMA",

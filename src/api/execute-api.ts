@@ -12,45 +12,58 @@ const executeStatement = (body: ExecuteContext): Promise<ExecuteResult> => {
       items: [
         {
           statement: body.statement,
-          columns: [{
-            name: "name1",
-            type: "string",
-          }, {
-            name: "name2",
-            type: "string",
-          }, {
-            name: "name3",
-            type: "string",
-          }],
-          values: [
-            [{
+          columns: [
+            {
               name: "name1",
               type: "string",
-              value: "raw1 value1",
-            }, {
+            },
+            {
               name: "name2",
               type: "string",
-              value: "raw1 value2",
-            }, {
+            },
+            {
               name: "name3",
               type: "string",
-              value: "raw1 value3",
-            }], [{
-              name: "name1",
-              type: "string",
-              value: "raw2 value1",
-            }, {
-              name: "name2",
-              type: "string",
-              value: "raw2 value2",
-            }, {
-              name: "name3",
-              type: "string",
-              value: "raw2 value3",
-            }]
+            },
           ],
-        }
-      ]
+          values: [
+            [
+              {
+                name: "name1",
+                type: "string",
+                value: "raw1 value1",
+              },
+              {
+                name: "name2",
+                type: "string",
+                value: "raw1 value2",
+              },
+              {
+                name: "name3",
+                type: "string",
+                value: "raw1 value3",
+              },
+            ],
+            [
+              {
+                name: "name1",
+                type: "string",
+                value: "raw2 value1",
+              },
+              {
+                name: "name2",
+                type: "string",
+                value: "raw2 value2",
+              },
+              {
+                name: "name3",
+                type: "string",
+                value: "raw2 value3",
+              },
+            ],
+          ],
+        },
+      ],
     };
     resolve(result);
   });
@@ -60,7 +73,7 @@ const executeStatementSync = (body: ExecuteContext): Promise<boolean> => {
 };
 export const executeApi = {
   executeStatement,
-  executeStatementSync
+  executeStatementSync,
 };
 const useExecuteStatement = (context: ExecuteContext) => {
   return useQuery({
@@ -72,4 +85,3 @@ const useExecuteStatement = (context: ExecuteContext) => {
 export const useExecuteApi = {
   useExecuteStatement: useExecuteStatement,
 };
-

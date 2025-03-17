@@ -1,10 +1,9 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["next/core-web-vitals", "plugin:jsonc/recommended-with-jsonc"],
+  "plugins": ["jsonc"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
-    "quotes": [
-      2,
-      "double"
-    ],
+    "quotes": [2, "double"],
     "semi": "warn",
     "no-multiple-empty-lines": [
       "error",
@@ -14,5 +13,16 @@
         "maxBOF": 0
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "rules": {
+        "jsonc/indent": ["error", 2],
+        "jsonc/comma-dangle": ["error", "never"],
+        "jsonc/no-comments": "off"
+      }
+    }
+  ]
 }

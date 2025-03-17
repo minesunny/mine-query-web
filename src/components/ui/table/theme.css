@@ -1,24 +1,23 @@
 @tailwind components;
 
 @layer components {
-    :root {
+  :root {
     .table {
-      background-color: var(--secondary-background);
-      color:var(--secondary-foreground);
-      caret-color:var(--gray-2);
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
     }
     .cell {
-        
     }
   }
   .dark {
     .table {
-      background-color: var(--secondary-background);
-      color:var(--gray-13);
-      caret-color:var(--gray-13);
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
     }
     .cell {
-      border-color: var(--secondary-background);
+      border-color: var(--secondary);
     }
   }
 }

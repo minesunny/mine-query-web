@@ -4,7 +4,6 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import "./theme.css";
 import { cn } from "@/lib/utils";
-import { SVG } from "@/components/ui/Icons";
 import { useContext, createContext, useEffect, useCallback } from "react";
 import { Rnd } from "react-rnd";
 const DialogContext = createContext<{
@@ -59,6 +58,8 @@ const DialogContent = React.forwardRef<
       width: number | string;
       height: number | string;
     };
+    minWidth?: number | string;
+    minHeight?: number | string;
     position?: {
       x: number | string;
       y: number | string;
@@ -66,7 +67,17 @@ const DialogContent = React.forwardRef<
   }
 >(
   (
-    { className, children, draggable, resizeable, size, position, ...props },
+    {
+      className,
+      children,
+      draggable,
+      resizeable,
+      size,
+      minWidth,
+      minHeight,
+      position,
+      ...props
+    },
     ref,
   ) => {
     const { expanded } = useContext(DialogContext);
@@ -140,6 +151,8 @@ const DialogContent = React.forwardRef<
         <>
           <Rnd
             ref={rndRef}
+            minWidth={minWidth}
+            minHeight={minHeight}
             style={{
               zIndex: 50,
               borderRadius: "0.5rem",
@@ -147,18 +160,18 @@ const DialogContent = React.forwardRef<
             bounds={"#overlay"}
             resizeHandleComponent={{
               // DialogPrimitive.Content 自动添加resizers，起wrapper 会有aria-hidden，导致resizers不可见
-              top: <div className={"h-full w-full pointer-events-auto"} />,
-              right: <div className={"h-full w-full pointer-events-auto"} />,
-              bottom: <div className={"h-full w-full pointer-events-auto"} />,
-              left: <div className={"h-full w-full pointer-events-auto"} />,
-              topRight: <div className={"h-full w-full pointer-events-auto"} />,
+              top: <div className={"pointer-events-auto h-full w-full"} />,
+              right: <div className={"pointer-events-auto h-full w-full"} />,
+              bottom: <div className={"pointer-events-auto h-full w-full"} />,
+              left: <div className={"pointer-events-auto h-full w-full"} />,
+              topRight: <div className={"pointer-events-auto h-full w-full"} />,
               bottomRight: (
-                <div className={"h-full w-full pointer-events-auto"} />
+                <div className={"pointer-events-auto h-full w-full"} />
               ),
               bottomLeft: (
-                <div className={"h-full w-full pointer-events-auto"} />
+                <div className={"pointer-events-auto h-full w-full"} />
               ),
-              topLeft: <div className={"h-full w-full pointer-events-auto"} />,
+              topLeft: <div className={"pointer-events-auto h-full w-full"} />,
             }}
             enableResizing={resizeable}
             onResize={() => {
@@ -255,7 +268,7 @@ const DialogContent = React.forwardRef<
               }}
               ref={ref}
               className={cn(
-                "h-full w-full z-0 rounded-lg shadow-lg dialog-content",
+                "dialog-content z-0 flex h-full w-full flex-col rounded-lg shadow-lg",
               )}
               {...others}
               onInteractOutside={(e) => {
@@ -282,6 +295,8 @@ const DialogContentPanel = React.forwardRef<
       width: number | string;
       height: number | string;
     };
+    minWidth?: number | string;
+    minHeight?: number | string;
     position?: {
       x: number | string;
       y: number | string;
@@ -297,12 +312,14 @@ const DialogContentPanel = React.forwardRef<
       resizeable,
       size,
       position,
+      minHeight,
+      minWidth,
       ...props
     },
     ref,
   ) => {
     return (
-      <DialogContent>
+      <DialogContent minHeight={minHeight} minWidth={minWidth}>
         <DialogHeader windowControl={true}>
           {title && <DialogTitle>{title}</DialogTitle>}
         </DialogHeader>
@@ -325,25 +342,25 @@ const DialogHeader = ({
   return (
     <div
       className={cn(
-        "flex text-center items-center h-7 rounded-t-lg border-b dialog-content-header",
+        "dialog-content-header flex h-7 items-center rounded-t-lg border-b text-center",
         className,
       )}
       {...props}
     >
       {windowControl && (
-        <div className={"h-[12px] flex group mx-[10px] space-x-1"}>
+        <div className={"group mx-[10px] flex h-[12px] space-x-1"}>
           <DialogPrimitive.Close
             id={"close"}
-            className={"rounded-full bg-[#ED6A5F] h-[12px] w-[12px]"}
+            className={"h-[12px] w-[12px] rounded-full bg-[#ED6A5F]"}
           >
             {/*<Icons name={"CloseMini"} className={"hidden group-hover:block"} />*/}
           </DialogPrimitive.Close>
           <button
-            className={"rounded-full bg-[#606161] h-[12px] w-[12px]"}
+            className={"h-[12px] w-[12px] rounded-full bg-[#606161]"}
           ></button>
           <button
             id={"expand"}
-            className={"rounded-full bg-[#61C454] h-[12px] w-[12px]"}
+            className={"h-[12px] w-[12px] rounded-full bg-[#61C454]"}
             onClick={() => {
               if (expanding) return;
               setExpanded(!expanded);
@@ -356,8 +373,10 @@ const DialogHeader = ({
           </button>
         </div>
       )}
-      <div className={"w-full items-center"}> {children}</div>
-      {windowControl && <div className={"h-[12px] w-[36px] mx-[10px]"} />}
+      <div className={"flex h-8 w-full items-center justify-center"}>
+        {children}
+      </div>
+      {windowControl && <div className={"mx-[10px] h-[12px] w-[36px]"} />}
     </div>
   );
 };
@@ -398,7 +417,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-default-semibold text-muted-foreground", className)}
+    className={cn("text-muted-foreground text-default-semibold", className)}
     {...props}
   />
 ));

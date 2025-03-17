@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export enum ObjectType {
   DATASOURCE = "DATASOURCE",
-  DATABASE   = "DATABASE",
+  DATABASE = "DATABASE",
   SCHEMA = "SCHEMA",
   TABLE = "TABLE",
   VIEW = "VIEW",

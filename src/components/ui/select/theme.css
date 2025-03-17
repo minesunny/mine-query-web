@@ -1,35 +1,36 @@
 @tailwind components;
 
 @layer components {
-    :root {
-
-        .select-content, .select-trigger {
-            background-color: var(--secondary);
-            color: var(--secondary-foreground);
-            caret-color: var(--gray-2);
-        }
-        .select-trigger:hover {
-            background-color: var(--red-1);
-        }
-
-        .select-item:hover {
-            background-color: var(--blue-1);
-        }
+  :root {
+    .select-content,
+    .select-trigger {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
     }
-    .dark {
-
-        .select-content, .select-trigger {
-            background-color: var(--secondary);
-            color: var(--gray-13);
-            caret-color: var(--gray-13);
-        }
-
-        .select-trigger:hover {
-            background-color: var(--gray-3);
-        }
-
-        .select-item:hover {
-            background-color: var(--blue-2);
-        }
+    .select-trigger:hover {
+      background-color: var(--red-1);
     }
+
+    .select-item:hover {
+      background-color: var(--blue-1);
+    }
+  }
+  .dark {
+    .select-content,
+    .select-trigger {
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
+      border-color: var(--gray-6);
+    }
+
+    .select-trigger:hover {
+      background-color: var(--gray-3);
+    }
+
+    .select-item:hover {
+      background-color: var(--blue-2);
+    }
+  }
 }

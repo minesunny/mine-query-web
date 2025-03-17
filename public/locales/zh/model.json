@@ -1,0 +1,5 @@
+{
+  "datasource": {
+    "password": "密码最小不能小于 {{min}}"
+  }
+}

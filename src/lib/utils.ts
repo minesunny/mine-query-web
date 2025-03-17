@@ -90,7 +90,7 @@ export function combineSignals(
 
 export const contextMenu = (
   e: React.MouseEvent,
-  ref: RefObject<HTMLDivElement>,
+  ref: RefObject<HTMLElement>,
 ) => {
   if (ref.current) {
     const event = new MouseEvent("contextmenu", {

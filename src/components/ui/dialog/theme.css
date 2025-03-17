@@ -1,29 +1,26 @@
 @tailwind components;
 
 @layer components {
-    :root{
-        .dialog-content {
-            background-color: var(--gray-13);
-            stroke: var(--gray-12);
-        }
-        .dialog-content-header {
-            background-color: var(--gray-13);
-            color :var(--gray-1);
-            border-bottom-color: var(--gray-12);
-        }
-
+  :root {
+    .dialog-content {
+      background-color: var(--gray-13);
+      stroke: var(--gray-12);
     }
-    .dark{
-        .dialog-content {
-            background-color: var(--gray-2);
-            stroke: var(--gray-3);
-        }
-        .dialog-content-header {
-            background-color: var(--gray-2);
-            color :var(--gray-12);
-            border-bottom-color: var(--gray-3);
-
-        }
+    .dialog-content-header {
+      background-color: var(--gray-13);
+      color: var(--gray-1);
+      border-bottom-color: var(--gray-12);
     }
-
+  }
+  .dark {
+    .dialog-content {
+      background-color: var(--gray-2);
+      stroke: var(--gray-3);
+    }
+    .dialog-content-header {
+      background-color: var(--gray-2);
+      color: var(--gray-12);
+      border-bottom-color: var(--gray-3);
+    }
+  }
 }

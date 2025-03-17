@@ -85,7 +85,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <ScrollArea className="w-full whitespace-nowrap rounded-md h-full">
+    <ScrollArea className="h-full w-full whitespace-nowrap rounded-md">
       <div className="space-y-4">
         <DataTableToolbar table={table} />
         <div className="rounded-md">

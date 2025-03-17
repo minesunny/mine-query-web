@@ -7,7 +7,6 @@ type ExecuteEvent = {
   executeId: string;
   executeContext: ExecuteContext;
 };
-
 type Event = {
   execute: ExecuteEvent;
 };
@@ -39,41 +38,39 @@ const useEventStore = createStore<EventStore>()(
         },
       },
     },
-    publishEvent: (value) =>
-      set((state) => ({
+    publishEvent: (value) => {
+      console.log(value);
+      return set((state) => ({
         event: {
           ...state.event,
           ...value,
         },
-      })),
+      }));
+    },
   })),
 );
-type EventMap = {
-  execute: ExecuteEvent;
-};
-type EventType = "execute";
 
 type EventHandler<T = any> = (data: T) => void;
 
 const event = {
-  subscribe<E extends keyof EventMap>(
+  subscribe<E extends keyof Event>(
     event: E,
-    handler: EventHandler<EventMap[E]>,
+    handler: EventHandler<Event[E]>,
   ): () => void {
     switch (event) {
       case "execute":
         return useEventStore.subscribe(
-          (state) => state.event.execute as EventMap[E],
+          (state) => state.event.execute as Event[E],
           handler,
         );
     }
     return () => {};
   },
-  publish<E extends keyof EventMap>(event: E, data: EventMap[E]): void {
+  publish<E extends keyof Event>(event: E, data: Event[E]): void {
     switch (event) {
       case "execute":
         useEventStore.getState().publishEvent({
-          execute: data,
+          execute: data as ExecuteEvent,
         });
         break;
     }
@@ -81,4 +78,4 @@ const event = {
 };
 
 export { event };
-export type { EventType, ExecuteEvent };
+export type { ExecuteEvent };

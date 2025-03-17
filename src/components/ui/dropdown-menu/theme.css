@@ -2,7 +2,8 @@
 
 @layer components {
   :root {
-    .dropdown-menu-content, .dropdown-menu-trigger {
+    .dropdown-menu-content,
+    .dropdown-menu-trigger {
       background-color: var(--secondary);
       color: var(--secondary-foreground);
       caret-color: var(--gray-2);
@@ -16,7 +17,8 @@
     }
   }
   .dark {
-    .dropdown-menu-content, .dropdown-menu-trigger {
+    .dropdown-menu-content,
+    .dropdown-menu-trigger {
       background-color: var(--secondary);
       color: var(--gray-13);
       caret-color: var(--gray-13);

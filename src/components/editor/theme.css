@@ -3,9 +3,9 @@
 @layer components {
   :root {
     .editor-bar {
-
     }
-    .editor-bar-select-content, .editor-bar-select-trigger {
+    .editor-bar-select-content,
+    .editor-bar-select-trigger {
       background-color: var(--secondary);
       color: var(--secondary-foreground);
       caret-color: var(--gray-2);
@@ -23,7 +23,8 @@
       background-color: var(--gray-2);
     }
 
-    .editor-bar-select-content, .editor-bar-select-trigger {
+    .editor-bar-select-content,
+    .editor-bar-select-trigger {
       background-color: var(--secondary);
       color: var(--gray-13);
       caret-color: var(--gray-13);

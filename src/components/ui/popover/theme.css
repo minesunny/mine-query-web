@@ -1,35 +1,35 @@
 @tailwind components;
 
 @layer components {
-    :root {
-
-        .popover-content, .popover-trigger {
-            background-color: var(--secondary);
-            color: var(--secondary-foreground);
-            caret-color: var(--gray-2);
-        }
-        .popover-trigger:hover {
-            background-color: var(--red-1);
-        }
-
-        .popover-item:hover {
-            background-color: var(--blue-1);
-        }
+  :root {
+    .popover-content,
+    .popover-trigger {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
     }
-    .dark {
-
-        .popover-content, .popover-trigger {
-            background-color: var(--secondary);
-            color: var(--gray-13);
-            caret-color: var(--gray-13);
-        }
-
-        .popover-trigger:hover {
-            background-color: var(--gray-3);
-        }
-
-        .popover-item:hover {
-            background-color: var(--blue-2);
-        }
+    .popover-trigger:hover {
+      background-color: var(--red-1);
     }
+
+    .popover-item:hover {
+      background-color: var(--blue-1);
+    }
+  }
+  .dark {
+    .popover-content,
+    .popover-trigger {
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
+    }
+
+    .popover-trigger:hover {
+      background-color: var(--gray-3);
+    }
+
+    .popover-item:hover {
+      background-color: var(--blue-2);
+    }
+  }
 }

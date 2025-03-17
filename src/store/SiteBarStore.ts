@@ -41,7 +41,8 @@ const SiteBarStoreSlice: StateCreator<
   updateSiteBarOption: (value) =>
     set((state) => {
       state.siteBarOption = {
-        ...state.siteBarOption, ...value
+        ...state.siteBarOption,
+        ...value,
       };
     }),
 });

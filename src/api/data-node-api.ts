@@ -12,14 +12,24 @@ export const getRootNode = (): Promise<DataNode> => {
       isLeaf: false,
       nodeType: NodeType.ROOT,
       dataSourceType: DataSourceType.SQLite,
-      children: [{
-        dataSourceId: 1,
-        title: "SQLite",
-        key: "SQLite",
-        isLeaf: false,
-        nodeType: NodeType.DATASOURCE,
-        dataSourceType: DataSourceType.SQLite,
-      }]
+      children: [
+        {
+          dataSourceId: 1,
+          title: "SQLite",
+          key: "SQLite",
+          isLeaf: false,
+          nodeType: NodeType.DATASOURCE,
+          dataSourceType: DataSourceType.SQLite,
+        },
+        {
+          dataSourceId: 2,
+          title: "SQLite",
+          key: "SQLite2",
+          isLeaf: false,
+          nodeType: NodeType.DATASOURCE,
+          dataSourceType: DataSourceType.SQLite,
+        },
+      ],
     });
   });
 };

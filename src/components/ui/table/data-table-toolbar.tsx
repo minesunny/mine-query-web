@@ -3,11 +3,7 @@
 import { Table } from "@tanstack/react-table";
 
 import { Button, SVGButton } from "@/components/ui/button/button";
-import { Input } from "@/components/ui/input/input";
 import { DataTableViewOptions } from "./data-table-view-options";
-
-import { priorities, statuses } from "../data/data";
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

@@ -58,7 +58,7 @@ export const LogTable: React.FC<{
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="w-full h-full font-inter text-default">
+    <div className="h-full w-full font-inter text-default">
       <div className={"h-6 w-full"}>placeholder</div>
       <table>
         <tbody>

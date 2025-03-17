@@ -42,7 +42,7 @@ export function DataTableFacetedFilter<TData, TValue>({
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="h-8 border-dashed w-24 rounded-md"
+          className="h-8 w-24 rounded-md border-dashed"
         >
           <PlusCircle />
           {title}
@@ -115,7 +115,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <Check />
                     </div>
                     {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <option.icon className="text-muted-foreground mr-2 h-4 w-4" />
                     )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (

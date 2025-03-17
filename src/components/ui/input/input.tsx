@@ -6,19 +6,20 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, readOnly, ...props }, ref) => {
     return (
       <input
         type={type}
         className={cn(
-          "flex h-8 w-full rounded-md border-input px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed input outline-none",
+          "placeholder:text-muted-foreground input flex h-8 w-full rounded-md pl-1 font-inter text-small outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed " +
+            `${readOnly ? "soft-input pointer-events-none" : ""}`,
           className,
         )}
         ref={ref}
         {...props}
       />
     );
-  }
+  },
 );
 Input.displayName = "Input";
 

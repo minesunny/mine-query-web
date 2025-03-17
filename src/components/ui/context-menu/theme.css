@@ -1,25 +1,25 @@
 @tailwind components;
 
-@layer components{
-    :root {
-        .menu-context {
-            background-color: var(--gray-14);
-            stroke: var(--gray-9);
-            color: var(--gray-1);
-        }
-        .menu-context-item:hover {
-            background-color: var(--blue-11);
-        }
+@layer components {
+  :root {
+    .menu-context {
+      background-color: var(--gray-14);
+      stroke: var(--gray-9);
+      color: var(--gray-1);
     }
+    .menu-context-item:hover {
+      background-color: var(--blue-11);
+    }
+  }
 
-    .dark {
-        .menu-context {
-            background-color: var(--gray-2);
-            stroke: var(--gray-3);
-            color: var(--gray-12);
-        }
-        .menu-context-item:hover {
-            background-color: var(--blue-2);
-        }
+  .dark {
+    .menu-context {
+      background-color: var(--gray-2);
+      stroke: var(--gray-3);
+      color: var(--gray-12);
     }
+    .menu-context-item:hover {
+      background-color: var(--blue-2);
+    }
+  }
 }

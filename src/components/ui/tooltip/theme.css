@@ -1,22 +1,18 @@
 @tailwind components;
 
 @layer components {
-    :root {
-
-        .tooltip-content{
-            background-color: var(--secondary);
-            color: var(--secondary-foreground);
-            caret-color: var(--gray-2);
-        }
-
+  :root {
+    .tooltip-content {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      caret-color: var(--gray-2);
     }
-    .dark {
-
-        .tooltip-content{
-            background-color: var(--secondary);
-            color: var(--gray-13);
-            caret-color: var(--gray-13);
-        }
-
+  }
+  .dark {
+    .tooltip-content {
+      background-color: var(--secondary);
+      color: var(--gray-13);
+      caret-color: var(--gray-13);
     }
+  }
 }
