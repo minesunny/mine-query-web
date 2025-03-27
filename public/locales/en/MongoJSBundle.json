@@ -1,0 +1,6 @@
+{
+  "mongojs.inspections.group.name": "MongoJS",
+  "inspection.name.resolve": "Resolution problems",
+  "inspection.side.effect.statements": "Statement with side effects",
+  "inspection.deprecation": "Deprecated element"
+}

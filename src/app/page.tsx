@@ -15,6 +15,7 @@ import DataSourceTree from "@/components/tree/datasource-tree";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { useEnvStoreStore } from "@/store/Env";
 import { EditorTabs } from "@/components/ui/tabs/editor-tabs";
+import { useTranslation } from "next-i18next";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   const ref = useRef<ImperativePanelHandle>(null);
@@ -69,9 +70,7 @@ export default function Page() {
               defaultSize={10}
               minSize={min}
               className={"border-0 bg-secondary"}
-            >
-              right
-            </ResizablePanel>
+            ></ResizablePanel>
           </ResizablePanelGroup>
         </div>
       </ResizablePanel>

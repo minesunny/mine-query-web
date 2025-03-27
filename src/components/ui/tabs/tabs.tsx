@@ -7,6 +7,8 @@ import { Separator } from "../separator";
 import { cn } from "@/lib/utils";
 import "./theme.css";
 import { SVG } from "@/components/ui/Icons";
+import { SVGButton } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
@@ -50,15 +52,56 @@ const TabsTrigger = React.forwardRef<
 ));
 
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
-
+function CloseSVGButton({
+  tabId,
+  close,
+  saved,
+}: {
+  tabId: string;
+  close?: (id: string) => void;
+  saved: boolean;
+}) {
+  const [iconName, setIconName] = useState("closeSmall");
+  useEffect(() => {
+    if (!saved) {
+      setIconName("dot");
+    }
+    console.log(iconName);
+  }, [saved]);
+  return (
+    <div
+      id="closeIcon"
+      className={`tab-item-icon mr-1 h-[16px] w-[16px] rounded-full`}
+      onClick={(event) => {
+        close && close(tabId);
+        event.stopPropagation();
+      }}
+      onMouseEnter={() => {
+        if (close) {
+          setIconName("closeSmall");
+        }
+      }}
+      onMouseLeave={() => {
+        if (!saved) {
+          setIconName("dot");
+        } else if (close) {
+          setIconName("closeSmall");
+        }
+      }}
+    >
+      <SVG name={iconName} height="16px" width="16px" />
+    </div>
+  );
+}
 const DynamicTabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & {
     tabId: string;
     close?: (id: string) => void;
     leadingIcon?: React.ReactNode;
+    saved: boolean;
   }
->(({ className, children, tabId, close, ...props }, ref) => (
+>(({ className, children, tabId, saved, close, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
@@ -69,21 +112,10 @@ const DynamicTabsTrigger = React.forwardRef<
     {...props}
   >
     <div className={"mr-1 flex flex-1 flex-row items-center justify-center"}>
-      <div id="content" className={"mr-[16px] flex h-[16px] flex-1"}>
+      <div id="content" className={"mr-2 flex h-[16px] flex-1"}>
         {children}
       </div>
-      {close && (
-        <div
-          id="closeIcon"
-          className={`tab-item-icon mr-1 h-[16px] w-[16px] rounded-full`}
-          onClick={(event) => {
-            close(tabId);
-            event.stopPropagation();
-          }}
-        >
-          <SVG name={"closeSmall"} height="16px" width="16px" />
-        </div>
-      )}
+      <CloseSVGButton tabId={tabId} close={close} saved={saved} />
     </div>
     <Separator
       className={

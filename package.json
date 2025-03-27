@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "pnpm prettier --write ."
+    "format": "pnpm prettier --write 'src/**/*.{js,ts,jsx,tsx}'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

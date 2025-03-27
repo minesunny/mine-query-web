@@ -55,9 +55,8 @@ export function EditorTabs() {
   const dropMenuRef = useRef<HTMLButtonElement>(null);
   const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
 
-  const { addEditor, removeEditor, updateEditor } = useSQLEditorEnvStore(
-    (state) => state,
-  );
+  const { addEditor, removeEditor, updateEditor, getEditor } =
+    useSQLEditorEnvStore((state) => state);
   const [triggerItem, setTriggerItem] = useState<TabItem>(defaultTriggerItem);
   const [activeTab, setActiveTab] = useState<TabItem>(defaultTriggerItem);
   const [hasEditor, setHasEditor] = useState<boolean>(false);
@@ -233,6 +232,7 @@ export function EditorTabs() {
               }}
               tabId={tab.id}
               close={tabs.length != 1 ? closeTab : undefined}
+              saved={!!getEditor(tab.id)?.saved}
             >
               <span className={"font-inter text-default"}>{tab.label}</span>
             </DynamicTabsTrigger>
