@@ -1,5 +1,6 @@
 import {
   DynamicTabsTrigger,
+  TabItemProps,
   Tabs,
   TabsContent,
   TabsList,
@@ -21,24 +22,19 @@ import { contextMenu } from "@/lib/utils";
 import { DataSourceType } from "@/models";
 import ace from "ace-builds";
 import { useEnvStoreStore } from "@/store/Env";
-type TabItem = {
-  id: string;
-  key: string;
-  type: "Editor" | "result" | "Welcome";
-  label: string;
-  closable?: boolean;
-};
+
 import "@/components/ui/dynamic-tabs/theme.css";
 import ReactAce from "react-ace";
 import { Toggle } from "@/components/ui/toggle";
-const defaultTriggerItem: TabItem = {
+import { Button } from "@/components/ui/button";
+const defaultTriggerItem: TabItemProps = {
   id: "",
   label: "",
   key: "",
   type: "Editor",
   closable: false,
 };
-const tabsIndexOf = (items: TabItem[], id: string) => {
+const tabsIndexOf = (items: TabItemProps[], id: string) => {
   for (let i = 0; i < items.length; i++) {
     if (items[i].id === id) {
       return i;
@@ -47,21 +43,22 @@ const tabsIndexOf = (items: TabItem[], id: string) => {
   return -1;
 };
 
-const tabsHasEditor = (items: TabItem[]) => {
+const tabsHasEditor = (items: TabItemProps[]) => {
   return items.filter((tab) => tab.type === "Editor").length > 0;
 };
 export function EditorTabs() {
-  const [tabs, setTabs] = useState<TabItem[]>([]);
+  const [tabs, setTabs] = useState<TabItemProps[]>([]);
   const dropMenuRef = useRef<HTMLButtonElement>(null);
   const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
 
   const { addEditor, removeEditor, updateEditor, getEditor } =
     useSQLEditorEnvStore((state) => state);
-  const [triggerItem, setTriggerItem] = useState<TabItem>(defaultTriggerItem);
-  const [activeTab, setActiveTab] = useState<TabItem>(defaultTriggerItem);
+  const [triggerItem, setTriggerItem] =
+    useState<TabItemProps>(defaultTriggerItem);
+  const [activeTab, setActiveTab] = useState<TabItemProps>(defaultTriggerItem);
   const [hasEditor, setHasEditor] = useState<boolean>(false);
   const editorRef = useRef<ReactAce>(null);
-  const updateActiveTab = (tabItem: TabItem) => {
+  const updateActiveTab = (TabItemProps: TabItemProps) => {
     if (activeTab.type == "Editor" && editorRef?.current) {
       const value = ace.edit(useSQLOptionState.name).getValue();
       const position = ace.edit(useSQLOptionState.name).getCursorPosition();
@@ -74,9 +71,9 @@ export function EditorTabs() {
       });
     }
 
-    setActiveTab(tabItem);
+    setActiveTab(TabItemProps);
   };
-  const closeEditor = (tabs: TabItem[]) => {
+  const closeEditor = (tabs: TabItemProps[]) => {
     const editorIds = tabs
       .filter((tab) => tab.type === "Editor")
       .map((editor) => editor.id);
@@ -142,7 +139,8 @@ export function EditorTabs() {
     }
     closeEditor(closeTabs);
   };
-  const closeTab = (itemId: string): void => {
+  const closeTab = (TabItemProps: TabItemProps): void => {
+    const itemId = TabItemProps.id;
     if (tabs.length == 1) {
       return;
     }
@@ -161,20 +159,24 @@ export function EditorTabs() {
   const renameTab = (itemId: string, newName: string): void => {
     const index = tabsIndexOf(tabs, itemId);
     if (index >= 0) {
-      const tabItem: TabItem = {
+      const TabItemProps: TabItemProps = {
         key: itemId,
         id: itemId,
         label: newName,
         type: "Editor",
       };
-      setTabs([...tabs.slice(0, index), tabItem, ...tabs.slice(index + 1)]);
+      setTabs([
+        ...tabs.slice(0, index),
+        TabItemProps,
+        ...tabs.slice(index + 1),
+      ]);
       updateEditor(itemId, {
         name: newName,
       });
     }
   };
   const createTab = (): void => {
-    const newTab: TabItem = {
+    const newTab: TabItemProps = {
       id: Math.random().toString(36).substr(2, 10),
       label: Math.random().toString(36).substr(2, 10),
       key: "editor-tab",
@@ -198,6 +200,18 @@ export function EditorTabs() {
   };
   return (
     <Tabs defaultValue="account" className="h-full w-full" value={activeTab.id}>
+      <Button
+        onClick={() => {
+          console.log("click", getEditor(activeTab.id)?.saved);
+          editorRef?.current &&
+            updateEditor(activeTab.id, {
+              code: editorRef.current.editor.getValue(),
+              saved: !getEditor(activeTab.id)?.saved,
+            });
+        }}
+      >
+        click
+      </Button>
       <EditorTabDropdownMenu
         item={{
           id: triggerItem.id,
@@ -216,6 +230,7 @@ export function EditorTabs() {
         renameTab={renameTab}
         ref={dropMenuRef}
       />
+
       <TabsList className="w-full">
         {tabs.map((tab, index) => {
           return (
@@ -225,17 +240,22 @@ export function EditorTabs() {
               onClick={() => {
                 updateActiveTab(tab);
               }}
-              onContextMenu={(event) => {
+              tabItem={tab}
+              saved={!!getEditor(tab.id)?.saved}
+              onContextMenu={(event: any) => {
                 setTriggerItem(tab);
                 contextMenu(event, dropMenuRef);
                 event.preventDefault();
               }}
-              tabId={tab.id}
+              saveAction={() => {
+                editorRef?.current &&
+                  updateEditor(tab.id, {
+                    code: editorRef.current.editor.getValue(),
+                    saved: true,
+                  });
+              }}
               close={tabs.length != 1 ? closeTab : undefined}
-              saved={!!getEditor(tab.id)?.saved}
-            >
-              <span className={"font-inter text-default"}>{tab.label}</span>
-            </DynamicTabsTrigger>
+            />
           );
         })}
         <Toggle name={"add"} onClick={createTab} />
@@ -266,6 +286,8 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
   ({ editorId }, ref) => {
     const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
     const getEditor = useSQLEditorEnvStore((state) => state.getEditor);
+    const updateEditor = useSQLEditorEnvStore((state) => state.updateEditor);
+    const [currentEditorId, setCurrentEditorId] = useState<string>("");
     const { editorHeight } = useEnvStoreStore((state) => state.env);
 
     useEffect(() => {
@@ -280,6 +302,9 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
           aceEditor.gotoLine(1, 0);
         }
         aceEditor.focus();
+        // @ts-ignore
+        aceEditor["editorId"] = editorId;
+      } else {
       }
     }, [editorId]);
     return (
@@ -309,6 +334,20 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
             width: "100%",
             height: editorHeight - 72,
           }}
+          commands={[
+            {
+              name: "save",
+              bindKey: { win: "Ctrl-S", mac: "Cmd-S" },
+              exec: function (editor) {
+                // because state not used in this callback, so bind a var;
+                // @ts-ignore
+                updateEditor(editor["editorId"], {
+                  code: editor.getValue(),
+                  saved: true,
+                });
+              },
+            },
+          ]}
           lineHeight={useSQLOptionState.lineHeight}
           showGutter={useSQLOptionState.showGutter}
           mode={useSQLOptionState.mode}

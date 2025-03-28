@@ -7,10 +7,16 @@ import { Separator } from "../separator";
 import { cn } from "@/lib/utils";
 import "./theme.css";
 import { SVG } from "@/components/ui/Icons";
-import { SVGButton } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { TabCloseAlertDialog } from "../alert-dialog";
 const Tabs = TabsPrimitive.Root;
-
+type TabItemProps = {
+  id: string;
+  key: string;
+  type: "Editor" | "result" | "Welcome";
+  label: string;
+  closable?: boolean;
+};
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
@@ -53,27 +59,28 @@ const TabsTrigger = React.forwardRef<
 
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 function CloseSVGButton({
-  tabId,
+  tabItem,
   close,
   saved,
 }: {
-  tabId: string;
-  close?: (id: string) => void;
+  tabItem: TabItemProps;
+  close?: (tabItem: TabItemProps) => void;
   saved: boolean;
 }) {
   const [iconName, setIconName] = useState("closeSmall");
   useEffect(() => {
     if (!saved) {
       setIconName("dot");
+    } else if (close) {
+      setIconName("closeSmall");
     }
-    console.log(iconName);
   }, [saved]);
   return (
     <div
       id="closeIcon"
       className={`tab-item-icon mr-1 h-[16px] w-[16px] rounded-full`}
       onClick={(event) => {
-        close && close(tabId);
+        close && close(tabItem);
         event.stopPropagation();
       }}
       onMouseEnter={() => {
@@ -96,35 +103,77 @@ function CloseSVGButton({
 const DynamicTabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & {
-    tabId: string;
-    close?: (id: string) => void;
+    tabItem: TabItemProps;
+    close?: (tabItem: TabItemProps) => void;
     leadingIcon?: React.ReactNode;
     saved: boolean;
+    saveAction?: (tab: TabItemProps) => void;
   }
->(({ className, children, tabId, saved, close, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      "group " +
-        "inline-flex h-full flex-col items-center whitespace-nowrap rounded-md pt-1 text-sm font-medium focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-      className,
-    )}
-    {...props}
-  >
-    <div className={"mr-1 flex flex-1 flex-row items-center justify-center"}>
-      <div id="content" className={"mr-2 flex h-[16px] flex-1"}>
-        {children}
-      </div>
-      <CloseSVGButton tabId={tabId} close={close} saved={saved} />
-    </div>
-    <Separator
-      className={
-        "h-[3px] w-full rounded-sm dark:group-data-[state=active]:bg-blue-6"
+>(
+  (
+    { className, children, tabItem, saved, saveAction, close, ...props },
+    ref,
+  ) => {
+    const alertRef = useRef<HTMLButtonElement>(null);
+    const [closeState, setCloseState] = React.useState(false);
+    useEffect(() => {
+      setCloseState(saved);
+    }, [saved]);
+    function closeAction(tabItem: TabItemProps) {
+      if (closeState) {
+        close && close(tabItem);
       }
-      id="separator"
-    />
-  </TabsPrimitive.Trigger>
-));
+      setCloseState(true);
+      if (alertRef.current) {
+        const event = new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        });
+        alertRef.current.dispatchEvent(event);
+      }
+    }
+    return (
+      <>
+        <TabsTrigger ref={ref} {...props}>
+          <div
+            className={
+              "mr-1 flex w-fit flex-1 flex-row items-center justify-center"
+            }
+          >
+            <div
+              id="content"
+              className={"mr-2 flex h-[16px] flex-1 font-inter"}
+            >
+              {tabItem.label}
+            </div>
+            <CloseSVGButton
+              tabItem={tabItem}
+              close={closeAction}
+              saved={saved}
+            />
+          </div>
+        </TabsTrigger>
+        {!saved && (
+          <TabCloseAlertDialog
+            ref={alertRef}
+            tab={tabItem}
+            saveAction={function (tab: TabItemProps): void {
+              saveAction && saveAction(tab);
+              setCloseState(true);
+              closeAction(tab);
+            }}
+            cancelAction={function (tab: TabItemProps): void {
+              setCloseState(false);
+            }}
+            notSaveAction={function (tab: TabItemProps): void {
+              closeAction(tab);
+            }}
+          />
+        )}
+      </>
+    );
+  },
+);
 
 DynamicTabsTrigger.displayName = "DynamicTabsTrigger";
 
@@ -141,3 +190,5 @@ const TabsContent = React.forwardRef<
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
 export { Tabs, TabsList, TabsTrigger, TabsContent, DynamicTabsTrigger };
+
+export type { TabItemProps };

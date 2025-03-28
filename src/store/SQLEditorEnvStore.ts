@@ -79,6 +79,7 @@ const SQLEditorEnvStoreSlice: StateCreator<
       const index = state.editors.findIndex(
         (item) => item.editorId === editorId,
       );
+
       if (index !== -1) {
         state.editors[index] = { ...state.editors[index], ...updatedItem };
       }
