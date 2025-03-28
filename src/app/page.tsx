@@ -16,6 +16,8 @@ import { ImperativePanelHandle } from "react-resizable-panels";
 import { useEnvStoreStore } from "@/store/Env";
 import { EditorTabs } from "@/components/ui/tabs/editor-tabs";
 import { useTranslation } from "next-i18next";
+import { Toggle } from "@/components/ui/toggle";
+import { Bold } from "lucide-react";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   const ref = useRef<ImperativePanelHandle>(null);
@@ -70,7 +72,9 @@ export default function Page() {
               defaultSize={10}
               minSize={min}
               className={"border-0 bg-secondary"}
-            ></ResizablePanel>
+            >
+              <Toggle name={"add"} split />
+            </ResizablePanel>
           </ResizablePanelGroup>
         </div>
       </ResizablePanel>

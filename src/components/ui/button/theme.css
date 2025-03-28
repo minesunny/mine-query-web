@@ -56,7 +56,7 @@
     }
 
     .svg-secondary-button {
-      background-color: var(--secondary-background);
+      background-color: var(--secondary);
     }
     .svg-secondary-button:hover {
       background-color: var(--gray-6);

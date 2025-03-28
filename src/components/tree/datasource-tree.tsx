@@ -8,10 +8,10 @@ import { menuApi } from "@/api/menu-api";
 import { contextMenu } from "@/lib/utils";
 import { NodeSVG, SVG } from "@/components/ui/Icons";
 import { GenericContextMenu } from "@/components/ui/context-menu/generic-context-menu";
-import { SVGButton } from "@/components/ui/button/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useEnvStoreStore } from "@/store/Env";
 import "./theme.css";
+import { Toggle } from "@/components/ui/toggle";
 const updateTreeData = (list: DataNode[], result: DataNode): DataNode[] =>
   list.map((node) => {
     if (node.key === result.key) {
@@ -143,9 +143,8 @@ const DataSourceTree: React.FC = () => {
       <div className={"h-full w-full min-w-[250px]"}>
         <GenericContextMenu ref={contextMenuRef} menu={menu} />
         <div className={"absolute right-0 top-1 flex items-center"}>
-          <SVGButton
+          <Toggle
             name={"remove"}
-            variant="secondary"
             onClick={() => {
               setCollapsible(true);
             }}
@@ -164,11 +163,11 @@ const DataSourceTree: React.FC = () => {
             id="bar"
             className={"flex h-8 w-full items-center border-b border-primary"}
           >
-            <SVGButton name="add" variant="secondary" onClick={() => {}} />
-            <SVGButton name="manageDataSources" variant="secondary" />
-            <SVGButton name="refresh" variant="secondary" />
-            <SVGButton name="runStop" variant="secondary" />
-            <SVGButton name="show" variant="secondary" />
+            <Toggle name="add" onClick={() => {}} />
+            <Toggle name="manageDataSources" />
+            <Toggle name="refresh" />
+            <Toggle name="runStop" />
+            <Toggle name="show" />
           </div>
         </div>
         <Tree

@@ -11,7 +11,6 @@ import { EditorTabDropdownMenu } from "@/components/ui/dropdown-menu";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-ambiance";
 
-import { SVGButton } from "@/components/ui/button";
 import {
   SQLEditorBarTransactionSelect,
   SQLEditorBarSourceSelect,
@@ -31,6 +30,7 @@ type TabItem = {
 };
 import "@/components/ui/dynamic-tabs/theme.css";
 import ReactAce from "react-ace";
+import { Toggle } from "@/components/ui/toggle";
 const defaultTriggerItem: TabItem = {
   id: "",
   label: "",
@@ -238,7 +238,7 @@ export function EditorTabs() {
             </DynamicTabsTrigger>
           );
         })}
-        <SVGButton name={"add"} onClick={createTab} />
+        <Toggle name={"add"} onClick={createTab} />
       </TabsList>
       {tabs
         .filter((tab) => {
@@ -284,12 +284,12 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
     }, [editorId]);
     return (
       <>
-        <div className="flex h-9 items-center border-0 bg-secondary">
+        <div className="flex h-9 items-center gap-1 border-0 bg-secondary">
           <Separator orientation="vertical" className={"mx-6 h-5"} />
-          <SVGButton name={"run"} />
-          <SVGButton name={"history"} />
-          <SVGButton name={"viewParameters"} />
-          <SVGButton name={"settings"} />
+          <Toggle name={"run"} />
+          <Toggle name={"history"} />
+          <Toggle name={"viewParameters"} />
+          <Toggle name={"settings"} />
           <SQLEditorBarTransactionSelect editorId={editorId} />
           <Separator
             orientation="vertical"
@@ -300,7 +300,7 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
             orientation="vertical"
             className={"editor-bar-button-split mx-2 h-5"}
           />
-          <SVGButton name={"runStop"} />
+          <Toggle name={"runStop"} />
         </div>
         <AceEditor
           ref={ref}

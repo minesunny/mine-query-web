@@ -1,0 +1,32 @@
+@tailwind components;
+
+@layer components {
+    :root {
+
+    }
+    .dark {
+        .toggle-default {
+
+        }
+        [data-state="on"].toggle-default-on {
+            background-color: var(--gray-4);
+        }
+        .toggle-default:hover {
+            background-color: var(--gray-4);
+        }
+        .toggle-default-split {
+            background-color: var(--gray-5);
+        }
+
+        .svg-secondary-button {
+            background-color: var(--secondary);
+        }
+        .svg-secondary-button:hover {
+            background-color: var(--gray-6);
+        }
+
+        .svg-secondary-button-split {
+            background-color: var(--gray-5);
+        }
+    }
+}

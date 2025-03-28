@@ -20,9 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select/select";
 import * as React from "react";
-import { Button, DynamicSVGButton } from "@/components/ui/button";
 
 import { useEnvStoreStore } from "@/store/Env";
+import { DynamicToggle } from "@/components/ui/toggle";
+import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   return (
@@ -48,13 +49,11 @@ export function SiteLeft() {
         "flex h-full w-8 flex-row justify-center border-r border-primary bg-secondary pt-1"
       }
     >
-      <DynamicSVGButton
+      <DynamicToggle
         name={"dbms"}
-        variant="secondary"
         onClick={() => {
           setCollapsible(!collapsible);
         }}
-        split={false}
       />
     </div>
   );

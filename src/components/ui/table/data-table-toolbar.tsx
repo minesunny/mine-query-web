@@ -2,8 +2,8 @@
 
 import { Table } from "@tanstack/react-table";
 
-import { Button, SVGButton } from "@/components/ui/button/button";
 import { DataTableViewOptions } from "./data-table-view-options";
+import { Toggle } from "@/components/ui/toggle";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -16,19 +16,19 @@ export function DataTableToolbar<TData>({
 
   return (
     <div className="flex items-center justify-between">
-      <SVGButton name="table" />
-      <SVGButton name="chartLine" />
-      <SVGButton name="refresh" />
-      <SVGButton name="toolWindowClock" />
-      <SVGButton name="runStop" />
-      <SVGButton name="add" />
-      <SVGButton name="remove" />
-      <SVGButton name="reset" />
-      <SVGButton name="previewChanges" />
-      <SVGButton name="submitDB" />
-      <SVGButton name="pin" />
-      <SVGButton name="search" />
-      <SVGButton name="settings" />
+      <Toggle name="table" />
+      <Toggle name="chartLine" />
+      <Toggle name="refresh" />
+      <Toggle name="toolWindowClock" />
+      <Toggle name="runStop" />
+      <Toggle name="add" />
+      <Toggle name="remove" />
+      <Toggle name="reset" />
+      <Toggle name="previewChanges" />
+      <Toggle name="submitDB" />
+      <Toggle name="pin" />
+      <Toggle name="search" />
+      <Toggle name="settings" />
 
       <div className="flex flex-1 items-center space-x-2">
         {/* <Input
@@ -59,7 +59,7 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <SVGButton name="plus" />
+            <Toggle name="plus" />
           </Button>
         )}
         */}
