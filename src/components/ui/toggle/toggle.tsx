@@ -39,7 +39,7 @@ const Toggle = React.forwardRef<
   if (name) {
     const { children, ..._props } = props;
     return (
-      <div className={"flex w-fit items-center"}>
+      <div className={"flex h-fit w-fit items-center"}>
         <TogglePrimitive.Root
           ref={ref}
           className={cn(toggleVariants({ variant, size, className }))}
