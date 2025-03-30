@@ -200,17 +200,6 @@ export function EditorTabs() {
   };
   return (
     <Tabs defaultValue="account" className="h-full w-full" value={activeTab.id}>
-      <Button
-        onClick={() => {
-          editorRef?.current &&
-            updateEditor(activeTab.id, {
-              code: editorRef.current.editor.getValue(),
-              saved: !getEditor(activeTab.id)?.saved,
-            });
-        }}
-      >
-        click
-      </Button>
       <EditorTabDropdownMenu
         item={{
           id: triggerItem.id,
@@ -286,7 +275,6 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
     const useSQLOptionState = useSQLEditorOptionStore((state) => state.option);
     const getEditor = useSQLEditorEnvStore((state) => state.getEditor);
     const updateEditor = useSQLEditorEnvStore((state) => state.updateEditor);
-    const [currentEditorId, setCurrentEditorId] = useState<string>("");
     const { editorHeight } = useEnvStoreStore((state) => state.env);
 
     useEffect(() => {

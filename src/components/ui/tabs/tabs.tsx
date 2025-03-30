@@ -61,7 +61,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 function CloseSVGButton({
   tabItem,
   close,
-  saved,
+  saved = true,
 }: {
   tabItem: TabItemProps;
   close?: (tabItem: TabItemProps) => void;
@@ -153,23 +153,23 @@ const DynamicTabsTrigger = React.forwardRef<
             />
           </div>
         </TabsTrigger>
-        {!saved && (
-          <TabCloseAlertDialog
-            ref={alertRef}
-            tab={tabItem}
-            saveAction={function (tab: TabItemProps): void {
-              saveAction && saveAction(tab);
-              setCloseState(true);
-              closeAction(tab);
-            }}
-            cancelAction={function (tab: TabItemProps): void {
-              setCloseState(false);
-            }}
-            notSaveAction={function (tab: TabItemProps): void {
-              closeAction(tab);
-            }}
-          />
-        )}
+        {/*{!saved && (*/}
+        {/*  <TabCloseAlertDialog*/}
+        {/*    ref={alertRef}*/}
+        {/*    tab={tabItem}*/}
+        {/*    saveAction={function (tab: TabItemProps): void {*/}
+        {/*      saveAction && saveAction(tab);*/}
+        {/*      setCloseState(true);*/}
+        {/*      closeAction(tab);*/}
+        {/*    }}*/}
+        {/*    cancelAction={function (tab: TabItemProps): void {*/}
+        {/*      setCloseState(false);*/}
+        {/*    }}*/}
+        {/*    notSaveAction={function (tab: TabItemProps): void {*/}
+        {/*      closeAction(tab);*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*)}*/}
       </>
     );
   },
