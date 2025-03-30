@@ -29,7 +29,7 @@ const DataSourceDialog: React.FC = ({
   dataSourceId?: string;
   dataSourceProps?: DataSource;
 }) => {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
 
   const optionContentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -65,7 +65,9 @@ const DataSourceDialog: React.FC = ({
         }}
       >
         <DialogHeader windowControl={false}>
-          <DialogTitle>{t("datasource-dialog.dialog-title")}</DialogTitle>
+          <DialogTitle>
+            {t("toolwindow.stripe.Database.inDataGrip")}
+          </DialogTitle>
         </DialogHeader>
         <DataSourceForm
           height={height}
@@ -79,11 +81,11 @@ const DataSourceDialog: React.FC = ({
         <DialogFooter
           className={"mb-5 flex h-6 w-full justify-end space-x-8 pr-4"}
         >
-          <Button className={"my-0 h-6 w-20"}>{t("confirm")}</Button>
+          <Button className={"my-0 h-6 w-20"}>{t("Button.confirm")}</Button>
           <DialogClose asChild>
-            <Button className={"my-0 h-6 w-20"}>{t("cancel")}</Button>
+            <Button className={"my-0 h-6 w-20"}>{t("Button.cancel")}</Button>
           </DialogClose>
-          <Button className={"my-0 h-6 w-20"}>{t("apply")}</Button>
+          <Button className={"my-0 h-6 w-20"}>{t("Button.apply")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

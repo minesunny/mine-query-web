@@ -42,7 +42,7 @@ const EditorTabDropdownMenu = forwardRef<
     },
     ref,
   ) => {
-    const { t } = useTranslation("component");
+    const { t } = useTranslation("DatabaseBundle");
     const [value, setValue] = useState<{
       id: string;
       label: string;
@@ -62,14 +62,14 @@ const EditorTabDropdownMenu = forwardRef<
               onClick={() => closeOtherTabs && closeOtherTabs(value.id)}
               disabled={!closeOtherTabs}
             >
-              {t("closeOtherTabs")}
+              {t("tab.close.other.tabs")}
             </ContextMenuItem>
             <ContextMenuItem
               inset
               onClick={() => closeLeftTabs && closeLeftTabs(value.id)}
               disabled={!closeLeftTabs}
             >
-              {t("closeLeftTabs")}
+              {t("tab.close.left.tabs")}
             </ContextMenuItem>
 
             <ContextMenuItem
@@ -77,18 +77,18 @@ const EditorTabDropdownMenu = forwardRef<
               onClick={() => closeRightTabs && closeRightTabs(value.id)}
               disabled={!closeRightTabs}
             >
-              {t("closeRightTabs")}
+              {t("tab.close.right.tabs")}
             </ContextMenuItem>
-            <ContextMenuItem
-              inset
-              onClick={() => closeAllTabs && closeAllTabs(value.id)}
-              disabled={!closeAllTabs}
-            >
-              {t("closeAllTabs")}
-            </ContextMenuItem>
+            {/*<ContextMenuItem*/}
+            {/*  inset*/}
+            {/*  onClick={() => closeAllTabs && closeAllTabs(value.id)}*/}
+            {/*  disabled={!closeAllTabs}*/}
+            {/*>*/}
+            {/*  {t("closeAllTabs")}*/}
+            {/*</ContextMenuItem>*/}
             <DialogTrigger asChild>
               <ContextMenuItem className={"indent-6"}>
-                <span>{t("rename")}</span>
+                <span>{t("tab.rename")}</span>
               </ContextMenuItem>
             </DialogTrigger>
           </ContextMenuContent>

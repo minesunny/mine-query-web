@@ -12,6 +12,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useEnvStoreStore } from "@/store/Env";
 import "./theme.css";
 import { Toggle } from "@/components/ui/toggle";
+import { useTranslation } from "next-i18next";
 const updateTreeData = (list: DataNode[], result: DataNode): DataNode[] =>
   list.map((node) => {
     if (node.key === result.key) {
@@ -71,6 +72,7 @@ const handleIcons = (node: DataNode) => {
 };
 
 const DataSourceTree: React.FC = () => {
+  const { t } = useTranslation("DatabaseBundle");
   const [treeData, setTreeData] = useState<DataNode[]>([]);
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [loadedKeys, setLoadedKeys] = useState<string[]>([]);
@@ -157,7 +159,9 @@ const DataSourceTree: React.FC = () => {
               "flex h-8 w-full justify-between border-b border-primary font-inter text-small leading-8"
             }
           >
-            <div className="indent-8">数据库资源管理器</div>
+            <div className="indent-8">
+              {t("toolwindow.stripe.Database.inDataGrip")}
+            </div>
           </div>
           <div
             id="bar"

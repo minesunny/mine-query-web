@@ -18,6 +18,7 @@ import { EditorTabs } from "@/components/ui/tabs/editor-tabs";
 import { useTranslation } from "next-i18next";
 import { Toggle } from "@/components/ui/toggle";
 import { Bold } from "lucide-react";
+import { DataSourceDialog } from "@/components/ui/dialog";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   const ref = useRef<ImperativePanelHandle>(null);
@@ -73,7 +74,7 @@ export default function Page() {
               minSize={min}
               className={"border-0 bg-secondary"}
             >
-              <Toggle name={"add"} split />
+              <DataSourceDialog />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>

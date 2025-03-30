@@ -69,7 +69,7 @@ export function DataSourceForm({
   height,
   onSubmit,
 }: DatasourceFormProps) {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
 
   const formSchema = DataSourceSchema(useTranslation("model"));
   const form = useForm<z.infer<typeof formSchema>>({
@@ -92,8 +92,12 @@ export function DataSourceForm({
         <CommentField />
         <Tabs defaultValue="general" className="w-full flex-1">
           <TabsList className="grid w-[200px] grid-cols-2">
-            <TabsTrigger value="general">{t("general")}</TabsTrigger>
-            <TabsTrigger value="option">{t("option")}</TabsTrigger>
+            <TabsTrigger value="general">
+              {t("database.driver.settings.general.tab")}
+            </TabsTrigger>
+            <TabsTrigger value="option">
+              {t("database.driver.settings.options.tab")}
+            </TabsTrigger>
           </TabsList>
           <TabsContent
             value="general"
@@ -118,7 +122,7 @@ export function DataSourceForm({
   );
 }
 function NameField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext(); // 获取 form 控制器
   return (
     <FormField
@@ -126,7 +130,9 @@ function NameField() {
       name="name"
       render={({ field }) => (
         <FormItem className="flex w-[500px] items-center space-x-4">
-          <FormLabel className="w-[80px]">{t("name")} :</FormLabel>
+          <FormLabel className="w-[80px]">
+            {t("property.FirstName.title")} :
+          </FormLabel>
           <FormControl className="w-[250px]">
             <Input
               {...field}
@@ -135,7 +141,7 @@ function NameField() {
             />
           </FormControl>
           <FormDescription className="w-[100px]">
-            {t("datasource-dialog.ddlMapping")}
+            {t("action.DatabaseView.CreateDdlMapping.text")}
           </FormDescription>
           <FormMessage />
         </FormItem>
@@ -144,7 +150,7 @@ function NameField() {
   );
 }
 function CommentField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <FormField
@@ -152,7 +158,9 @@ function CommentField() {
       name="comment"
       render={({ field }) => (
         <FormItem className="flex w-[500px] items-center space-x-4">
-          <FormLabel className="w-[80px]">{t("comment")} :</FormLabel>
+          <FormLabel className="w-[80px]">
+            {t("DatabaseObjectCommentEditor.comment")} :
+          </FormLabel>
           <FormControl className="w-[250px]">
             <Input
               {...field}
@@ -167,7 +175,7 @@ function CommentField() {
 }
 
 function ConnectionTypeField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
 
   const { control } = useFormContext(); // 获取 form 控制器
   return (
@@ -177,12 +185,14 @@ function ConnectionTypeField() {
         name="connectionType"
         render={({ field }) => (
           <FormItem className="my-3 flex w-2/5 items-center space-x-4">
-            <FormLabel className="w-[80px]">{t("connectionType")} :</FormLabel>
+            <FormLabel className="w-[80px]">
+              {t("data.source.editor.connection.type.label")}
+            </FormLabel>
             <div className="h-full flex-1">
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="h-[26px] p-0 pl-2">
-                    <SelectValue placeholder="请选择" />
+                    <SelectValue />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -201,7 +211,7 @@ function ConnectionTypeField() {
 }
 
 function HostPortField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
 
   const { control } = useFormContext();
   return (
@@ -211,7 +221,9 @@ function HostPortField() {
         name="host"
         render={({ field }) => (
           <FormItem className={"my-3 flex flex-grow items-center space-x-4"}>
-            <FormLabel className="w-[80px]">{t("host") + ":"}</FormLabel>
+            <FormLabel className="w-[80px]">
+              {t("property.Host.title") + " :"}
+            </FormLabel>
             <FormControl className="flex-1">
               <Input {...field} className="h-[26px] border leading-[26px]" />
             </FormControl>
@@ -222,8 +234,10 @@ function HostPortField() {
         control={control}
         name="port"
         render={({ field }) => (
-          <FormItem className={"my-3 flex w-1/5 items-center space-x-4"}>
-            <FormLabel className="w-[40px]">{t("port") + ":"}</FormLabel>
+          <FormItem className={"my-3 flex w-1/5 items-center space-x-4 pl-2"}>
+            <FormLabel className="w-[40px]">
+              {t("TypeDescriptor.param.port") + " :"}
+            </FormLabel>
             <FormControl className="flex-1">
               <Input {...field} className="h-[26px] border leading-[26px]" />
             </FormControl>
@@ -235,7 +249,7 @@ function HostPortField() {
 }
 
 function AuthTypeField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <FormField
@@ -243,9 +257,7 @@ function AuthTypeField() {
       name="authType"
       render={({ field }) => (
         <FormItem className={"my-3 flex w-full items-center space-x-4"}>
-          <FormLabel className="w-[80px]">
-            {t("datasource-dialog.authentication") + ":"}
-          </FormLabel>
+          <FormLabel className="w-[80px]">{t("authentication.type")}</FormLabel>
           <FormControl className="flex-1">
             <Input {...field} className="h-[26px] border leading-[26px]" />
           </FormControl>
@@ -256,7 +268,7 @@ function AuthTypeField() {
 }
 
 function UserNameField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -265,9 +277,15 @@ function UserNameField() {
         name="username"
         render={({ field }) => (
           <FormItem className={"my-3 flex w-4/5 items-center space-x-4"}>
-            <FormLabel className="w-[80px]">{t("username") + ":"}</FormLabel>
+            <FormLabel className="w-[80px]">
+              {t("database.auth.user.label")}
+            </FormLabel>
             <FormControl className="flex-1">
-              <Input {...field} className="h-[26px] border leading-[26px]" />
+              <Input
+                {...field}
+                className="h-[26px] border leading-[26px]"
+                type={"text"}
+              />
             </FormControl>
           </FormItem>
         )}
@@ -278,7 +296,7 @@ function UserNameField() {
 }
 
 function PasswordField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -287,9 +305,15 @@ function PasswordField() {
         name="password"
         render={({ field }) => (
           <FormItem className={"my-3 flex w-4/5 items-center space-x-4"}>
-            <FormLabel className="w-[80px]">{t("password") + ":"}</FormLabel>
+            <FormLabel className="w-[80px]">
+              {t("property.Password.title") + " :"}
+            </FormLabel>
             <FormControl className="flex-1">
-              <Input {...field} className="h-[26px] border leading-[26px]" />
+              <Input
+                {...field}
+                className="h-[26px] border leading-[26px]"
+                type={"password"}
+              />
             </FormControl>
           </FormItem>
         )}
@@ -300,7 +324,7 @@ function PasswordField() {
 }
 
 function DataBaseNameField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <FormField
@@ -308,7 +332,9 @@ function DataBaseNameField() {
       name="dataBaseName"
       render={({ field }) => (
         <FormItem className={"my-3 flex w-full items-center space-x-4"}>
-          <FormLabel className="w-[80px]">{t("dataBaseName") + ":"}</FormLabel>
+          <FormLabel className="w-[80px]">
+            {t("advanced.settings.database") + " :"}
+          </FormLabel>
           <FormControl className="flex-1">
             <Input {...field} className="h-[26px] border leading-[26px]" />
           </FormControl>
@@ -319,7 +345,7 @@ function DataBaseNameField() {
 }
 
 function URLField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <FormField
@@ -327,7 +353,9 @@ function URLField() {
       name="url"
       render={({ field }) => (
         <FormItem className={"my-3 flex w-full items-center space-x-4"}>
-          <FormLabel className="w-[80px]">{t("url") + ":"}</FormLabel>
+          <FormLabel className="w-[80px]">
+            {t("data.source.editor.url.label")}
+          </FormLabel>
           <FormControl className="flex-1">
             <Input {...field} className="h-[26px] border leading-[26px]" />
           </FormControl>
@@ -352,11 +380,13 @@ function GeneralTabContext() {
 }
 
 function OptionTabContent() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   return (
     <>
       <div className={"flex h-[26px] w-full items-center"}>
-        <div className={"mr-2 h-6 w-auto"}>{t("connection")}</div>
+        <div className={"mr-2 h-6 w-auto"}>
+          {t("data.source.connection.title")}
+        </div>
         <Separator className={"h-[1px] flex-1 bg-[var(--gray-4)]"} />
       </div>
       <ReadOnlyField />
@@ -371,7 +401,7 @@ function OptionTabContent() {
 }
 
 function ReadOnlyField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -386,7 +416,9 @@ function ReadOnlyField() {
                 onCheckedChange={field.onChange} // 确保 onChange 处理 boolean 值
               />
             </FormControl>
-            <FormLabel className="text-sm">{t("readOnly")}</FormLabel>
+            <FormLabel className="text-sm">
+              {t("data.source.read.only.label")}
+            </FormLabel>
           </FormItem>
         )}
       />
@@ -395,7 +427,7 @@ function ReadOnlyField() {
   );
 }
 function TransactionControlField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -405,41 +437,45 @@ function TransactionControlField() {
         render={({ field }) => (
           <FormItem className="my-3 ml-8 flex w-[200px] items-center space-x-4">
             <FormLabel className="w-[80px]">
-              {t("transactionControl")} :
+              {t("data.source.transaction.control.label")}
             </FormLabel>
             <div className="h-full flex-1">
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="h-[26px] p-0 pl-2">
-                    <SelectValue placeholder="请选择" />
+                    <SelectValue />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel className={"pl-1"}>
-                      {t("transactionMode")}
+                      {t("transaction.mode")}
                     </SelectLabel>
-                    <SelectItem value="auto">{t("auto")}</SelectItem>
-                    <SelectItem value="manual">{t("manual")}</SelectItem>
+                    <SelectItem value="auto">
+                      {t("transaction.mode.auto")}
+                    </SelectItem>
+                    <SelectItem value="manual">
+                      {t("transaction.mode.manual")}
+                    </SelectItem>
                   </SelectGroup>
                   <SelectGroup>
                     <SelectLabel className={"pl-1"}>
-                      {t("transactionIsolation")}
+                      {t("action.transaction.isolation.text")}
                     </SelectLabel>
                     <SelectItem value="transactionIsolationDefault">
-                      {t("transactionIsolationDefault")}
+                      {t("transaction.mode.database.default")}
                     </SelectItem>
                     <SelectItem value="transactionReadUncommit">
-                      {t("transactionReadUncommit")}
+                      {t("transaction.mode.read.committed")}
                     </SelectItem>
                     <SelectItem value="transactionReadCommited">
-                      {t("transactionReadCommited")}
+                      {t("transaction.mode.read.uncommitted")}
                     </SelectItem>
-                    <SelectItem value="transactionRepeatRead">
+                    <SelectItem value="transaction.mode.repeatable.read">
                       {t("transactionRepeatRead")}
                     </SelectItem>
                     <SelectItem value="transactionSequence">
-                      {t("transactionSequence")}
+                      {t("transaction.mode.serializable")}
                     </SelectItem>
                   </SelectGroup>
                 </SelectContent>
@@ -454,7 +490,7 @@ function TransactionControlField() {
 }
 
 function SwitchArchitectureField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -464,19 +500,25 @@ function SwitchArchitectureField() {
         render={({ field }) => (
           <FormItem className="my-3 ml-8 flex w-[200px] items-center space-x-4">
             <FormLabel className="w-[80px]">
-              {t("switchArchitecture")} :
+              {t("data.source.switch.schema.label")}
             </FormLabel>
             <div className="h-full flex-1">
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="h-[26px] p-0 pl-2">
-                    <SelectValue placeholder="请选择" />
+                    <SelectValue />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="auto">{t("auto")}</SelectItem>
-                  <SelectItem value="manual">{t("manual")}</SelectItem>
-                  <SelectItem value="disabled">{t("disabled")}</SelectItem>
+                  <SelectItem value="auto">
+                    {t("data.source.settings.options.schema.switch.auto")}
+                  </SelectItem>
+                  <SelectItem value="manual">
+                    {t("data.source.settings.options.schema.switch.manual")}
+                  </SelectItem>
+                  <SelectItem value="disabled">
+                    {t("data.source.settings.options.schema.switch.disabled")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -489,7 +531,7 @@ function SwitchArchitectureField() {
 }
 
 function TimeZoneField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -498,12 +540,14 @@ function TimeZoneField() {
         name="timezone"
         render={({ field }) => (
           <FormItem className="my-3 ml-8 flex w-[200px] items-center space-x-4">
-            <FormLabel className="w-[80px]">{t("timezone")} :</FormLabel>
+            <FormLabel className="w-[80px]">
+              {t("data.source.time.zone.label")}
+            </FormLabel>
             <div className="h-full flex-1">
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="h-[26px] p-0 pl-2">
-                    <SelectValue placeholder="请选择" />
+                    <SelectValue />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -524,7 +568,7 @@ function TimeZoneField() {
 }
 
 function SingleSessionModeField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
 
   const { control } = useFormContext();
   return (
@@ -540,7 +584,9 @@ function SingleSessionModeField() {
                 onCheckedChange={field.onChange}
               />
             </FormControl>
-            <FormLabel className="text-sm">{t("singleSessionMode")}</FormLabel>
+            <FormLabel className="text-sm">
+              {t("data.source.single.session.mode.label")}
+            </FormLabel>
           </FormItem>
         )}
       />
@@ -549,7 +595,7 @@ function SingleSessionModeField() {
   );
 }
 function KeepAliveField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   return (
     <>
@@ -565,7 +611,7 @@ function KeepAliveField() {
               />
             </FormControl>
             <FormLabel className="text-sm">
-              {t("datasource-dialog.keepAlive")}
+              {t("data.source.keep.alive.label")}
             </FormLabel>
           </FormItem>
         )}
@@ -576,7 +622,7 @@ function KeepAliveField() {
 }
 
 function TimeOutField() {
-  const { t } = useTranslation("component");
+  const { t } = useTranslation("DatabaseBundle");
   const { control } = useFormContext();
   const [checked, setChecked] = useState(false);
   return (
@@ -594,7 +640,7 @@ function TimeOutField() {
               />
             </FormLabel>
             <FormLabel className="text-sm">
-              {t("datasource-dialog.timeout")}
+              {t("data.source.auto.disconnect.label")}
             </FormLabel>
             <FormControl>
               <Input
@@ -604,7 +650,9 @@ function TimeOutField() {
                 className={"h-[26px] w-[80px] border leading-[26px]"}
               />
             </FormControl>
-            <FormLabel className="text-sm">{t("second")}</FormLabel>
+            <FormLabel className="text-sm">
+              {t("DataSourceOptionsPanel.sec")}
+            </FormLabel>
           </FormItem>
         )}
       />

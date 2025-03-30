@@ -202,7 +202,6 @@ export function EditorTabs() {
     <Tabs defaultValue="account" className="h-full w-full" value={activeTab.id}>
       <Button
         onClick={() => {
-          console.log("click", getEditor(activeTab.id)?.saved);
           editorRef?.current &&
             updateEditor(activeTab.id, {
               code: editorRef.current.editor.getValue(),
