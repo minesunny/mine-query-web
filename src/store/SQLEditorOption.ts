@@ -36,7 +36,7 @@ const SQLEditorOptionStoreSlice: StateCreator<
   option: {
     name: "ACE_EDITOR",
     lineHeight: 24,
-    mode: "sql",
+    mode: "ace/mode/sql",
     fontSize: 18,
     showLineNumbers: true,
   },

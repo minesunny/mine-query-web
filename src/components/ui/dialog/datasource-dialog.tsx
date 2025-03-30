@@ -49,7 +49,7 @@ const DataSourceDialog: React.FC = ({
   }, []);
 
   return (
-    <Dialog defaultOpen>
+    <Dialog>
       <DialogContent
         resizeable={true}
         size={{

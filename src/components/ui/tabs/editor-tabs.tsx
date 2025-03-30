@@ -11,7 +11,7 @@ import * as React from "react";
 import { EditorTabDropdownMenu } from "@/components/ui/dropdown-menu";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-ambiance";
-
+import "ace-builds/src-noconflict/mode-sql";
 import {
   SQLEditorBarTransactionSelect,
   SQLEditorBarSourceSelect,
@@ -26,7 +26,6 @@ import { useEnvStoreStore } from "@/store/Env";
 import "@/components/ui/dynamic-tabs/theme.css";
 import ReactAce from "react-ace";
 import { Toggle } from "@/components/ui/toggle";
-import { Button } from "@/components/ui/button";
 const defaultTriggerItem: TabItemProps = {
   id: "",
   label: "",
@@ -229,7 +228,7 @@ export function EditorTabs() {
                 updateActiveTab(tab);
               }}
               tabItem={tab}
-              saved={!!getEditor(tab.id)?.saved}
+              saved={true}
               onContextMenu={(event: any) => {
                 setTriggerItem(tab);
                 contextMenu(event, dropMenuRef);
@@ -337,7 +336,7 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
           ]}
           lineHeight={useSQLOptionState.lineHeight}
           showGutter={useSQLOptionState.showGutter}
-          mode={useSQLOptionState.mode}
+          mode={"sql"}
           name={useSQLOptionState.name}
           fontSize={useSQLOptionState.fontSize}
           setOptions={{

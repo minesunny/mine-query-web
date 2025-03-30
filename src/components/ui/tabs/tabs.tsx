@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import "./theme.css";
 import { SVG } from "@/components/ui/Icons";
 import { useEffect, useRef, useState } from "react";
-import { TabCloseAlertDialog } from "../alert-dialog";
 const Tabs = TabsPrimitive.Root;
 type TabItemProps = {
   id: string;
@@ -45,7 +44,7 @@ const TabsTrigger = React.forwardRef<
     )}
     {...props}
   >
-    <div className={"mr-1 flex flex-1 flex-row items-center justify-center"}>
+    <div className={"flex flex-1 flex-row items-center justify-center px-1"}>
       {children}
     </div>
     <Separator
@@ -61,7 +60,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 function CloseSVGButton({
   tabItem,
   close,
-  saved = true,
+  saved,
 }: {
   tabItem: TabItemProps;
   close?: (tabItem: TabItemProps) => void;
