@@ -105,7 +105,7 @@ const EncodingSelect: React.FC = () => {
       }}
     >
       <SelectTrigger
-        className="h-6 w-20 rounded-sm border-0 text-xs"
+        className="h-6 w-20 text-xs"
         onMouseEnter={() => {
           setOpen(true);
         }}
@@ -129,7 +129,7 @@ const EncodingSelect: React.FC = () => {
           </Tooltip>
         </TooltipProvider>
       </SelectTrigger>
-      <SelectContent className={"flex flex-row border-0"}>
+      <SelectContent>
         <SelectGroup>
           <SelectLabel>File Encoding</SelectLabel>
           {Encoding.map((item) => {
@@ -161,7 +161,7 @@ const LineSplitSelect: React.FC = () => {
       }}
     >
       <SelectTrigger
-        className="h-6 w-20 rounded-sm border-0 text-xs"
+        className="h-6 w-20 border-0 text-xs"
         onMouseEnter={() => {
           setOpen(true);
         }}
@@ -186,7 +186,7 @@ const LineSplitSelect: React.FC = () => {
           </Tooltip>
         </TooltipProvider>
       </SelectTrigger>
-      <SelectContent className={"flex flex-row border-0"}>
+      <SelectContent>
         <SelectGroup>
           <SelectLabel>Line Separator</SelectLabel>
           <SelectItem
