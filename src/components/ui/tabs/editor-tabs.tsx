@@ -12,6 +12,7 @@ import { EditorTabDropdownMenu } from "@/components/ui/dropdown-menu";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-ambiance";
 import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/ext-language_tools";
 import {
   SQLEditorBarTransactionSelect,
   SQLEditorBarSourceSelect,
@@ -342,6 +343,9 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
           setOptions={{
             showLineNumbers: useSQLOptionState.showLineNumbers,
             printMarginColumn: -1, // Set the print margin column to 80 characters
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+            enableSnippets: true,
           }}
           theme={"ambiance"}
           editorProps={{ $blockScrolling: true }}
