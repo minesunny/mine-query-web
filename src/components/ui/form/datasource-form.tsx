@@ -80,6 +80,7 @@ export function DataSourceForm({
       // fetch dataSourceProps;
     }
     form.reset(defaultProps(DataSourceType.MySQL));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.reset]);
   return (
     <FormProvider {...form}>

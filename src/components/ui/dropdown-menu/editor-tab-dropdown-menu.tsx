@@ -8,6 +8,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,6 +17,7 @@ import { Input } from "@/components/ui/input/input";
 import * as React from "react";
 import { useTranslation } from "next-i18next";
 import { forwardRef, useEffect, useState } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 type EditorTabDropdownMenuProps = {
   item: {
     id: string;
@@ -128,5 +130,5 @@ const EditorTabDropdownMenu = forwardRef<
     );
   },
 );
-
+EditorTabDropdownMenu.displayName = "EditorTabDropdownMenu";
 export { EditorTabDropdownMenu };

@@ -276,7 +276,6 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
     const getEditor = useSQLEditorEnvStore((state) => state.getEditor);
     const updateEditor = useSQLEditorEnvStore((state) => state.updateEditor);
     const { editorHeight } = useEnvStoreStore((state) => state.env);
-
     useEffect(() => {
       const editor = getEditor(editorId);
       if (editor) {
@@ -293,6 +292,7 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
         aceEditor["editorId"] = editorId;
       } else {
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editorId]);
     return (
       <>
@@ -354,3 +354,4 @@ const SQLEditorTabContent = forwardRef<AceEditor, SQLEditorTabContentProps>(
     );
   },
 );
+SQLEditorTabContent.displayName = "SQLEditorTabContent";

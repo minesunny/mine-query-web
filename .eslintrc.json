@@ -1,10 +1,15 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:jsonc/recommended-with-jsonc"],
-  "plugins": ["jsonc"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:jsonc/recommended-with-jsonc",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["jsonc", "prettier"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "quotes": [2, "double"],
-    "semi": "warn",
+    "quotes": "off",
+    "semi": "off",
+    "prettier/prettier": "warn",
     "no-multiple-empty-lines": [
       "error",
       {

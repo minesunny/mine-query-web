@@ -73,11 +73,12 @@ function CloseSVGButton({
     } else if (close) {
       setIconName("closeSmall");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved]);
   return (
     <div
       id="closeIcon"
-      className={`tab-item-icon mr-1 h-[16px] w-[16px] rounded-full`}
+      className={"tab-item-icon mr-1 h-[16px] w-[16px] rounded-full"}
       onClick={(event) => {
         close && close(tabItem);
         event.stopPropagation();

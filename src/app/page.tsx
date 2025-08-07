@@ -43,6 +43,7 @@ export default function Page() {
         resizeObserver.disconnect();
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted]);
   useEffect(() => {
     collapsible && ref?.current?.collapse();

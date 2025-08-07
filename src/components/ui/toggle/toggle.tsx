@@ -50,7 +50,7 @@ const Toggle = React.forwardRef<
         {split && (
           <Separator
             orientation="vertical"
-            className={`toggle-default-split mx-2 h-5`}
+            className={"toggle-default-split mx-2 h-5"}
           />
         )}
       </div>
